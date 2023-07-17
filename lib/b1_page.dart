@@ -72,7 +72,7 @@ class _B1_pageState extends State<B1_page> {
                     child: Column(
 //                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('먼저 이곳으로 가보자',),
+                      Text('먼저 이곳으로 가보자!',),
                       Text('이곳은 성도들의 모임을 위한 장소 같아'),
                       Text('이곳을 사용하려면 기준을 준수해야하는데..'),
                       ],
