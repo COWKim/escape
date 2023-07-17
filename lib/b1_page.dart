@@ -88,7 +88,7 @@ class _B1_pageState extends State<B1_page> {
                 Container(
                   child: ElevatedButton(onPressed: (){},
                     style: ElevatedButton.styleFrom(backgroundColor: Colors.purple[300]),
-                    child: Text('B1층', style: TextStyle(fontSize: 20),),
+                    child: Text('B1층'),
                   ),
                 ),
                 Container(
