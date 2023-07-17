@@ -43,6 +43,8 @@ class B1_page extends StatefulWidget {
 }
 
 class _B1_pageState extends State<B1_page> {
+  String txtSogroup1 = "";
+  String txtSogroup2 = "";
 
   @override
   Widget build(BuildContext context) {
@@ -80,23 +82,62 @@ class _B1_pageState extends State<B1_page> {
                   )
                 ),
                 Container(
-                  decoration: BoxDecoration(border: Border.all(color: Colors.white, width: 5)),
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.white, width: 5),
+                      borderRadius: BorderRadius.all(Radius.circular(20.0))),
                   margin: EdgeInsets.all(30),
                   padding: EdgeInsets.all(20),
                   child: Text('어떤 기준이 있을까?'),
                 ),
-                Container(
-                  child: ElevatedButton(onPressed: (){},
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.purple[300]),
-                    child: Text('B1층'),
-                  ),
+                SizedBox(
+                  width: 300,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.all(10),
+                        child: TextField(
+                          maxLength: 2,
+                          decoration: const InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.white, width: 1.0),
+                                  borderRadius: BorderRadius.all(Radius.circular(20.0))
+                              ),
+                              labelText: '1',
+                              labelStyle: TextStyle(color: Colors.yellow)),
+                          onChanged: (text){txtSogroup1 = text;},
+                        )
+                      ),
+                      Padding(
+                          padding: EdgeInsets.fromLTRB(10,0,10,25),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children:[
+                              Text('2  ', style: TextStyle(color: Colors.yellow),),
+                              Text('이단 모임 금지')])
+                      ),
+                      Padding(
+                          padding: EdgeInsets.all(10),
+                          child: TextField(
+                            maxLength: 4,
+                            decoration: const InputDecoration(
+                                enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.white, width: 1.0),
+                                    borderRadius: BorderRadius.all(Radius.circular(20.0))
+                                ),
+                                labelText: '3',
+                                labelStyle: TextStyle(color: Colors.yellow)),
+                            onChanged: (text){txtSogroup2 = text;},
+                          )
+                      ),
+                    ],
+                  )
                 ),
                 Container(
                   padding: EdgeInsets.all(20),
-                  width: 500, height: 100,
+                  width: 300, height: 100,
                   child: ElevatedButton(onPressed: (){},
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.purple[300]),
-                    child: Text('1층'),
+                    style: ElevatedButton.styleFrom(backgroundColor: Colors.purple[800]),
+                    child: Text('확인'),
                   ),
                 ),
               ],
