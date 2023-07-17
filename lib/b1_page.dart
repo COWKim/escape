@@ -96,7 +96,7 @@ class _B1_pageState extends State<B1_page> {
                   width: 500, height: 100,
                   child: ElevatedButton(onPressed: (){},
                     style: ElevatedButton.styleFrom(backgroundColor: Colors.purple[300]),
-                    child: Text('1층', style: TextStyle(fontSize: 20),),
+                    child: Text('1층'),
                   ),
                 ),
               ],
