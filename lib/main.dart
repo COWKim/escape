@@ -44,7 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       backgroundColor: Colors.black54,
       appBar: AppBar(
-        backgroundColor: Colors.purple[800],
+        backgroundColor: Colors.black,
         title: Text(widget.title),
         centerTitle: true,
       ),
