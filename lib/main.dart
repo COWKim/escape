@@ -14,15 +14,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'YKD ESCAPE',
-      home: MyHomePage(title: 'YKD ESCAPE'),
+      home: MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
+  const MyHomePage({super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -45,7 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
       backgroundColor: Colors.black54,
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: Text(widget.title),
+        title: Text('YKD ESCAPE'),
         centerTitle: true,
       ),
       body: Center(

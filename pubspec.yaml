@@ -65,6 +65,11 @@ flutter:
      - assets/b1_sogroup.jpg
      - assets/b1_nongin.png
      - assets/b1_iloveyou.png
+     - assets/b1_gido.jpg
+     - assets/b1_gidoroom.png
+     - assets/b1_takgoo.jpg
+     - assets/b1_takgooload.jpg
+     - assets/b1_heart.jpg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
