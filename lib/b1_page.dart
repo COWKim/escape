@@ -585,7 +585,7 @@ class _B1_fourth_pageState extends State<B1_fourth_page> {
                         Text(' '),
                         Text('스불론이 더 궁금하다면'),
                         Text('창세기를 참고하거나'),
-                        Text('인터넷에 이용하도록 해.')
+                        Text('인터넷을 이용하도록 해.')
                       ],)
                 ),
                 const Center(
@@ -679,12 +679,16 @@ class _B1_fourth_pageState extends State<B1_fourth_page> {
                         Text(' × '),
                         Text("(2) × '(2)의 개수'"),
                         Text(' × '),
-                        Text("((3) + '(3)의 개수')"),
+                        Text("[(3) + '(3)의 개수']"),
                         Text(' × '),
                         Text("'(4)의 개수'"),
-                        Text('= ?'),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('= '),
+                              Text('?', style: TextStyle(color: Colors.yellow)),]),
                         Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(' '),
                             Text(' '),
@@ -770,7 +774,7 @@ class _B1_final_pageState extends State<B1_final_page> {
                     padding: EdgeInsets.fromLTRB(10,100,10,100),
                     child: Column(
                       children: [
-                        Text('지하 1층은 모두 성공했어!'),
+                        Text('B1층 미션을 모두 성공했어!'),
                         Text('역시 대단한걸?'),
                         Text(' '),
                         Text('하트 맞은편 계단을 이용해'),
@@ -778,7 +782,7 @@ class _B1_final_pageState extends State<B1_final_page> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text('1층', style: TextStyle(color: Colors.yellow)),
-                              Text('으로 올라가자.')]
+                              Text('으로 올라가보자.')]
                         )
                       ],)
                 ),
