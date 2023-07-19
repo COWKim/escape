@@ -58,14 +58,14 @@ class _F1_first_pageState extends State<F1_first_page> {
   String txtAnswer = "";
 
   void answerCheck(String answer){
-    if(answer == "프리액션 밸브실"){
-      Navigator.push(context, MaterialPageRoute(builder: (context) => F1_second_page()));
-    }
-    else {
-      showErrorMessage(context);
-    }
+    // if(answer == "프리액션 밸브실"){
+    //   Navigator.push(context, MaterialPageRoute(builder: (context) => F1_second_page()));
+    // }
+    // else {
+    //   showErrorMessage(context);
+    // }
 
-    //   Navigator.push(context, MaterialPageRoute(builder: (context) => B1_fourth_page()));
+       Navigator.push(context, MaterialPageRoute(builder: (context) => F1_third_page()));
   }
 
   @override
@@ -344,9 +344,9 @@ class _F1_second_pageState extends State<F1_second_page> {
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('가려진 문구', style: TextStyle(color: Colors.yellow)),
+                              Text('(가려진)문구', style: TextStyle(color: Colors.yellow)),
                               Text('를 보아하니'),]),
-                        Text('두 곳을 사용하고 싶은데,.'),
+                        Text('두 곳을 사용하고 싶은데'),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -427,143 +427,146 @@ class _F1_third_pageState extends State<F1_third_page> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 const Center(
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(10,100,20,100),
-                      child: Column(
-                        children: [
-                          Text('창조',),
-                          Image(image: AssetImage('assets/b1_iloveyou.png'), width: 300, height: 300,),
-                          Text('모두들 사랑해', style: TextStyle(color: Colors.pink),),
-                        ],
-                      ),
-                    )
-                ),
-                const Center(
-                    child: Padding(
-                        padding: EdgeInsets.fromLTRB(10,200,10,250),
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text('다음 장소는 '),
-                              Text('중보기도실', style: TextStyle(color: Colors.yellow)),
-                              Text('이야.')]
-                        )
-                    )
-                ),
-                const Center(
-                    child: Padding(
-                        padding: EdgeInsets.fromLTRB(10,250,10,250),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text('지금은 들어가면 '),
-                                Text('안돼', style: TextStyle(color: Colors.red))],
-                            ),
-                            Text('내부 공간은 문제와 관련없어.'),
-                            Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text('그리고 '),
-                                  Text('정숙', style: TextStyle(color: Colors.yellow)),
-                                  Text('해야돼.')]
-                            ),
-                            Text(' '),
-                            Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text('주님과 '),
-                                  Text('소통', style: TextStyle(color: Colors.yellow)),
-                                  Text('하는 공간이거든!')]
-                            ),],
-                        )
-                    )
-                ),
-                const ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(180)),
-                  child: Image(image: AssetImage('assets/b1_gido.jpg'), width: 300,),
-                ),
-                const Padding(
-                    padding: EdgeInsets.fromLTRB(10,50,10,50),
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(10,50,20,100),
                     child: Column(
                       children: [
+                        Image(image: AssetImage('assets/f1_create.jpg'), width: 250,),
+                        Text(' '),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('나중에 정말 '),
-                            Text('주님이 간절할 때', style: TextStyle(color: Colors.yellow))],
+                            Text('정답은 '),
+                            Text('창조', style: TextStyle(color: Colors.yellow)),
+                            Text(',')]
+                        ),
+                        Text('제 5 편집실이였어.'),
+                        Text(' '),
+                        Text('단서에서 말하는'),
+                        Text("둘 중 하나는 '창조'였고,"),
+                        Text("다른 하나는 '함께'였지,"),
+                        Text(' '),
+                        Text(' '),
+                        Text('"하나님께서 우리를', style: TextStyle(fontStyle: FontStyle.italic, fontWeight: FontWeight.bold),),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('창조', style: TextStyle(color: Colors.yellow, fontStyle: FontStyle.italic, fontWeight: FontWeight.bold)),
+                              Text('하셨음을 믿고,', style: TextStyle(fontStyle: FontStyle.italic, fontWeight: FontWeight.bold)),]
+                        ),
+                        Text('언제나 우리와', style: TextStyle(fontStyle: FontStyle.italic, fontWeight: FontWeight.bold)),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('함께', style: TextStyle(color: Colors.yellow, fontStyle: FontStyle.italic, fontWeight: FontWeight.bold)),
+                              Text('하신다"', style: TextStyle(fontStyle: FontStyle.italic, fontWeight: FontWeight.bold)),
+                              Text(' 는 것을'),]
                         ),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('기도', style: TextStyle(color: Colors.yellow)),
-                              Text('하기 위해 사용해보자!')]
+                              Text('꼭', style: TextStyle(color: Colors.yellow, fontWeight: FontWeight.bold)),
+                              Text(' 기억하자!'),]
+                        ),
+                      ],
+                    ),
+                  )
+                ),
+                const Center(
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(10,300,10,100),
+                    child: Column(
+                      children: [
+                        Text('다음 장소로 가기 전에'),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('여기', style: TextStyle(color: Colors.yellow)),
+                            Text('에 짐 좀 두고 가자..')]
                         ),
                         Text(' '),
-                        Text('우리는 하루에 과연'),
-                        Text('얼마나 기도하고 있을까?'),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('문제', style: TextStyle(color: Colors.yellow)),
+                              Text('는 덤이야')]
+                        ),
                         Text(' '),
-                        Text('일단 나부터 회개해야겠는걸.'),
-                      ],)
+                        Image(image: AssetImage('assets/f1_nongdamgom.jpg'), width: 150,)
+                      ],
+                    )
+                  )
                 ),
                 const Image(
-                  image: AssetImage('assets/b1_gidoroom.png'),
+                  image: AssetImage('assets/f1_cabinet.jpg'),
                 ),
                 Container(
                     decoration: BoxDecoration(
                         border: Border.all(color: Colors.white, width: 5),
                         borderRadius: BorderRadius.all(Radius.circular(20.0))),
-                    margin: EdgeInsets.all(30),
-                    padding: EdgeInsets.all(20),
+                    margin: EdgeInsets.fromLTRB(20,50,20,10),
+                    padding: EdgeInsets.all(10),
                     child: const Column(
                       children: [
-                        Text('방의 이름들이 지워져있다.'),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('그림', style: TextStyle(color: Colors.yellow)),
-                              Text('의 원본을 찾아서')]),
+                              Text('단서들', style: TextStyle(color: Colors.yellow)),
+                              Text('을 이용해')]),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('그림', style: TextStyle(color: Colors.yellow)),
-                              Text('과 '),
-                              Text('단서', style: TextStyle(color: Colors.yellow)),
-                              Text('를 이용해')]),
-                        Text('정답을 유추해보자.')
+                              Text('무엇', style: TextStyle(color: Colors.yellow)),
+                              Text('을 나타내는지 맞춰봐.')]),
                       ],
                     )
                 ),
                 Container(
-                    width: 300,
                     decoration: BoxDecoration(
                         border: Border.all(color: Colors.purple, width: 5),
                         borderRadius: BorderRadius.all(Radius.circular(20.0))),
-                    margin: EdgeInsets.all(30),
-                    padding: EdgeInsets.all(20),
+                    margin: EdgeInsets.all(10),
+                    padding: EdgeInsets.all(10),
+                    child: const Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('단 서 1', style: TextStyle(color: Colors.yellow, fontSize: 30)),
+                        Text(' '),
+                        Text('4 5 7 12 13 15 17 20'),
+                        Text('23 26 33 40 42 44 45 46'),
+                      ],
+                    )
+                ),
+                Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.purple, width: 5),
+                        borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                    margin: EdgeInsets.all(10),
+                    padding: EdgeInsets.all(10),
                     child: const Column(
                       children: [
                         Center(
-                            child: Text('단 서', style: TextStyle(color: Colors.yellow, fontSize: 30))
+                            child: Text('단 서 2', style: TextStyle(color: Colors.yellow, fontSize: 30))
                         ),
                         Text(' '),
-                        Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Flexible(
-                                  child: Text('1. 납달리보다 낮은 사람이자 요셉보다 높은 사람이다.'))]),
-                        Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Flexible(
-                                  child: Text('2. .유다와 사이가 좋지 않아 붙어있는 걸 싫어한다.'))]),
-                        Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Flexible(
-                                  child: Text('3. ‘ㅏ’ 발음이 필요없다.'))]),
+                        Image(image: AssetImage('assets/f1_jumja.PNG'),)
+                      ],
+                    )
+                ),
+                Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.purple, width: 5),
+                        borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                    margin: EdgeInsets.all(10),
+                    padding: EdgeInsets.all(10),
+                    child: const Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('단 서 3', style: TextStyle(color: Colors.yellow, fontSize: 30)),
+                        Text(' '),
+                        Text('진행 방향'),
+                        Text(' '),
+                        Image(image: AssetImage('assets/f1_cabinetHelp.PNG'),)
                       ],
                     )
                 ),
@@ -572,7 +575,7 @@ class _F1_third_pageState extends State<F1_third_page> {
                     padding: EdgeInsets.all(10),
                     child: TextField(
                       textAlign: TextAlign.center,
-                      maxLength: 5,
+                      maxLength: 3,
                       decoration: const InputDecoration(
                         counterText: '',
                         enabledBorder: OutlineInputBorder(
@@ -599,6 +602,8 @@ class _F1_third_pageState extends State<F1_third_page> {
   }
 }
 
+
+// ㅡㅡㅡㅡㅡ 염광비전 선언문 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 class F1_fourth_page extends StatefulWidget {
   F1_fourth_page({super.key});
 
@@ -607,11 +612,149 @@ class F1_fourth_page extends StatefulWidget {
 }
 
 class _F1_fourth_pageState extends State<F1_fourth_page> {
+  String txtAnswer = "";
+
+  void answerCheck(String answer){
+    if(answer == "4144"){
+      Navigator.push(context, MaterialPageRoute(builder: (context) => F1_fourth_page()));
+    }
+    else {
+      showErrorMessage(context);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black87,
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        title: Text('1층', style: TextStyle(fontSize: 20),),
+        leading: IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
+        const MyApp())),
+          icon: const Icon(Icons.arrow_back),),
+        centerTitle: true,
+      ),
+      body: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                const Center(
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(10,50,20,100),
+                      child: Column(
+                        children: [
+                          Text('답 보고 화나진 않았지..?'),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(10, 20, 10, 50),
+                            child: Image(image: AssetImage('assets/f1_zzugul.png'), width: 250,),
+                          ),
 
+                          Text('그래도 내 이름 정도는'),
+                          Text('기억해줄 수 있잖아?'),
+                          Text(' '),
+                          Image(image: AssetImage('assets/f1_cute.gif'), width: 250,)
+                        ]
+                      ),
+                    )
+                ),
+                const Center(
+                    child: Padding(
+                        padding: EdgeInsets.fromLTRB(10,300,10,250),
+                        child: Column(
+                          children: [
+                            Text('다음 장소로 이동하자!'),
+                            Text(' '),
+                            Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text('본관 엘리베이터 ', style: TextStyle(color: Colors.yellow)),
+                                  Text('맞은편'),]
+                            ),
+                            Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text('염광비전 선언문 ', style: TextStyle(color: Colors.yellow, fontWeight: FontWeight.bold)),
+                                  Text('을 향해'),]
+                            ),
+                            Text('고고!'),
+                          ],
+                        )
+                    )
+                ),
+                const Image(
+                  image: AssetImage('assets/f1_moon.jpg'),
+                ),
+                Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.white, width: 5),
+                        borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                    margin: EdgeInsets.fromLTRB(20,50,20,10),
+                    padding: EdgeInsets.all(10),
+                    child: const Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('단서', style: TextStyle(color: Colors.yellow)),
+                            Text('를 이용해서')]),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('정답', style: TextStyle(color: Colors.yellow)),
+                            Text('을 유추해봐.')]),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('참고로 정답은 '),
+                            Text('숫자', style: TextStyle(color: Colors.yellow)),
+                            Text('야!')]),
+                      ],
+                    )
+                ),
+                Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.purple, width: 5),
+                        borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                    margin: EdgeInsets.all(10),
+                    padding: EdgeInsets.all(10),
+                    child: const Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('단 서', style: TextStyle(color: Colors.yellow, fontSize: 30)),
+                        Text(' '),
+                        Image(image: AssetImage('assets/f1_moonKey.PNG'),)
+                      ],
+                    )
+                ),
+                Container(
+                    width: 300,
+                    padding: EdgeInsets.all(10),
+                    child: TextField(
+                      textAlign: TextAlign.center,
+                      maxLength: 4,
+                      decoration: const InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white, width: 1.0),
+                          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                        ),
+                      ),
+                      onChanged: (text){txtAnswer = text;},
+                    )
+                ),
+                Container(
+                  padding: EdgeInsets.all(20),
+                  width: 300, height: 100,
+                  child: ElevatedButton(onPressed: (){answerCheck(txtAnswer);},
+                    style: ElevatedButton.styleFrom(backgroundColor: Colors.purple[800]),
+                    child: Text('확인'),
+                  ),
+                ),
+              ],
+            ),
+          )
+      ),
     );
   }
 }
