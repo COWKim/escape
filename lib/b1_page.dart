@@ -751,7 +751,6 @@ class B1_final_page extends StatefulWidget {
 class _B1_final_pageState extends State<B1_final_page> {
 
   void answerCheck(){
-
     Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage()));
   }
 
@@ -787,8 +786,8 @@ class _B1_final_pageState extends State<B1_final_page> {
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('B1층 미션을 모두'),
-                              Text('성공', style: TextStyle(color: Colors.yellow)),
+                              Text('B1층 미션을 모두 '),
+                              Text('성공', style: TextStyle(color: Colors.cyanAccent)),
                               Text('했어!')]
                         ),
                         Text('역시 대단한걸?'),
