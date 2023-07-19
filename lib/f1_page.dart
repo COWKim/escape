@@ -58,14 +58,14 @@ class _F1_first_pageState extends State<F1_first_page> {
   String txtAnswer = "";
 
   void answerCheck(String answer){
-    // if(answer == "프리액션 밸브실"){
-    //   Navigator.push(context, MaterialPageRoute(builder: (context) => F1_second_page()));
-    // }
-    // else {
-    //   showErrorMessage(context);
-    // }
+    if(answer == "프리액션 밸브실"){
+      Navigator.push(context, MaterialPageRoute(builder: (context) => F1_second_page()));
+    }
+    else {
+      showErrorMessage(context);
+    }
 
-       Navigator.push(context, MaterialPageRoute(builder: (context) => F1_fifth_page()));
+    //   Navigator.push(context, MaterialPageRoute(builder: (context) => F1_fifth_page()));
   }
 
   @override
@@ -919,7 +919,7 @@ class _F1_fifth_pageState extends State<F1_fifth_page> {
                     )
                 ),
                 Container(
-                  width: 300,
+                  width: 280,
                     decoration: BoxDecoration(
                         border: Border.all(color: Colors.purple, width: 5),
                         borderRadius: BorderRadius.all(Radius.circular(20.0))),
@@ -1039,17 +1039,18 @@ class _F1_final_pageState extends State<F1_final_page> {
                           Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text('1층 미션을 모두 '),
-                                Text('성공', style: TextStyle(color: Colors.cyanAccent)),
-                                Text('했어!')]
-                          ),
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
                                 Text('남은 '),
                                 Text('2023', style: TextStyle(color: Colors.yellow)),
                                 Text('년도 '),
                                 Text('파이팅!', style: TextStyle(color: Colors.cyanAccent))]
+                          ),
+                          Text(' '),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text('1층 미션을 모두 '),
+                                Text('성공', style: TextStyle(color: Colors.cyanAccent)),
+                                Text('했어!')]
                           ),
                           Text(' '),
                           Text('위 계단을 이용해'),

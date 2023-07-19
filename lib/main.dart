@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'b1_page.dart';
 import 'f1_page.dart';
+import 'f2_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -66,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     Container(
                       padding: EdgeInsets.all(20),
                       width: 500, height: 100,
-                      child: ElevatedButton(onPressed: ()=> Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
+                      child: ElevatedButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
                               const F1_page())),
                         child: Text('1층', style: TextStyle(fontSize: 20),),
                         style: ElevatedButton.styleFrom(backgroundColor: Colors.purple[700]),
@@ -75,7 +76,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     Container(
                       padding: EdgeInsets.all(20),
                       width: 500, height: 100,
-                      child: ElevatedButton(onPressed: (){},
+                      child: ElevatedButton(onPressed: ()=> Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
+                              const F2_page())),
                         child: Text('2층', style: TextStyle(fontSize: 20),),
                         style: ElevatedButton.styleFrom(backgroundColor: Colors.purple[600]),
                       ),
