@@ -70,7 +70,15 @@ flutter:
      - assets/b1_takgoo.jpg
      - assets/b1_takgooload.jpg
      - assets/b1_heart.jpg
-  #   - images/a_dot_ham.jpeg
+     - assets/b1_present.png
+     - assets/f1_info.jpg
+     - assets/f1_cabinet.jpg
+     - assets/f1_cabinetHelp.PNG
+     - assets/f1_jumja.PNG
+     - assets/f1_creativezone.jpg
+     - assets/f1_belbroom.jpg
+     - assets/f1_weStudio.png
+    #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

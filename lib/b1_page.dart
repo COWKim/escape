@@ -246,8 +246,7 @@ class _B1_second_pageState extends State<B1_second_page> {
                       child: Column(
                         children: [
                           Text('이곳은 농인분들을 위한 예배실인가봐.'),
-                          Text('이런 곳에 농인부 예배실이 있다는 건'),
-                          Text('처음 알았어.'),
+                          Text('정말 꼭꼭 숨겨져있네.'),
                           Text('나중에 농인분들께 예배실 위치를'),
                           Text('알려드릴 수 있겠다!'),
                         ],)
@@ -378,13 +377,13 @@ class _B1_third_pageState extends State<B1_third_page> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
+                        Text('내부 공간은 문제와 관련 없으니까'),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text('지금은 들어가면 '),
-                            Text('안돼', style: TextStyle(color: Colors.red))],
+                            Text('안돼!', style: TextStyle(color: Colors.red))],
                         ),
-                        Text('내부 공간은 문제와 관련없어.'),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -583,6 +582,8 @@ class _B1_fourth_pageState extends State<B1_fourth_page> {
                               Text('이야~')]
                         ),
                         Text(' '),
+                        Image(image: AssetImage('assets/b1_present.png'), width: 300,),
+                        Text(' '),
                         Text('스불론이 더 궁금하다면'),
                         Text('창세기를 참고하거나'),
                         Text('인터넷을 이용하도록 해.')
@@ -621,7 +622,8 @@ class _B1_fourth_pageState extends State<B1_fourth_page> {
                     padding: EdgeInsets.fromLTRB(10,100,10,100),
                     child: Column(
                       children: [
-                        Text('탁구는 나중에 치는 걸로 하고'),
+                        Text('탁구장을 잘 찾았어?'),
+                        Text(' '),
                         Text('탁구장 앞까지 가면'),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -629,7 +631,10 @@ class _B1_fourth_pageState extends State<B1_fourth_page> {
                               Text('탁구장 사용규칙', style: TextStyle(color: Colors.yellow)),
                               Text('이')]
                         ),
-                        Text('벽면에 보일거야.')
+                        Text('벽면에 보일거야.'),
+                        Text(' '),
+                        Text('시간 될 때'),
+                        Text('나중에 탁구 한판 어때?')
                       ],)
                 ),
                 const Image(
@@ -655,7 +660,12 @@ class _B1_fourth_pageState extends State<B1_fourth_page> {
                             Text('숫자', style: TextStyle(color: Colors.yellow)),
                             Text('들을 '),
                             Text('모두', style: TextStyle(color: Colors.yellow)),]),
-                        Text('이용해서 식을 완성해!'),
+                        Text('이용해서 식을 통해'),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('답', style: TextStyle(color: Colors.yellow)),
+                              Text('을 구해보자!'),]),
                         Text('단,'),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -759,25 +769,35 @@ class _B1_final_pageState extends State<B1_final_page> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                const Image(
-                  image: AssetImage('assets/b1_heart.jpg')
-                ),
                 Container(
                   decoration: BoxDecoration(
                       border: Border.all(color: Colors.cyanAccent, width: 5),
                       borderRadius: BorderRadius.all(Radius.circular(20.0))),
                   margin: EdgeInsets.all(30),
-                  padding: EdgeInsets.all(20),
-                  child: Text('B1층 Mission Clear', style: TextStyle(color: Colors.cyanAccent),),
+                  padding: EdgeInsets.all(50),
+                  child: Text('B1층 Mission Clear!', style: TextStyle(color: Colors.cyanAccent),),
                 ),
                 const Padding(
-                    padding: EdgeInsets.fromLTRB(10,100,10,100),
+                  padding: EdgeInsets.fromLTRB(10, 200, 10, 50),
+                  child: Image(
+                      image: AssetImage('assets/b1_heart.jpg')
+                  ),
+                ),
+                const Padding(
+                    padding: EdgeInsets.fromLTRB(10,50,10,100),
                     child: Column(
                       children: [
-                        Text('B1층 미션을 모두 성공했어!'),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('B1층 미션을 모두'),
+                              Text('성공', style: TextStyle(color: Colors.yellow)),
+                              Text('했어!')]
+                        ),
                         Text('역시 대단한걸?'),
                         Text(' '),
-                        Text('하트 맞은편 계단을 이용해'),
+                        Text('사진에 보이는 하트'),
+                        Text('맞은편 계단을 이용해'),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
