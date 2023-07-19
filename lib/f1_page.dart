@@ -198,7 +198,7 @@ class _F1_second_pageState extends State<F1_second_page> {
 
   void answerCheck(String answer){
     if(answer == "창조"){
-      Navigator.push(context, MaterialPageRoute(builder: (context) => B1_third_page()));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => F1_third_page()));
     }
     else {
       showErrorMessage(context);
@@ -230,7 +230,7 @@ class _F1_second_pageState extends State<F1_second_page> {
                 ),),
                 const Center(
                     child: Padding(
-                      padding: EdgeInsets.fromLTRB(10,50,20,300),
+                      padding: EdgeInsets.fromLTRB(10,50,20,100),
                       child: Column(
                         children: [
                           Row(
@@ -255,14 +255,14 @@ class _F1_second_pageState extends State<F1_second_page> {
                 const Image(image: AssetImage('assets/f1_creativezone.jpg'), width: 350,),
                 const Center(
                     child: Padding(
-                      padding: EdgeInsets.fromLTRB(10,200,10,250),
+                      padding: EdgeInsets.fromLTRB(10,100,10,250),
                       child: Column(
                         children: [
+                          Text('다음 장소는 '),
                           Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text('다음 장소는 '),
-                                Text('YK CreatoveZone', style: TextStyle(color: Colors.yellow)),
+                                Text('YK CreativeZone', style: TextStyle(color: Colors.yellow)),
                                 Text('이야.')]),
                           Text(' '),
                           Row(
@@ -284,7 +284,7 @@ class _F1_second_pageState extends State<F1_second_page> {
                           Text(' '),
                           Text('창동염광교회 유튜브 채널에'),
                           Text('다양한 컨텐츠들이'),
-                          Text('이곳을 거쳐서 탄생하기도 하지.'),
+                          Text('이곳을 거쳐서 탄생하기도 해.'),
                         ],
                       ),
                     )
@@ -307,7 +307,8 @@ class _F1_second_pageState extends State<F1_second_page> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text('어느 곳', style: TextStyle(color: Colors.yellow)),
-                            Text('을 선택했는지 유추하고'),]),
+                            Text('을'),]),
+                        Text('선택했는지 유추하고'),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -345,7 +346,7 @@ class _F1_second_pageState extends State<F1_second_page> {
                             children: [
                               Text('가려진 문구', style: TextStyle(color: Colors.yellow)),
                               Text('를 보아하니'),]),
-                        Text('두 곳을 사용할 수 있을 것 같아.'),
+                        Text('두 곳을 사용하고 싶은데,.'),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -360,7 +361,7 @@ class _F1_second_pageState extends State<F1_second_page> {
                     padding: EdgeInsets.all(10),
                     child: TextField(
                       textAlign: TextAlign.center,
-                      maxLength: 3,
+                      maxLength: 2,
                       decoration: const InputDecoration(
                         counterStyle: TextStyle(color: Colors.white),
                         enabledBorder: OutlineInputBorder(
@@ -388,20 +389,20 @@ class _F1_second_pageState extends State<F1_second_page> {
 }
 
 
-// ㅡㅡㅡㅡㅡ 중보기도실 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-class B1_third_page extends StatefulWidget {
-  B1_third_page({super.key});
+// ㅡㅡㅡㅡㅡ 캐비넷 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+class F1_third_page extends StatefulWidget {
+  F1_third_page({super.key});
 
   @override
-  State<B1_third_page> createState() => _B1_third_pageState();
+  State<F1_third_page> createState() => _F1_third_pageState();
 }
 
-class _B1_third_pageState extends State<B1_third_page> {
-  String txtGido = "";
+class _F1_third_pageState extends State<F1_third_page> {
+  String txtAnswer = "";
 
-  void answerNongin(String answer){
-    if(answer == "스불론"){
-    //  Navigator.push(context, MaterialPageRoute(builder: (context) => B1_fourth_page()));
+  void answerCheck(String answer){
+    if(answer == "김찬우"){
+      Navigator.push(context, MaterialPageRoute(builder: (context) => F1_fourth_page()));
     }
     else {
       showErrorMessage(context);
@@ -414,7 +415,7 @@ class _B1_third_pageState extends State<B1_third_page> {
       backgroundColor: Colors.black87,
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: Text('B1층', style: TextStyle(fontSize: 20),),
+        title: Text('1층', style: TextStyle(fontSize: 20),),
         leading: IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
         const MyApp())),
           icon: const Icon(Icons.arrow_back),),
@@ -429,16 +430,8 @@ class _B1_third_pageState extends State<B1_third_page> {
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(10,100,20,100),
                       child: Column(
-//                    mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text('마지막 숫자가',),
-                          Text('3이란 걸 눈치챘어?',),
-                          Text('이 수화는 사실 미국 수화로'),
-                          Text(' '),
-                          Text('I Love You', style: TextStyle(color: Colors.yellow),),
-                          Text(' '),
-                          Text('라고 쓰인다고 해.'),
-                          Text(' '),
+                          Text('창조',),
                           Image(image: AssetImage('assets/b1_iloveyou.png'), width: 300, height: 300,),
                           Text('모두들 사랑해', style: TextStyle(color: Colors.pink),),
                         ],
@@ -587,13 +580,13 @@ class _B1_third_pageState extends State<B1_third_page> {
                           borderRadius: BorderRadius.all(Radius.circular(20.0)),
                         ),
                       ),
-                      onChanged: (text){txtGido = text;},
+                      onChanged: (text){txtAnswer = text;},
                     )
                 ),
                 Container(
                   padding: EdgeInsets.all(20),
                   width: 300, height: 100,
-                  child: ElevatedButton(onPressed: (){answerNongin(txtGido);},
+                  child: ElevatedButton(onPressed: (){answerCheck(txtAnswer);},
                     style: ElevatedButton.styleFrom(backgroundColor: Colors.purple[800]),
                     child: Text('확인'),
                   ),
@@ -602,6 +595,23 @@ class _B1_third_pageState extends State<B1_third_page> {
             ),
           )
       ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+}
+
+class F1_fourth_page extends StatefulWidget {
+  F1_fourth_page({super.key});
+
+  @override
+  State<F1_fourth_page> createState() => _F1_fourth_pageState();
+}
+
+class _F1_fourth_pageState extends State<F1_fourth_page> {
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+
     );
   }
 }

@@ -343,7 +343,6 @@ class _B1_third_pageState extends State<B1_third_page> {
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(10,100,20,100),
                       child: Column(
-//                    mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text('마지막 숫자가',),
                           Text('3이란 걸 눈치챘어?',),
@@ -741,6 +740,7 @@ class _B1_fourth_pageState extends State<B1_fourth_page> {
   }
 }
 
+// ㅡㅡㅡㅡㅡ 마지막 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 class B1_final_page extends StatefulWidget {
   const B1_final_page({super.key});
 
@@ -773,18 +773,15 @@ class _B1_final_pageState extends State<B1_final_page> {
                   decoration: BoxDecoration(
                       border: Border.all(color: Colors.cyanAccent, width: 5),
                       borderRadius: BorderRadius.all(Radius.circular(20.0))),
-                  margin: EdgeInsets.all(30),
-                  padding: EdgeInsets.all(50),
+                  margin: EdgeInsets.fromLTRB(20, 250, 20, 500),
+                  padding: EdgeInsets.all(30),
                   child: Text('B1층 Mission Clear!', style: TextStyle(color: Colors.cyanAccent),),
                 ),
-                const Padding(
-                  padding: EdgeInsets.fromLTRB(10, 200, 10, 50),
-                  child: Image(
+                const Image(
                       image: AssetImage('assets/b1_heart.jpg')
-                  ),
                 ),
                 const Padding(
-                    padding: EdgeInsets.fromLTRB(10,50,10,100),
+                    padding: EdgeInsets.fromLTRB(10,50,10,50),
                     child: Column(
                       children: [
                         Row(
