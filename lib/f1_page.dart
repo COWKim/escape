@@ -240,7 +240,7 @@ class _F1_second_pageState extends State<F1_second_page> {
                             children: [
                               Text('관계자 외 출입금지', style: TextStyle(color: Colors.red)),
                               Text('라서')]),
-                          Text('명시되어 있지 않는 것 같아.'),
+                          Text('명시되어 있지 않은 것 같아.'),
                           Text(' '),
                           Text(' '),
                           Text(' '),

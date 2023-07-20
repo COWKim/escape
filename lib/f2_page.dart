@@ -12,14 +12,14 @@ class F2_page extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'YKD ESCAPE - 1층',
+      title: 'YKD ESCAPE - 2층',
       theme: Theme.of(context).copyWith(
           textTheme: Theme.of(context).textTheme.apply(
             bodyColor: Colors.white,
             fontSizeDelta: 4,
           )
       ),
-      home: F2_first_page(title: '1층'),
+      home: F2_first_page(title: '2층'),
     );
   }
 }
@@ -92,7 +92,7 @@ class _F2_first_pageState extends State<F2_first_page> {
                           Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text('1층', style: TextStyle(color: Colors.yellow)),
+                                Text('2층', style: TextStyle(color: Colors.yellow)),
                                 Text('을 탐방해보자!')]),
                           Text(' '),
                         ],
@@ -209,7 +209,7 @@ class _F1_second_pageState extends State<F1_second_page> {
       backgroundColor: Colors.black87,
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: Text('1층', style: TextStyle(fontSize: 20),),
+        title: Text('2층', style: TextStyle(fontSize: 20),),
         centerTitle: true,
       ),
       body: Center(
@@ -410,7 +410,7 @@ class _F1_third_pageState extends State<F1_third_page> {
       backgroundColor: Colors.black87,
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: Text('1층', style: TextStyle(fontSize: 20),),
+        title: Text('2층', style: TextStyle(fontSize: 20),),
         centerTitle: true,
       ),
       body: Center(
@@ -621,7 +621,7 @@ class _F1_fourth_pageState extends State<F1_fourth_page> {
       backgroundColor: Colors.black87,
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: Text('1층', style: TextStyle(fontSize: 20),),
+        title: Text('2층', style: TextStyle(fontSize: 20),),
         centerTitle: true,
       ),
       body: Center(
@@ -641,7 +641,7 @@ class _F1_fourth_pageState extends State<F1_fourth_page> {
                             ),
 
                             Text('그래도 내 이름 정도는'),
-                            Text('기억해 줄거지?'),
+                            Text('기억해주면 좋겠어 :)'),
                             Text(' '),
                             Image(image: AssetImage('assets/f1_cute.gif'), width: 250,)
                           ]
@@ -804,7 +804,7 @@ class _F1_fifth_pageState extends State<F1_fifth_page> {
       backgroundColor: Colors.black87,
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: Text('1층', style: TextStyle(fontSize: 20),),
+        title: Text('2층', style: TextStyle(fontSize: 20),),
         leading: IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
         const MyApp())),
           icon: const Icon(Icons.arrow_back),),
@@ -834,7 +834,7 @@ class _F1_fifth_pageState extends State<F1_fifth_page> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text('아직 '),
-                                  Text('1층', style: TextStyle(color: Colors.yellow)),
+                                  Text('2층', style: TextStyle(color: Colors.yellow)),
                                   Text('이라는 사실도..'),]
                             ),
                             Text(' '),
@@ -1007,7 +1007,7 @@ class _F1_final_pageState extends State<F1_final_page> {
       backgroundColor: Colors.black87,
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: Text('1층', style: TextStyle(fontSize: 20),),
+        title: Text('2층', style: TextStyle(fontSize: 20),),
         leading: IconButton(onPressed: () =>
             Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
             const MyApp())),
@@ -1025,7 +1025,7 @@ class _F1_final_pageState extends State<F1_final_page> {
                       borderRadius: BorderRadius.all(Radius.circular(20.0))),
                   margin: EdgeInsets.fromLTRB(20, 250, 20, 500),
                   padding: EdgeInsets.all(30),
-                  child: Text('1층 Mission Clear!', style: TextStyle(color: Colors.cyanAccent),),
+                  child: Text('2층 Mission Clear!', style: TextStyle(color: Colors.cyanAccent),),
                 ),
                 const Image(
                     image: AssetImage('assets/f1_stair.jpg')
@@ -1046,7 +1046,7 @@ class _F1_final_pageState extends State<F1_final_page> {
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('1층 미션을 모두 '),
+                              Text('2층 미션을 모두 '),
                               Text('성공', style: TextStyle(color: Colors.cyanAccent)),
                               Text('했어!')]
                         ),
@@ -1055,7 +1055,7 @@ class _F1_final_pageState extends State<F1_final_page> {
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('2층', style: TextStyle(color: Colors.yellow)),
+                              Text('3층', style: TextStyle(color: Colors.yellow)),
                               Text('으로 올라가보자.')]
                         )
                       ],)
