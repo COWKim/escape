@@ -538,10 +538,11 @@ class _F1_third_pageState extends State<F1_third_page> {
                     margin: EdgeInsets.all(10),
                     padding: EdgeInsets.all(10),
                     child: const Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Center(
-                            child: Text('단 서 2', style: TextStyle(color: Colors.yellow, fontSize: 30))
-                        ),
+                        Text('단 서 2', style: TextStyle(color: Colors.yellow, fontSize: 30)),
+                        Text(' '),
+                        Text('한글 점자판'),
                         Text(' '),
                         Image(image: AssetImage('assets/f1_jumja.PNG'),)
                       ],
@@ -643,7 +644,7 @@ class _F1_fourth_pageState extends State<F1_fourth_page> {
                           ),
 
                           Text('그래도 내 이름 정도는'),
-                          Text('기억해 줄거지?'),
+                          Text('기억해줄 수 있잖아..!'),
                           Text(' '),
                           Image(image: AssetImage('assets/f1_cute.gif'), width: 250,)
                         ]
@@ -697,9 +698,9 @@ class _F1_fourth_pageState extends State<F1_fourth_page> {
                             Text('.'),
                             Text('.'),
                             Text('.'),
-                            Text('이렇게 읽어보니까'),
+                            Text('읽어보니까'),
                             Text('우리의 방향성이'),
-                            Text('더 확실해진 것 같아!'),
+                            Text('더 짙어진 것 같아!'),
                           ],
                         )
                     )
@@ -857,17 +858,18 @@ class _F1_fifth_pageState extends State<F1_fifth_page> {
                                   Text('로뎀', style: TextStyle(color: Colors.yellow)),
                                   Text('을 지나'),]
                             ),
-                            Text(' '),
-                            Text(' '),
-                            Image(image: AssetImage('assets/f1_rodemRoad.jpg'), width: 350,),
-                            Text(' '),
-                            Text(' '),
                             Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text('권사 기도실', style: TextStyle(color: Colors.yellow)),
                                   Text('쪽으로 가야해!'),]
                             ),
+                            Text(' '),
+                            Text(' '),
+                            Image(image: AssetImage('assets/f1_rodemRoad.jpg'), width: 350,),
+                            Text(' '),
+                            Text(' '),
+                            Text('그러면'),
                           ],
                         )
                     )
@@ -880,7 +882,6 @@ class _F1_fifth_pageState extends State<F1_fifth_page> {
                         padding: EdgeInsets.fromLTRB(10,50,10,50),
                         child: Column(
                           children: [
-                            Text('그럼 다음과 같은'),
                             Text('염광교회 차량운행 노선안내도', style: TextStyle(color: Colors.yellow)),
                             Text('이걸 가는 길 벽면에서'),
                             Text('찾을 수 있을거야.'),
@@ -935,12 +936,12 @@ class _F1_fifth_pageState extends State<F1_fifth_page> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text('도봉중학교 = 8'),
-                            Text('도봉중학교 = 7'),
-                            Text('도봉중학교 = 5'),
+                            Text('주호사우나 = 7'),
+                            Text('이상갈비 = 5'),
                             Text(' '),
                             Row(
                                 children: [
-                                  Text('번동주공2단지 = '),
+                                  Text('번동주공 2단지 = '),
                                   Text('(1)', style: TextStyle(color: Colors.yellow)),]),
                             Row(
                                 children: [
