@@ -42,7 +42,7 @@ Future answerCheck(String text, String answer, BuildContext context, StatefulWid
   }
 }
 
-// ㅡㅡㅡㅡㅡ 층별 정보판 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+// ㅡㅡㅡㅡㅡ 세계선교현황 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 class F2_first_page extends StatefulWidget {
   const F2_first_page({super.key, required this.title});
 
@@ -56,7 +56,7 @@ class _F2_first_pageState extends State<F2_first_page> {
   String txtAnswer = "";
 
   void answerCheck(String answer){
-    if(answer == "프리액션 밸브실"){
+    if(answer == '14'){
       Navigator.push(context, MaterialPageRoute(builder: (context) => F1_second_page()));
     }
     else {
@@ -83,53 +83,37 @@ class _F2_first_pageState extends State<F2_first_page> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(10, 50, 10, 50),
+                  child: Image(
+                    image: AssetImage('assets/f2_international.jpg'),
+                    width: 350,
+                  ),
+                ),
                 const Center(
                     child: Padding(
-                      padding: EdgeInsets.fromLTRB(10,200,20,200),
+                      padding: EdgeInsets.fromLTRB(10,10,10,200),
                       child: Column(
                         children: [
-                          Text('본격적으로'),
+                          Text('2층에 올라오니까'),
+                          Text('가장 먼저 보이는게'),
                           Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text('2층', style: TextStyle(color: Colors.yellow)),
-                                Text('을 탐방해보자!')]),
+                                Text('세계선교현황', style: TextStyle(color: Colors.yellow)),
+                                Text(' 판이야.')]),
                           Text(' '),
+                          Text('우리 교회가'),
+                          Text('복음을 전하거나 후원하는'),
+                          Text('나라들이 엄청 많다.'),
+                          Text(' '),
+                          Text('혹시 우리 교회 사명이'),
+                          Text('"민족 복음화, 세계선교!"', style: TextStyle(color: Colors.yellow, fontWeight: FontWeight.bold)),
+                          Text('인 건 다들 알지?'),
+                          Text(' '),
+                          Text('몰랐다면 오늘부터 기억하기.'),
+                          Text('그리고 실천해 나아가자!'),
                         ],
-                      ),
-                    )
-                ),
-                const Image(
-                  image: AssetImage('assets/f1_info.jpg'),
-                  width: 350,
-                ),
-                const Center(
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(10, 50, 10, 100),
-                      child: Column(
-//                    mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('엘리베이터 2개 사이에 있는',),
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text('위와 같은 '),
-                                Text('그림', style: TextStyle(color: Colors.yellow)),
-                                Text('을 찾아보자.')]),
-                          Text(' '),
-                          Text('층마다 어떤 장소가 있는지'),
-                          Text('한눈에 볼 수 있어!'),
-                          Text(' '),
-                          Text(' '),
-                          Text(' '),
-                          Text('그런데'),
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text('바로 옆에 보이는 '),
-                                Text('장소', style: TextStyle(color: Colors.yellow)),
-                                Text('가')]),
-                          Text('빠져있는 듯 하다.')],
                       ),
                     )
                 ),
@@ -139,33 +123,69 @@ class _F2_first_pageState extends State<F2_first_page> {
                       borderRadius: BorderRadius.all(Radius.circular(20.0))),
                   margin: EdgeInsets.all(30),
                   padding: EdgeInsets.all(20),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text('어떤 '),
-                        Text('장소', style: TextStyle(color: Colors.yellow)),
-                        Text('가 빠져있는걸까?')]),
+                  child: const Column(
+                    children: [
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('세계선교현황판', style: TextStyle(color: Colors.yellow)),
+                            Text('과')]),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('단서', style: TextStyle(color: Colors.yellow)),
+                            Text('를 참고하여')]),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('?', style: TextStyle(color: Colors.yellow)),
+                            Text('를 유추해보자.'),]),
+                    ],
+                  )
+                ),
+                Container(
+                  width: 200,
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.purple, width: 5),
+                      borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                  margin: EdgeInsets.all(10),
+                  padding: EdgeInsets.all(10),
+                  child: const Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('단 서', style: TextStyle(color: Colors.yellow, fontSize: 30)),
+                      Text(' '),
+                      Text('1 = 7'),
+                      Text('1 = 10'),
+                      Text('10 = 9'),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('4 = '),
+                            Text('?', style: TextStyle(color: Colors.yellow)),]
+                      ),
+                    ],
+                  )
                 ),
                 SizedBox(
-                    width: 350,
-                    child: Column(
-                      children: [
-                        Padding(
-                            padding: EdgeInsets.all(10),
-                            child: TextField(
-                              textAlign: TextAlign.center,
-                              maxLength: 8,
-                              decoration: const InputDecoration(
-                                counterStyle: TextStyle(color: Colors.white),
-                                enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.white, width: 1.0),
-                                    borderRadius: BorderRadius.all(Radius.circular(20.0))
-                                ),),
-                              onChanged: (text){txtAnswer = text;},
-                            )
-                        ),
-                      ],
-                    )
+                  width: 350,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.all(10),
+                        child: TextField(
+                          textAlign: TextAlign.center,
+                          decoration: const InputDecoration(
+                            counterText: '',
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white, width: 1.0),
+                              borderRadius: BorderRadius.all(Radius.circular(20.0))
+                            ),),
+                          onChanged: (text){txtAnswer = text;},
+                        )
+                      ),
+                    ],
+                  )
                 ),
                 Container(
                   padding: EdgeInsets.all(20),
@@ -183,7 +203,7 @@ class _F2_first_pageState extends State<F2_first_page> {
   }
 }
 
-// ㅡㅡㅡㅡㅡ WE STUDIO ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+// ㅡㅡㅡㅡㅡ 국내선교현황 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 class F1_second_page extends StatefulWidget {
   F1_second_page({super.key});
 
@@ -195,7 +215,7 @@ class _F1_second_pageState extends State<F1_second_page> {
   String txtAnswer = "";
 
   void answerCheck(String answer){
-    if(answer == "창조"){
+    if(answer == "star" || answer == "Star" || answer == "STAR"){
       Navigator.push(context, MaterialPageRoute(builder: (context) => F1_third_page()));
     }
     else {
@@ -219,72 +239,42 @@ class _F1_second_pageState extends State<F1_second_page> {
               children: <Widget>[
                 const Padding(
                   padding: EdgeInsets.fromLTRB(10, 50, 10, 50),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(180)),
-                    child: Image(image: AssetImage('assets/f1_belbroom.jpg'), width: 250,),
-                  ),),
+                  child: Image(image: AssetImage('assets/f2_domestic.jpg'), width: 350,),
+                  ),
                 const Center(
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(10,50,20,100),
                       child: Column(
                         children: [
+                          Text('바로 옆면에는'),
                           Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text('프리액션 밸브실', style: TextStyle(color: Colors.yellow)),
-                                Text('은')]),
+                                Text('국내선교현황', style: TextStyle(color: Colors.yellow)),
+                                Text('판도 있어.')]),
+                          Text(''),
+                          Text('해외 뿐만 아니라'),
+                          Text('국내 선교 및 후원도'),
+                          Text('열심히 하고 있구나!'),
+                          Text(''),
+                          Text('역시 창동염광교회 대단해~'),
+                          Text(''),
+                          ClipRRect(
+                            borderRadius: BorderRadius.all(Radius.circular(180)),
+                            child: Image(image: AssetImage('assets/f2_goodjob.gif'), width: 250,)
+                          ),
+                          Text(''),
                           Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text('관계자 외 출입금지', style: TextStyle(color: Colors.red)),
-                                Text('라서')]),
-                          Text('명시되어 있지 않는 것 같아.'),
-                          Text(' '),
-                          Text(' '),
-                          Text(' '),
-                          Text('다음 장소로 이동하자.'),
+                                Text('우리가 교회를 더욱 '),
+                                Text('사랑', style: TextStyle(color: Colors.yellow)),
+                                Text('해주자!'),]),
                         ],
                       ),
                     )
                 ),
-                const Image(image: AssetImage('assets/f1_creativezone.jpg'), width: 350,),
-                const Center(
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(10,100,10,250),
-                      child: Column(
-                        children: [
-                          Text('다음 장소는 '),
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text('YK CreativeZone', style: TextStyle(color: Colors.yellow)),
-                                Text('이야.')]),
-                          Text(' '),
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text('이곳은 '),
-                                Text('온라인 방송', style: TextStyle(color: Colors.yellow)),
-                                Text('도 하고,')]),
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text('비대면 모임도', style: TextStyle(color: Colors.yellow)),
-                                Text(' 하고,')]),
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text('영상 편집', style: TextStyle(color: Colors.yellow)),
-                                Text('도 하는 곳이야.')]),
-                          Text(' '),
-                          Text('창동염광교회 유튜브 채널에'),
-                          Text('다양한 컨텐츠들이'),
-                          Text('이곳을 거쳐서 탄생하기도 해.'),
-                        ],
-                      ),
-                    )
-                ),
-                const Image(image: AssetImage('assets/f1_weStudio.png'),),
+
                 Container(
                     decoration: BoxDecoration(
                         border: Border.all(color: Colors.white, width: 5),
@@ -296,19 +286,29 @@ class _F1_second_pageState extends State<F1_second_page> {
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
+                              Text('국내선교현황판', style: TextStyle(color: Colors.yellow)),
+                              Text('과')]),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
                               Text('단서', style: TextStyle(color: Colors.yellow)),
                               Text('를 참고하여')]),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('어느 곳', style: TextStyle(color: Colors.yellow)),
-                              Text('을'),]),
-                        Text('선택했는지 유추하고'),
+                              Text('무엇', style: TextStyle(color: Colors.yellow)),
+                              Text('을 나타내는지'),]),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('장소의 이름', style: TextStyle(color: Colors.yellow)),
-                              Text('을 적어보자.'),]),
+                              Text('영어', style: TextStyle(color: Colors.yellow)),
+                              Text('로 적어보자.'),]),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('참고로 '),
+                              Text('순서', style: TextStyle(color: Colors.yellow)),
+                              Text('가 중요해.'),]),
                       ],
                     )
                 ),
@@ -325,29 +325,12 @@ class _F1_second_pageState extends State<F1_second_page> {
                             child: Text('단 서', style: TextStyle(color: Colors.yellow, fontSize: 30))
                         ),
                         Text(' '),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text('We Studio', style: TextStyle(color: Colors.yellow)),
-                              Text('에서 촬영한')]),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text('영상을 '),
-                              Text('편집', style: TextStyle(color: Colors.yellow)),
-                              Text('하고 싶은데'),]),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text('(가려진)문구', style: TextStyle(color: Colors.yellow)),
-                              Text('를 보아하니'),]),
-                        Text('두 곳을 사용하고 싶은데'),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text('나는 '),
-                              Text('후자', style: TextStyle(color: Colors.yellow)),
-                              Text('를 선택할래.'),]),
+                        Text('밝은빛 새길교회'),
+                        Text('덕수돌 작은 교회'),
+                        Text('세곡 교회'),
+                        Text('창대 교회'),
+                        Text('초원 교회'),
+                        Text('꿈이 있는 교회'),
                       ],
                     )
                 ),

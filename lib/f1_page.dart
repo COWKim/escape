@@ -87,7 +87,7 @@ class _F1_first_pageState extends State<F1_first_page> {
               children: <Widget>[
                 const Center(
                     child: Padding(
-                      padding: EdgeInsets.fromLTRB(10,200,20,200),
+                      padding: EdgeInsets.fromLTRB(10,200,10,200),
                       child: Column(
                         children: [
                           Text('본격적으로'),
@@ -438,7 +438,7 @@ class _F1_third_pageState extends State<F1_third_page> {
                         Text(' '),
                         Text('단서에서 말하는'),
                         Text("둘 중 하나는 '창조'였고,"),
-                        Text("다른 하나는 '함께'였지,"),
+                        Text("다른 하나는 '함께'였지."),
                         Text(' '),
                         Text(' '),
                         Text('"하나님께서 우리를', style: TextStyle(fontStyle: FontStyle.italic, fontWeight: FontWeight.bold),),
@@ -920,7 +920,7 @@ class _F1_fifth_pageState extends State<F1_fifth_page> {
                     )
                 ),
                 Container(
-                  width: 280,
+                  width: 300,
                     decoration: BoxDecoration(
                         border: Border.all(color: Colors.purple, width: 5),
                         borderRadius: BorderRadius.all(Radius.circular(20.0))),
