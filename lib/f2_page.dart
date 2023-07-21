@@ -339,9 +339,7 @@ class _F1_second_pageState extends State<F1_second_page> {
                     padding: EdgeInsets.all(10),
                     child: TextField(
                       textAlign: TextAlign.center,
-                      maxLength: 2,
                       decoration: const InputDecoration(
-                        counterStyle: TextStyle(color: Colors.white),
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.white, width: 1.0),
                           borderRadius: BorderRadius.all(Radius.circular(20.0)),
