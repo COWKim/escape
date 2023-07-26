@@ -90,6 +90,8 @@ flutter:
      - assets/f2_domestic.jpg
      - assets/f2_international.jpg
      - assets/f2_goodjob.gif
+     - assets/f2_recycle.png
+     - assets/f2_baetel.jpg
     #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
