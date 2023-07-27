@@ -832,11 +832,10 @@ class _F1_fifth_pageState extends State<F1_fifth_page> {
                             Text('문제가 점점 어려워지고 있다', style: TextStyle(color: Colors.yellow)),
                             Text('라는 것도 눈치챘어?'),
                             Text(' '),
-                            Text('그리고'),
+                            Text('그리고 아직'),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text('아직 '),
                                 Text('1층', style: TextStyle(color: Colors.yellow)),
                                 Text('이라는 사실도..'),]
                             ),

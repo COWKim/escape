@@ -36,6 +36,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   flutter_spinkit: ^5.2.0
+  shared_preferences: ^2.2.0
 
 dev_dependencies:
   flutter_test:
@@ -71,6 +72,7 @@ flutter:
      - assets/b1_takgooload.jpg
      - assets/b1_heart.jpg
      - assets/b1_present.png
+  # 1 floor
      - assets/f1_info.jpg
      - assets/f1_cabinet.jpg
      - assets/f1_cabinetHelp.PNG
@@ -87,12 +89,18 @@ flutter:
      - assets/f1_rodemRoad.jpg
      - assets/f1_bus.jpg
      - assets/f1_stair.jpg
+  # 2 floor
      - assets/f2_domestic.jpg
      - assets/f2_international.jpg
      - assets/f2_goodjob.gif
      - assets/f2_recycle.png
      - assets/f2_baetel.jpg
-    #   - images/a_dot_ham.jpeg
+     - assets/f2_pray.jpg
+     - assets/f2_taka.jpg
+     - assets/f2_pororo.PNG
+     - assets/f2_babymom.jpg
+  # 3 floor
+     - assets/f3_picture.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

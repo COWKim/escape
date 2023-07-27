@@ -26,7 +26,7 @@ class F2_page extends StatelessWidget {
 
 Future showErrorMessage(BuildContext context) async{
   ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
+    const SnackBar(
       content: Text('틀렸습니다.'),
       duration: Duration(seconds: 1),
     ),
@@ -56,14 +56,14 @@ class _F2_first_pageState extends State<F2_first_page> {
   String txtAnswer = "";
 
   void answerCheck(String answer){
-    if(answer == '14'){
-      Navigator.push(context, MaterialPageRoute(builder: (context) => F2_second_page()));
-    }
-    else {
-      showErrorMessage(context);
-    }
+    // if(answer == '14'){
+    //   Navigator.push(context, MaterialPageRoute(builder: (context) => F2_second_page()));
+    // }
+    // else {
+    //   showErrorMessage(context);
+    // }
 
-    //   Navigator.push(context, MaterialPageRoute(builder: (context) => F1_fifth_page()));
+       Navigator.push(context, MaterialPageRoute(builder: (context) => F2_fourth_page()));
   }
 
   @override
@@ -364,8 +364,7 @@ class _F2_second_pageState extends State<F2_second_page> {
   }
 }
 
-
-// ㅡㅡㅡㅡㅡ 캐비넷 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+// ㅡㅡㅡㅡㅡ 벧엘홀 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 class F2_third_page extends StatefulWidget {
   F2_third_page({super.key});
 
@@ -377,157 +376,8 @@ class _F2_third_pageState extends State<F2_third_page> {
   String txtAnswer = "";
 
   void answerCheck(String answer){
-    if(answer == ""){
-      Navigator.push(context, MaterialPageRoute(builder: (context) => F2_fourth_page()));
-    }
-    else {
-      showErrorMessage(context);
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black87,
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: Text('2층', style: TextStyle(fontSize: 20),),
-        centerTitle: true,
-      ),
-      body: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                const Center(
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(10,50,20,100),
-                      child: Column(
-                        children: [
-                          Text(' '),
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text('일단은 '),
-                                Text('넘어가자', style: TextStyle(color: Colors.yellow)),
-                                Text(',')]
-                          ),
-                          Text(' '),
-
-                        ],
-                      ),
-                    )
-                ),
-                // const Center(
-                //     child: Padding(
-                //         padding: EdgeInsets.fromLTRB(10,300,10,100),
-                //         child: Column(
-                //           children: [
-                //             Text('다음 장소로 가기 전에'),
-                //             Row(
-                //                 mainAxisAlignment: MainAxisAlignment.center,
-                //                 children: [
-                //                   Text('여기', style: TextStyle(color: Colors.yellow)),
-                //                   Text('에 짐 좀 두고 가자..')]
-                //             ),
-                //             Text(' '),
-                //             Row(
-                //                 mainAxisAlignment: MainAxisAlignment.center,
-                //                 children: [
-                //                   Text('문제', style: TextStyle(color: Colors.yellow)),
-                //                   Text('는 덤이야')]
-                //             ),
-                //             Text(' '),
-                //             Image(image: AssetImage('assets/f1_nongdamgom.jpg'), width: 150,)
-                //           ],
-                //         )
-                //     )
-                // ),
-                Container(
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.white, width: 5),
-                        borderRadius: BorderRadius.all(Radius.circular(20.0))),
-                    margin: EdgeInsets.fromLTRB(20,50,20,10),
-                    padding: EdgeInsets.all(10),
-                    child: const Column(
-                      children: [
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text('단서들', style: TextStyle(color: Colors.yellow)),
-                              Text('을 이용해')]),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text('무엇', style: TextStyle(color: Colors.yellow)),
-                              Text('을 나타내는지 맞춰보자.')]),
-                      ],
-                    )
-                ),
-                Container(
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.purple, width: 5),
-                        borderRadius: BorderRadius.all(Radius.circular(20.0))),
-                    margin: EdgeInsets.all(10),
-                    padding: EdgeInsets.all(10),
-                    child: const Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text('단 서 3', style: TextStyle(color: Colors.yellow, fontSize: 30)),
-                        Text(' '),
-                        Text('진행 방향'),
-                        Text(' '),
-                        Image(image: AssetImage('assets/f1_cabinetHelp.PNG'),)
-                      ],
-                    )
-                ),
-                Container(
-                    width: 300,
-                    padding: EdgeInsets.all(10),
-                    child: TextField(
-                      textAlign: TextAlign.center,
-                      maxLength: 3,
-                      decoration: const InputDecoration(
-                        counterText: '',
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white, width: 1.0),
-                          borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                        ),
-                      ),
-                      onChanged: (text){txtAnswer = text;},
-                    )
-                ),
-                Container(
-                  padding: EdgeInsets.all(20),
-                  width: 300, height: 100,
-                  child: ElevatedButton(onPressed: (){answerCheck(txtAnswer);},
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.purple[800]),
-                    child: Text('확인'),
-                  ),
-                ),
-              ],
-            ),
-          )
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
-  }
-}
-
-
-// ㅡㅡㅡㅡㅡ 분리수거 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-class F2_fourth_page extends StatefulWidget {
-  F2_fourth_page({super.key});
-
-  @override
-  State<F2_fourth_page> createState() => _F2_fourth_pageState();
-}
-
-class _F2_fourth_pageState extends State<F2_fourth_page> {
-  String txtAnswer = "";
-
-  void answerCheck(String answer){
     if(answer == "i can do pray" || answer == "I CAN DO PRAY" || answer ==  "I can do pray"){
-      Navigator.push(context, MaterialPageRoute(builder: (context) => F1_fifth_page()));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => F2_fourth_page()));
     }
     else {
       showErrorMessage(context);
@@ -554,7 +404,6 @@ class _F2_fourth_pageState extends State<F2_fourth_page> {
                       child: Column(
                           children: [
                             Text('뭐라고 할지 대기해'),
-                            Image(image: AssetImage('assets/f1_cute.gif'), width: 250,)
                           ]
                       ),
                     )
@@ -687,20 +536,20 @@ class _F2_fourth_pageState extends State<F2_fourth_page> {
   }
 }
 
-// ㅡㅡㅡㅡㅡ 차량운행 노선안내도 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-class F1_fifth_page extends StatefulWidget {
-  F1_fifth_page({super.key});
+// ㅡㅡㅡㅡㅡ 탁아부실 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+class F2_fourth_page extends StatefulWidget {
+  F2_fourth_page({super.key});
 
   @override
-  State<F1_fifth_page> createState() => _F1_fifth_pageState();
+  State<F2_fourth_page> createState() => _F2_fourth_pageState();
 }
 
-class _F1_fifth_pageState extends State<F1_fifth_page> {
+class _F2_fourth_pageState extends State<F2_fourth_page> {
   String txtAnswer = "";
 
   void answerCheck(String answer){
-    if(answer == "2023"){
-      Navigator.push(context, MaterialPageRoute(builder: (context) => F1_final_page()));
+    if(answer == "해리"){
+      Navigator.push(context, MaterialPageRoute(builder: (context) => F2_fifth_page()));
     }
     else {
       showErrorMessage(context);
@@ -729,25 +578,33 @@ class _F1_fifth_pageState extends State<F1_fifth_page> {
                       padding: EdgeInsets.fromLTRB(10,50,20,100),
                       child: Column(
                           children: [
-                            Text('답이 문단 모양이란 것을'),
-                            Text('눈치챘어?'),
-                            Text(' '),
-                            Text('역시 대단해!'),
-                            Text(' '),
-                            Text('그렇다면 혹시'),
-                            Text('문제가 점점 어려워지고 있다', style: TextStyle(color: Colors.yellow)),
-                            Text('라는 것도 눈치챘어?'),
-                            Text(' '),
-                            Text('그리고'),
+                            Text('우리가 할 수 있는 건'),
                             Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text('아직 '),
-                                  Text('2층', style: TextStyle(color: Colors.yellow)),
-                                  Text('이라는 사실도..'),]
+                                  Text('"'),
+                                  Text('기도', style: TextStyle(color: Colors.yellow, fontWeight: FontWeight.bold)),
+                                  Text('"'),]
                             ),
                             Text(' '),
-                            Text('파이팅!', style: TextStyle(color: Colors.cyanAccent)),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(10, 30, 10, 30),
+                              child: Image(image: AssetImage('assets/f2_pray.jpg'), width: 250,)
+                            ),
+                            Text('힘들때나 기쁠때나'),
+                            Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text('항상 '),
+                                  Text('기도', style: TextStyle(color: Colors.yellow, fontWeight: FontWeight.bold)),
+                                  Text('로 나아가는'),]
+                            ),
+                            Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text('YKD 청년', style: TextStyle(color: Colors.yellow, fontWeight: FontWeight.bold)),
+                                  Text('이 되자!'),]
+                            ),
                           ]
                       ),
                     )
@@ -761,43 +618,36 @@ class _F1_fifth_pageState extends State<F1_fifth_page> {
                             Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text('로뎀', style: TextStyle(color: Colors.yellow)),
-                                  Text('을 지나'),]
-                            ),
-                            Text(' '),
-                            Text(' '),
-                            Image(image: AssetImage('assets/f1_rodemRoad.jpg'), width: 350,),
-                            Text(' '),
-                            Text(' '),
-                            Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text('권사 기도실', style: TextStyle(color: Colors.yellow)),
-                                  Text('쪽으로 가야해!'),]
+                                  Text('탁아부실', style: TextStyle(color: Colors.yellow)),
+                                  Text('이야.'),]
                             ),
                           ],
                         )
                     )
                 ),
                 const Image(
-                  image: AssetImage('assets/f1_bus.jpg'),
+                  image: AssetImage('assets/f2_taka.jpg'),
                 ),
                 const Center(
                     child: Padding(
                         padding: EdgeInsets.fromLTRB(10,50,10,50),
                         child: Column(
                           children: [
-                            Text('그럼 다음과 같은'),
-                            Text('염광교회 차량운행 노선안내도', style: TextStyle(color: Colors.yellow)),
-                            Text('이걸 가는 길 벽면에서'),
-                            Text('찾을 수 있을거야.'),
+                            Text('0~17개월된 아기들은'),
+                            Text('이곳에서 부모님을 기다려.'),
                             Text(' '),
+                            Text('아무래도 아기가 옆에 있으면'),
+                            Text('예배에 집중하기 어렵고'),
+                            Text('남에게 피해를 줄 수도'),
+                            Text('있어서 대신 선생님들이'),
+                            Text('예배시간 동안에'),
+                            Text('아기들을 돌봐주고 있어.'),
                             Text(' '),
-                            Text('노선 안내도를 보니까'),
-                            Text('생각보다 많은 차량이'),
-                            Text('성도들을 교회로 올 수 있게'),
-                            Text('꽤 넓은 지역까지'),
-                            Text('운행되고 있구나!'),
+                            Text('나는 예전에'),
+                            Text('탁아부에서 봉사했었는데'),
+                            Text('새근새근 자고'),
+                            Text('아장아장 기어다니는'),
+                            Text('아기들이 얼마나 귀엽던지..'),
                           ],
                         )
                     )
@@ -813,20 +663,40 @@ class _F1_fifth_pageState extends State<F1_fifth_page> {
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('단서', style: TextStyle(color: Colors.yellow)),
-                              Text('와 '),
-                              Text('노선안내도', style: TextStyle(color: Colors.yellow)),
-                              Text('를 이용해서')]),
+                              Text('문 앞에', style: TextStyle(color: Colors.yellow)),
+                              Text(' 붙어있는')]),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('정답', style: TextStyle(color: Colors.yellow)),
-                              Text('을 유추해보자.')]),
+                              Text('뽀로로의 친구들', style: TextStyle(color: Colors.yellow)),
+                              Text(' 중에')]),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('혼자만 '),
+                              Text('방향', style: TextStyle(color: Colors.yellow)),
+                              Text('이 다른 ')]),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('캐릭터', style: TextStyle(color: Colors.yellow)),
+                              Text('는 누굴까?')]),
+                        Text(''),
+                        Text('붙어있는 캐릭터의', style: TextStyle(color: Colors.yellow)),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('화살표', style: TextStyle(color: Colors.yellow)),
+                            Text('가 이어진')]),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('창문', style: TextStyle(color: Colors.yellow, fontWeight: FontWeight.bold)),
+                              Text('을 잘 봐.')]),
                       ],
                     )
                 ),
                 Container(
-                    width: 280,
                     decoration: BoxDecoration(
                         border: Border.all(color: Colors.purple, width: 5),
                         borderRadius: BorderRadius.all(Radius.circular(20.0))),
@@ -835,33 +705,138 @@ class _F1_fifth_pageState extends State<F1_fifth_page> {
                     child: const Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('단 서', style: TextStyle(color: Colors.yellow, fontSize: 30)),
+                        Text('캐 릭 터', style: TextStyle(color: Colors.yellow, fontSize: 30)),
                         Text(' '),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        Image(
+                          image: AssetImage('assets/f2_pororo.PNG'),
+                        )
+                      ],
+                    )
+                ),
+                Container(
+                    width: 300,
+                    padding: EdgeInsets.all(10),
+                    child: TextField(
+                      textAlign: TextAlign.center,
+                      maxLength: 2,
+                      decoration: const InputDecoration(
+                        counterStyle: TextStyle(color: Colors.white),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white, width: 1.0),
+                          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                        ),
+                      ),
+                      onChanged: (text){txtAnswer = text;},
+                    )
+                ),
+                Container(
+                  padding: EdgeInsets.all(20),
+                  width: 300, height: 100,
+                  child: ElevatedButton(onPressed: (){answerCheck(txtAnswer);},
+                    style: ElevatedButton.styleFrom(backgroundColor: Colors.purple[800]),
+                    child: Text('확인'),
+                  ),
+                ),
+              ],
+            ),
+          )
+      ),
+    );
+  }
+}
+
+// ㅡㅡㅡㅡㅡ 아가맘예배실 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+class F2_fifth_page extends StatefulWidget {
+  F2_fifth_page({super.key});
+
+  @override
+  State<F2_fifth_page> createState() => _F2_fifth_pageState();
+}
+
+class _F2_fifth_pageState extends State<F2_fifth_page> {
+  String txtAnswer = "";
+
+  void answerCheck(String answer){
+    if(answer == "GO" || answer == "Go" || answer == "go"){
+      Navigator.push(context, MaterialPageRoute(builder: (context) => F2_final_page()));
+    }
+    else {
+      showErrorMessage(context);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black87,
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        title: Text('2층', style: TextStyle(fontSize: 20),),
+        leading: IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
+        const MyApp())),
+          icon: const Icon(Icons.arrow_back),),
+        centerTitle: true,
+      ),
+      body: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(10,50,20,100),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('그렇다면 탁아부에'),
+                        Text('맡기는게 부담이 되는'),
+                        Text('부모님들은 아이와 함께'),
+                        Text('어디서 예배를 드릴까?'),
+                      ]
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(10,200,10,100),
+                  child: Image(image: AssetImage('assets/f2_babymom.jpg'), width: 350,),
+                ),
+                const Center(
+                    child: Padding(
+                        padding: EdgeInsets.fromLTRB(10,50,10,50),
+                        child: Column(
                           children: [
-                            Text('도봉중학교 = 8'),
-                            Text('도봉중학교 = 7'),
-                            Text('도봉중학교 = 5'),
-                            Text(' '),
-                            Row(
-                                children: [
-                                  Text('번동주공2단지 = '),
-                                  Text('(1)', style: TextStyle(color: Colors.yellow)),]),
-                            Row(
-                                children: [
-                                  Text('삼양 사거리 = '),
-                                  Text('(2)', style: TextStyle(color: Colors.yellow)),]),
-                            Text(' '),
-                            Text(' '),
                             Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text('정답 : '),
-                                  Text('(1)(2)', style: TextStyle(color: Colors.yellow)),]),
+                                  Text('아가맘예배실', style: TextStyle(color: Colors.yellow)),
+                                  Text('이 바로'),]),
+                            Text('탁아부실 맞은편에 있어.'),
+                            Text(' '),
+                            Text('이곳에서 아이와 함께'),
+                            Text('예배도 드릴 수 있고'),
+                            Text('탁아부가 가깝기 때문에'),
+                            Text('아이를 맡기고 근처에서'),
+                            Text('예배를 드릴 수 있어.'),
                           ],
                         )
+                    )
+                ),
+                Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.white, width: 5),
+                        borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                    margin: EdgeInsets.fromLTRB(20,50,20,10),
+                    padding: EdgeInsets.all(20),
+                    child: const Column(
+                      children: [
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('의자', style: TextStyle(color: Colors.yellow)),
+                              Text('가'),]),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('무엇', style: TextStyle(color: Colors.yellow)),
+                              Text('을 나타내는 걸까?'),]),
                       ],
                     )
                 ),
@@ -897,14 +872,14 @@ class _F1_fifth_pageState extends State<F1_fifth_page> {
   }
 }
 
-class F1_final_page extends StatefulWidget {
-  F1_final_page({super.key});
+class F2_final_page extends StatefulWidget {
+  F2_final_page({super.key});
 
   @override
-  State<F1_final_page> createState() => _F1_final_pageState();
+  State<F2_final_page> createState() => _F2_final_pageState();
 }
 
-class _F1_final_pageState extends State<F1_final_page> {
+class _F2_final_pageState extends State<F2_final_page> {
 
   void answerCheck(){
     Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage()));
@@ -936,22 +911,10 @@ class _F1_final_pageState extends State<F1_final_page> {
                   padding: EdgeInsets.all(30),
                   child: Text('2층 Mission Clear!', style: TextStyle(color: Colors.cyanAccent),),
                 ),
-                const Image(
-                    image: AssetImage('assets/f1_stair.jpg')
-                ),
                 const Padding(
                     padding: EdgeInsets.fromLTRB(10,50,10,50),
                     child: Column(
                       children: [
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text('남은 '),
-                              Text('2023', style: TextStyle(color: Colors.yellow)),
-                              Text('년도 '),
-                              Text('파이팅!', style: TextStyle(color: Colors.cyanAccent))]
-                        ),
-                        Text(' '),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -960,13 +923,19 @@ class _F1_final_pageState extends State<F1_final_page> {
                               Text('했어!')]
                         ),
                         Text(' '),
-                        Text('위 계단을 이용해'),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text('3층', style: TextStyle(color: Colors.yellow)),
-                              Text('으로 올라가보자.')]
-                        )
+                              Text('으로 '),
+                              Text('GO', style: TextStyle(color: Colors.cyanAccent)),
+                              Text('!'),]
+                        ),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(10,100,10,50),
+                          child: Image(image: AssetImage('assets/f3_picture.jpg'), width: 300,),
+                        ),
+                        Text('위 그림이 있는 곳으로 가자!'),
                       ],)
                 ),
                 Container(
