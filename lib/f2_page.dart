@@ -1,25 +1,42 @@
 import 'package:escape/main.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
-  runApp(const F2_page());
-}
+// void main() {
+//   runApp(const F2_page());
+// }
 
 class F2_page extends StatelessWidget {
-  const F2_page({super.key});
+  const F2_page({super.key, required this.route});
+
+  final String route;
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      builder: (context, child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(textScaleFactor: 1.3),
+          child: child!,
+        );
+      },
       title: 'YKD ESCAPE - 2층',
       theme: Theme.of(context).copyWith(
           textTheme: Theme.of(context).textTheme.apply(
             bodyColor: Colors.white,
-            fontSizeDelta: 4,
           )
       ),
-      home: F2_first_page(title: '2층'),
+      //home: F2_first_page(title: '2층'),
+        initialRoute: route,
+        routes: {
+          '1' : (context) => F2_first_page(),
+          '2' : (context) => F2_second_page(),
+          '3' : (context) => F2_third_page(),
+          '4' : (context) => F2_fourth_page(),
+          '5' : (context) => F2_fifth_page(),
+          '6' : (context) => F2_final_page(),
+        }
     );
   }
 }
@@ -33,20 +50,9 @@ Future showErrorMessage(BuildContext context) async{
   );
 }
 
-Future answerCheck(String text, String answer, BuildContext context, StatefulWidget page) async{
-  if (text == answer) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => page));
-  }
-  else {
-    showErrorMessage(context);
-  }
-}
-
 // ㅡㅡㅡㅡㅡ 세계선교현황 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 class F2_first_page extends StatefulWidget {
-  const F2_first_page({super.key, required this.title});
-
-  final String title;
+  const F2_first_page({super.key});
 
   @override
   State<F2_first_page> createState() => _F2_first_pageState();
@@ -56,14 +62,34 @@ class _F2_first_pageState extends State<F2_first_page> {
   String txtAnswer = "";
 
   void answerCheck(String answer){
-    // if(answer == '14'){
-    //   Navigator.push(context, MaterialPageRoute(builder: (context) => F2_second_page()));
-    // }
-    // else {
-    //   showErrorMessage(context);
-    // }
+    if(answer == '14'){
+      _nextStep();
+      Navigator.pushNamed(context, '2');
+    }
+    else {
+      showErrorMessage(context);
+    }
 
-       Navigator.push(context, MaterialPageRoute(builder: (context) => F2_fourth_page()));
+    //   Navigator.push(context, MaterialPageRoute(builder: (context) => F2_fourth_page()));
+  }
+
+  late Future<void> _calculation = Future<void>.delayed(Duration(seconds: 1), (){},);
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  late Future<int> _playerStep;
+
+  Future<void> _nextStep() async{
+    final SharedPreferences prefs = await _prefs;
+
+    setState(() {
+      _playerStep = prefs.setInt('f2step', 2).then((bool success)
+      { return 2;});
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _playerStep = _prefs.then((SharedPreferences prefs) => prefs.getInt('f2step') ?? 1);
   }
 
   @override
@@ -72,23 +98,41 @@ class _F2_first_pageState extends State<F2_first_page> {
       backgroundColor: Colors.black87,
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: Text(widget.title, style: TextStyle(fontSize: 20),),
-        leading: IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-            MyApp())),
-          icon: const Icon(Icons.arrow_back),),
+        title: Text('2층', style: TextStyle(fontSize: 20),),
+        leading: FutureBuilder(
+            future: _playerStep,
+            builder: (BuildContext context, AsyncSnapshot<int> snapshot){
+              if (snapshot.connectionState != ConnectionState.done) {
+                return const CircularProgressIndicator();
+              }
+              else {
+                return Center(child: Text(
+                  '${snapshot.data}/5', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),)
+                );
+              }
+            }),
         centerTitle: true,
+        actions: [IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
+            MyApp())), icon: Icon(Icons.home))],
       ),
       body: Center(
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                const Padding(
-                  padding: EdgeInsets.fromLTRB(10, 50, 10, 50),
-                  child: Image(
-                    image: AssetImage('assets/f2_international.jpg'),
-                    width: 350,
-                  ),
+                FutureBuilder<void>(
+                    future: _calculation,
+                    builder: (BuildContext context, AsyncSnapshot<void> snapshot){
+                      if(snapshot.connectionState != ConnectionState.done){
+                        return Center(child: CircularProgressIndicator(color: Colors.lightGreenAccent,));
+                      }
+                      else{
+                        return const Padding(
+                          padding: EdgeInsets.fromLTRB(10, 50, 10, 50),
+                          child: Image(image: AssetImage('assets/f2_international.jpg'), width: 350,),
+                        );
+                      }
+                    }
                 ),
                 const Center(
                     child: Padding(
@@ -216,11 +260,31 @@ class _F2_second_pageState extends State<F2_second_page> {
 
   void answerCheck(String answer){
     if(answer == "star" || answer == "Star" || answer == "STAR"){
-      Navigator.push(context, MaterialPageRoute(builder: (context) => F2_third_page()));
+      _nextStep();
+      Navigator.pushNamed(context, '3');
     }
     else {
       showErrorMessage(context);
     }
+  }
+
+  late Future<void> _calculation = Future<void>.delayed(Duration(seconds: 1), (){},);
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  late Future<int> _playerStep;
+
+  Future<void> _nextStep() async{
+    final SharedPreferences prefs = await _prefs;
+
+    setState(() {
+      _playerStep = prefs.setInt('f2step', 3).then((bool success)
+      { return 3;});
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _playerStep = _prefs.then((SharedPreferences prefs) => prefs.getInt('f2step') ?? 2);
   }
 
   @override
@@ -230,17 +294,41 @@ class _F2_second_pageState extends State<F2_second_page> {
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Text('2층', style: TextStyle(fontSize: 20),),
+        leading: FutureBuilder(
+          future: _playerStep,
+          builder: (BuildContext context, AsyncSnapshot<int> snapshot){
+            if (snapshot.connectionState != ConnectionState.done) {
+              return const CircularProgressIndicator();
+            }
+            else {
+              return Center(child: Text(
+                '${snapshot.data}/5', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),)
+              );
+            }
+          }),
         centerTitle: true,
+        actions: [IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
+            MyApp())), icon: Icon(Icons.home))],
       ),
       body: Center(
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                const Padding(
-                  padding: EdgeInsets.fromLTRB(10, 50, 10, 50),
-                  child: Image(image: AssetImage('assets/f2_domestic.jpg'), width: 350,),
-                  ),
+                FutureBuilder<void>(
+                    future: _calculation,
+                    builder: (BuildContext context, AsyncSnapshot<void> snapshot){
+                      if(snapshot.connectionState != ConnectionState.done){
+                        return Center(child: CircularProgressIndicator(color: Colors.lightGreenAccent,));
+                      }
+                      else{
+                        return const Padding(
+                          padding: EdgeInsets.fromLTRB(10, 50, 10, 50),
+                          child: Image(image: AssetImage('assets/f2_domestic.jpg'), width: 350,),
+                        );
+                      }
+                    }
+                ),
                 const Center(
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(10,50,20,100),
@@ -274,7 +362,6 @@ class _F2_second_pageState extends State<F2_second_page> {
                       ),
                     )
                 ),
-
                 Container(
                     decoration: BoxDecoration(
                         border: Border.all(color: Colors.white, width: 5),
@@ -377,11 +464,52 @@ class _F2_third_pageState extends State<F2_third_page> {
 
   void answerCheck(String answer){
     if(answer == "i can do pray" || answer == "I CAN DO PRAY" || answer ==  "I can do pray"){
-      Navigator.push(context, MaterialPageRoute(builder: (context) => F2_fourth_page()));
+      _nextStep();
+      Navigator.pushNamed(context, '4');
     }
     else {
       showErrorMessage(context);
     }
+  }
+
+  late Future<void> _calculation = Future<void>.delayed(Duration(seconds: 0), (){},);
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  late Future<int> _playerStep;
+
+  Future<void> _nextStep() async{
+    final SharedPreferences prefs = await _prefs;
+
+    setState(() {
+      _playerStep = prefs.setInt('f2step', 4).then((bool success)
+      { return 4;});
+    });
+  }
+
+  int touchCount = 0;
+  double starSize = 50.0;
+
+  Future<void> pushStar() async{
+    touchCount++;
+
+    setState(() {
+      if(starSize < 150){
+        starSize += 10;
+      }
+      if(touchCount == 10){
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('다음 장소가 나타났다.'),
+            duration: Duration(seconds: 1),
+          ),
+        );
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _playerStep = _prefs.then((SharedPreferences prefs) => prefs.getInt('f2step') ?? 2);
   }
 
   @override
@@ -391,145 +519,187 @@ class _F2_third_pageState extends State<F2_third_page> {
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Text('2층', style: TextStyle(fontSize: 20),),
+        leading: FutureBuilder(
+          future: _playerStep,
+          builder: (BuildContext context, AsyncSnapshot<int> snapshot){
+            if (snapshot.connectionState != ConnectionState.done) {
+              return const CircularProgressIndicator();
+            }
+            else {
+              return Center(child: Text(
+                '${snapshot.data}/5', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),)
+              );
+            }
+          }),
         centerTitle: true,
+        actions: [IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
+            MyApp())), icon: Icon(Icons.home))],
       ),
       body: Center(
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                const Center(
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(10,50,20,100),
-                      child: Column(
-                          children: [
-                            Text('뭐라고 할지 대기해'),
-                          ]
-                      ),
-                    )
+                Padding(
+                  padding: EdgeInsets.all(50),
+                  child: IconButton(onPressed: () => touchCount == 10 ? null : pushStar(), icon: Icon(Icons.star), color: Colors.yellowAccent, iconSize: starSize,),
                 ),
-                const Center(
-                    child: Padding(
-                        padding: EdgeInsets.fromLTRB(10,300,10,250),
-                        child: Column(
-                          children: [
-                            Text('다음 장소는'),
-                            Text(' '),
-                            Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text('벧엘홀', style: TextStyle(color: Colors.yellow, fontWeight: FontWeight.bold)),
-                                  Text('이야.'),]
-                            ),
-                          ],
-                        )
-                    )
-                ),
-                const Image(
-                  image: AssetImage('assets/f2_baetel.jpg'),
-                ),
-                const Center(
-                    child: Padding(
-                        padding: EdgeInsets.fromLTRB(10,50,10,50),
-                        child: Column(
-                          children: [
-                            Text('이곳은 주일에'),
-                            Text('통합유아부와 유아부 어린이가'),
-                            Text('예배드리는 곳이야.'),
-                            Text(' '),
-                            Text('그리고 큰 거울이 있어서'),
-                            Text('워십을 하는 사람들이'),
-                            Text('이곳에서 연습을 많이 해.'),
-                            Text(' '),
-                            Text('그러고 보니 우리 청년부에도'),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text('솔라C', style: TextStyle(color: Colors.yellow)),
-                                Text('라는 '),
-                                Text('CCD', style: TextStyle(color: Colors.yellow)),
-                                Text('팀이 있는데'),
-                              ]
-                            ),
-                            Text('알고있었니?'),
-                            Text(' '),
-                            Text('관심있는 친구들은'),
-                            Text('솔라C 팀장님에게 연락하기~'),
-                          ],
-                        )
-                    )
-                ),
-                Container(
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.white, width: 5),
-                        borderRadius: BorderRadius.all(Radius.circular(20.0))),
-                    margin: EdgeInsets.fromLTRB(20,50,20,10),
-                    padding: EdgeInsets.all(10),
-                    child: const Column(
-                      children: [
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                Text( touchCount == 10 ? '별이 길을 알려줬어!' : '별을 터치해봐!'),
+                 FutureBuilder<void>(
+                    future: _calculation,
+                    builder: (BuildContext context, AsyncSnapshot<void> snapshot){
+                      if(snapshot.connectionState != ConnectionState.done){
+                        return Center(child: CircularProgressIndicator(color: Colors.lightGreenAccent,));
+                      }
+                      else{
+                        if(touchCount == 10){
+                          return Column(
                             children: [
-                              Text('단서', style: TextStyle(color: Colors.yellow)),
-                              Text('와 일치하는')]),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text('그림', style: TextStyle(color: Colors.yellow)),
-                              Text('을 이용해서')]),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text('정답', style: TextStyle(color: Colors.yellow)),
-                              Text('을 유추해보자.')]),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text('참고로 정답은 '),
-                              Text('문장', style: TextStyle(color: Colors.yellow)),
-                              Text('이야!')]),
-                      ],
-                    )
+                              const Center(
+                                  child: Padding(
+                                      padding: EdgeInsets.fromLTRB(10,300,10,250),
+                                      child: Column(
+                                        children: [
+                                          Text('다음 장소는'),
+                                          Text(' '),
+                                          Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Text('벧엘홀', style: TextStyle(color: Colors.yellow, fontWeight: FontWeight.bold)),
+                                                Text('이야.'),]
+                                          ),
+                                        ],
+                                      )
+                                  )
+                              ),
+                              FutureBuilder<void>(
+                                  future: _calculation,
+                                  builder: (BuildContext context, AsyncSnapshot<void> snapshot){
+                                    if(snapshot.connectionState != ConnectionState.done){
+                                      return Center(child: CircularProgressIndicator(color: Colors.lightGreenAccent,));
+                                    }
+                                    else{
+                                      return Image(image: AssetImage('assets/f2_baetel.jpg'),);
+                                    }
+                                  }
+                              ),
+                              const Center(
+                                  child: Padding(
+                                      padding: EdgeInsets.fromLTRB(10,50,10,50),
+                                      child: Column(
+                                        children: [
+                                          Text('이곳은 주일에'),
+                                          Text('통합유아부와 유아부 어린이가'),
+                                          Text('예배드리는 곳이야.'),
+                                          Text(' '),
+                                          Text('그리고 큰 거울이 있어서'),
+                                          Text('워십을 하는 사람들이'),
+                                          Text('이곳에서 연습을 많이 해.'),
+                                          Text(' '),
+                                          Text('그러고 보니 우리 청년부에도'),
+                                          Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Text('솔라C', style: TextStyle(color: Colors.yellow)),
+                                                Text('라는 '),
+                                                Text('CCD', style: TextStyle(color: Colors.yellow)),
+                                                Text('팀이 있는데'),
+                                              ]
+                                          ),
+                                          Text('알고있었니?'),
+                                          Text(' '),
+                                          Text('관심있는 친구들은'),
+                                          Text('솔라C 팀장님에게 연락하기~'),
+                                        ],
+                                      )
+                                  )
+                              ),
+                              Container(
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.white, width: 5),
+                                      borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                                  margin: EdgeInsets.fromLTRB(20,50,20,10),
+                                  padding: EdgeInsets.all(10),
+                                  child: const Column(
+                                    children: [
+                                      Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Text('단서', style: TextStyle(color: Colors.yellow)),
+                                            Text('와 일치하는')]),
+                                      Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Text('그림', style: TextStyle(color: Colors.yellow)),
+                                            Text('을 찾아 비교하며')]),
+                                      Text('동그라미로 감싸진', style: TextStyle(color: Colors.yellow)),
+                                      Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Text('번호', style: TextStyle(color: Colors.yellow)),
+                                            Text('를'),
+                                            Text('순서대로', style: TextStyle(color: Colors.yellow)),
+                                            Text(' 나열하여')]),
+                                      Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Text('문장', style: TextStyle(color: Colors.yellow)),
+                                            Text('을 만들어보자.')]),
+                                      Text('"."은 생략해.', style: TextStyle(color: Colors.yellow)),
+                                    ],
+                                  )
+                              ),
+                              Container(
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.purple, width: 5),
+                                      borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                                  margin: EdgeInsets.all(10),
+                                  padding: EdgeInsets.all(10),
+                                  child: const Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text('단 서', style: TextStyle(color: Colors.yellow, fontSize: 30)),
+                                      Text(' '),
+                                      Image(image: AssetImage('assets/f2_recycle.png'),)
+                                    ],
+                                  )
+                              ),
+                              Container(
+                                  width: 320,
+                                  padding: EdgeInsets.all(10),
+                                  child: TextField(
+                                    textAlign: TextAlign.center,
+                                    decoration: const InputDecoration(
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(color: Colors.white, width: 1.0),
+                                        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                                      ),
+                                    ),
+                                    onChanged: (text){txtAnswer = text;},
+                                  )
+                              ),
+                              Container(
+                                padding: EdgeInsets.all(20),
+                                width: 300, height: 100,
+                                child: ElevatedButton(onPressed: (){answerCheck(txtAnswer);},
+                                  style: ElevatedButton.styleFrom(backgroundColor: Colors.purple[800]),
+                                  child: Text('확인'),
+                                ),
+                              ),
+                            ],
+                          );
+                        }
+                        else{
+                          return Padding(
+                            padding: EdgeInsets.all(50),
+                            child: CircularProgressIndicator(color: Colors.lightGreenAccent, strokeWidth: 10,),
+                          );
+                        }
+                      }
+                    }
                 ),
-                Container(
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.purple, width: 5),
-                        borderRadius: BorderRadius.all(Radius.circular(20.0))),
-                    margin: EdgeInsets.all(10),
-                    padding: EdgeInsets.all(10),
-                    child: const Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text('단 서', style: TextStyle(color: Colors.yellow, fontSize: 30)),
-                        Text(' '),
-                        Image(image: AssetImage('assets/f2_recycle.png'),)
-                      ],
-                    )
-                ),
-                Container(
-                    width: 320,
-                    padding: EdgeInsets.all(10),
-                    child: TextField(
-                      textAlign: TextAlign.center,
-                      decoration: const InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white, width: 1.0),
-                          borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                        ),
-                      ),
-                      onChanged: (text){txtAnswer = text;},
-                    )
-                ),
-                Container(
-                  padding: EdgeInsets.all(20),
-                  width: 300, height: 100,
-                  child: ElevatedButton(onPressed: (){answerCheck(txtAnswer);},
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.purple[800]),
-                    child: Text('확인'),
-                  ),
-                ),
-              ],
-            ),
+               ],
+             ),
           )
       ),
     );
@@ -549,11 +719,31 @@ class _F2_fourth_pageState extends State<F2_fourth_page> {
 
   void answerCheck(String answer){
     if(answer == "해리"){
-      Navigator.push(context, MaterialPageRoute(builder: (context) => F2_fifth_page()));
+      _nextStep();
+      Navigator.pushNamed(context, '5');
     }
     else {
       showErrorMessage(context);
     }
+  }
+
+  late Future<void> _calculation = Future<void>.delayed(Duration(seconds: 0), (){},);
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  late Future<int> _playerStep;
+
+  Future<void> _nextStep() async{
+    final SharedPreferences prefs = await _prefs;
+
+    setState(() {
+      _playerStep = prefs.setInt('f2step', 5).then((bool success)
+      { return 5;});
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _playerStep = _prefs.then((SharedPreferences prefs) => prefs.getInt('f2step') ?? 2);
   }
 
   @override
@@ -563,10 +753,21 @@ class _F2_fourth_pageState extends State<F2_fourth_page> {
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Text('2층', style: TextStyle(fontSize: 20),),
-        leading: IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-        const MyApp())),
-          icon: const Icon(Icons.arrow_back),),
+        leading: FutureBuilder(
+            future: _playerStep,
+            builder: (BuildContext context, AsyncSnapshot<int> snapshot){
+              if (snapshot.connectionState != ConnectionState.done) {
+                return const CircularProgressIndicator();
+              }
+              else {
+                return Center(child: Text(
+                  '${snapshot.data}/5', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),)
+                );
+              }
+            }),
         centerTitle: true,
+        actions: [IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
+            MyApp())), icon: Icon(Icons.home))],
       ),
       body: Center(
           child: SingleChildScrollView(
@@ -625,8 +826,16 @@ class _F2_fourth_pageState extends State<F2_fourth_page> {
                         )
                     )
                 ),
-                const Image(
-                  image: AssetImage('assets/f2_taka.jpg'),
+                FutureBuilder<void>(
+                    future: _calculation,
+                    builder: (BuildContext context, AsyncSnapshot<void> snapshot){
+                      if(snapshot.connectionState != ConnectionState.done){
+                        return Center(child: CircularProgressIndicator(color: Colors.lightGreenAccent,));
+                      }
+                      else{
+                        return Image(image: AssetImage('assets/f2_taka.jpg'),);
+                      }
+                    }
                 ),
                 const Center(
                     child: Padding(
@@ -758,11 +967,37 @@ class _F2_fifth_pageState extends State<F2_fifth_page> {
 
   void answerCheck(String answer){
     if(answer == "GO" || answer == "Go" || answer == "go"){
-      Navigator.push(context, MaterialPageRoute(builder: (context) => F2_final_page()));
+      _nextStep();
+      Navigator.pushNamed(context, '6');
     }
     else {
       showErrorMessage(context);
     }
+  }
+
+  late Future<void> _calculation = Future<void>.delayed(Duration(seconds: 0), (){},);
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  late Future<int> _playerStep;
+  late Future<int> _playerFloor;
+
+  Future<void> _nextStep() async{
+    final SharedPreferences prefs = await _prefs;
+    int playerFloor = (prefs.getInt('floor') ?? 2);
+
+    setState(() {
+      if (playerFloor == 2) {
+        prefs.setInt('f1step', 6);
+        _playerFloor = prefs.setInt('floor', 3).then((bool success) {
+          return 3;
+        });
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _playerStep = _prefs.then((SharedPreferences prefs) => prefs.getInt('f2step') ?? 2);
   }
 
   @override
@@ -772,10 +1007,21 @@ class _F2_fifth_pageState extends State<F2_fifth_page> {
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Text('2층', style: TextStyle(fontSize: 20),),
-        leading: IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-        const MyApp())),
-          icon: const Icon(Icons.arrow_back),),
+        leading: FutureBuilder(
+          future: _playerStep,
+          builder: (BuildContext context, AsyncSnapshot<int> snapshot){
+            if (snapshot.connectionState != ConnectionState.done) {
+              return const CircularProgressIndicator();
+            }
+            else {
+              return Center(child: Text(
+                '${snapshot.data}/5', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),)
+              );
+            }
+          }),
         centerTitle: true,
+        actions: [IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
+            MyApp())), icon: Icon(Icons.home))],
       ),
       body: Center(
           child: SingleChildScrollView(
@@ -794,9 +1040,19 @@ class _F2_fifth_pageState extends State<F2_fifth_page> {
                       ]
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.fromLTRB(10,200,10,100),
-                  child: Image(image: AssetImage('assets/f2_babymom.jpg'), width: 350,),
+                FutureBuilder<void>(
+                    future: _calculation,
+                    builder: (BuildContext context, AsyncSnapshot<void> snapshot){
+                      if(snapshot.connectionState != ConnectionState.done){
+                        return Center(child: CircularProgressIndicator(color: Colors.lightGreenAccent,));
+                      }
+                      else{
+                        return Padding(
+                          padding: EdgeInsets.fromLTRB(10,200,10,100),
+                          child: Image(image: AssetImage('assets/f2_babymom.jpg'), width: 350,),
+                        );
+                      }
+                    }
                 ),
                 const Center(
                     child: Padding(
@@ -885,6 +1141,8 @@ class _F2_final_pageState extends State<F2_final_page> {
     Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage()));
   }
 
+  late Future<void> _calculation = Future<void>.delayed(Duration(seconds: 1), (){},);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -892,10 +1150,9 @@ class _F2_final_pageState extends State<F2_final_page> {
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Text('2층', style: TextStyle(fontSize: 20),),
-        leading: IconButton(onPressed: () =>
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-            const MyApp())),
-          icon: const Icon(Icons.arrow_back),),
+        leading: Icon(Icons.check, color: Colors.lightGreenAccent,),
+        actions: [IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
+            MyApp())), icon: Icon(Icons.home))],
         centerTitle: true,
       ),
       body: Center(
@@ -911,7 +1168,7 @@ class _F2_final_pageState extends State<F2_final_page> {
                   padding: EdgeInsets.all(30),
                   child: Text('2층 Mission Clear!', style: TextStyle(color: Colors.cyanAccent),),
                 ),
-                const Padding(
+                Padding(
                     padding: EdgeInsets.fromLTRB(10,50,10,50),
                     child: Column(
                       children: [
@@ -931,9 +1188,18 @@ class _F2_final_pageState extends State<F2_final_page> {
                               Text('GO', style: TextStyle(color: Colors.cyanAccent)),
                               Text('!'),]
                         ),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(10,100,10,50),
-                          child: Image(image: AssetImage('assets/f3_picture.jpg'), width: 300,),
+                        FutureBuilder<void>(
+                          future: _calculation,
+                          builder: (BuildContext context, AsyncSnapshot<void> snapshot){
+                            if(snapshot.connectionState != ConnectionState.done){
+                              return Center(child: CircularProgressIndicator(color: Colors.lightGreenAccent,));
+                            }
+                            else{
+                              return Padding(
+                                padding: EdgeInsets.fromLTRB(10,100,10,50),
+                                child: Image(image: AssetImage('assets/f3_picture.jpg'), width: 300,));
+                            }
+                          }
                         ),
                         Text('위 그림이 있는 곳으로 가자!'),
                       ],)

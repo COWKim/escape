@@ -101,6 +101,15 @@ flutter:
      - assets/f2_babymom.jpg
   # 3 floor
      - assets/f3_picture.jpg
+     - assets/f3_son.jpg
+     - assets/f3_envelope.PNG
+     - assets/f3_envelopes.jpg
+     - assets/f3_clock.jpg
+     - assets/f3_pass.jpg
+     - assets/f3_3.PNG
+     - assets/f3_2.PNG
+     - assets/f3_7.PNG
+     - assets/f3_8.PNG
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

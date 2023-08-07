@@ -1,25 +1,39 @@
 import 'package:escape/main.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
-  runApp(const MyB1_page());
-}
+
 
 class MyB1_page extends StatelessWidget {
-  const MyB1_page({super.key});
+  MyB1_page({super.key, required this.route});
+
+  final String route;
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      builder: (context, child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(textScaleFactor: 1.3),
+          child: child!,
+        );
+      },
       title: 'YKD ESCAPE - B1층',
       theme: Theme.of(context).copyWith(
         textTheme: Theme.of(context).textTheme.apply(
           bodyColor: Colors.white,
-          fontSizeDelta: 4,
         )
       ),
-      home: B1_page(title: 'B1층'),
+      //home: B1_first_page(),
+      initialRoute: route,
+      routes: {
+        '1' : (context) => B1_first_page(),
+        '2' : (context) => B1_second_page(),
+        '3' : (context) => B1_third_page(),
+        '4' : (context) => B1_fourth_page(),
+        '5' : (context) => B1_final_page(),
+      }
     );
   }
 }
@@ -34,28 +48,48 @@ Future showErrorMessage(BuildContext context) async{
 }
 
 // ㅡㅡㅡㅡㅡ 소그룹실 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-class B1_page extends StatefulWidget {
-  const B1_page({super.key, required this.title});
-
-  final String title;
+class B1_first_page extends StatefulWidget {
+  const B1_first_page({super.key});
 
   @override
-  State<B1_page> createState() => _B1_pageState();
+  State<B1_first_page> createState() => _B1_first_pageState();
 }
 
-class _B1_pageState extends State<B1_page> {
+class _B1_first_pageState extends State<B1_first_page> {
   String txtSogroup1 = "";
   String txtSogroup2 = "";
 
   void answerSogroup(String firstAns, String secondAns){
     if(firstAns == "정숙" && secondAns == "분리수거"){
-      Navigator.push(context, MaterialPageRoute(builder: (context) => B1_second_page()));
+      _nextStep();
+      Navigator.pushNamed(context, '2');
     }
     else {
      showErrorMessage(context);
     }
 
-  //   Navigator.push(context, MaterialPageRoute(builder: (context) => B1_fourth_page()));
+    //Navigator.push(context, MaterialPageRoute(builder: (context) => B1_final_page()));
+  }
+
+  late Future<void> _calculation = Future<void>.delayed(
+    Duration(seconds: 1), (){},);
+
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  late Future<int> _playerStep;
+
+  Future<void> _nextStep() async{
+    final SharedPreferences prefs = await _prefs;
+
+    setState(() {
+      _playerStep = prefs.setInt('b1step', 2).then((bool success)
+      { return 2;});
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _playerStep = _prefs.then((SharedPreferences prefs) => prefs.getInt('b1step') ?? 1);
   }
 
   @override
@@ -64,21 +98,47 @@ class _B1_pageState extends State<B1_page> {
       backgroundColor: Colors.black87,
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: Text(widget.title, style: TextStyle(fontSize: 20),),
-        leading: IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-                const MyApp())),
-          icon: const Icon(Icons.arrow_back),),
+        title: const Text('B1층', style: TextStyle(fontSize: 20),),
+        leading: FutureBuilder(
+            future: _playerStep,
+            builder: (BuildContext context, AsyncSnapshot<int> snapshot){
+              if (snapshot.connectionState != ConnectionState.done) {
+                return const CircularProgressIndicator();
+              }
+              else {
+                return Center(child: Text(
+                  '${snapshot.data}/4', style: TextStyle(fontSize: 16),)
+                );
+              }
+            }),
         centerTitle: true,
+        actions: [IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
+        MyApp())), icon: Icon(Icons.home))],
       ),
       body: Center(
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                const Image(
-                  image: AssetImage('assets/b1_sogroup.jpg'),
-                  color: Colors.black38,
-                  colorBlendMode: BlendMode.darken,
+                FutureBuilder<void>(
+                    future: _calculation,
+                    builder: (BuildContext context, AsyncSnapshot<void> snapshot){
+                      if(snapshot.connectionState != ConnectionState.done){
+                        return Center(child: CircularProgressIndicator(color: Colors.lightGreenAccent,));
+                      }
+                      else{
+                        if(snapshot.hasError){
+                          return Center(child: CircularProgressIndicator(color: Colors.lightGreenAccent,));
+                        }
+                        else{
+                          return const Image(
+                          image: AssetImage('assets/b1_sogroup.jpg'),
+                          color: Colors.black38,
+                          colorBlendMode: BlendMode.darken,
+                          );
+                        }
+                      }
+                    }
                 ),
                 const Center(
                   child: Padding(
@@ -86,13 +146,13 @@ class _B1_pageState extends State<B1_page> {
                     child: Column(
 //                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('먼저 이곳으로 가보자!',),
+                      Text('먼저 소그룹실로 가보자!',),
                       Text(' '),
-                      Text('여긴 성도들의 모임을 위한 장소 같아.'),
+                      Text('여긴 성도들의 모임을 위한 장소야.'),
+                      Text('이곳을 사용하려면 '),
                       Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('이곳을 사용하려면 '),
                             Text('기준', style: TextStyle(color: Colors.yellow)),
                             Text('을 준수해야 하는데...')]),
                       ],
@@ -105,7 +165,12 @@ class _B1_pageState extends State<B1_page> {
                       borderRadius: BorderRadius.all(Radius.circular(20.0))),
                   margin: EdgeInsets.all(30),
                   padding: EdgeInsets.all(20),
-                  child: Text('어떤 기준이 있을까?'),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('어떤 '),
+                        Text('기준', style: TextStyle(color: Colors.yellow)),
+                        Text('들이 있을까?')]),
                 ),
                 SizedBox(
                   width: 300,
@@ -126,7 +191,7 @@ class _B1_pageState extends State<B1_page> {
                           onChanged: (text){txtSogroup1 = text;},
                         )
                       ),
-                      Padding(
+                      const Padding(
                           padding: EdgeInsets.fromLTRB(10,0,10,25),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -181,12 +246,35 @@ class _B1_second_pageState extends State<B1_second_page> {
 
   void answerNongin(String answer){
      if(answer == "403"){
-        Navigator.push(context, MaterialPageRoute(builder: (context) => B1_third_page()));
+       _nextStep();
+       Navigator.pushNamed(context, '3');
       }
      else {
         showErrorMessage(context);
      }
   }
+
+  late Future<void> _calculation = Future<void>.delayed(
+    Duration(seconds: 0), (){},);
+
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  late Future<int> _playerStep;
+
+  Future<void> _nextStep() async{
+    final SharedPreferences prefs = await _prefs;
+
+    setState(() {
+      _playerStep = prefs.setInt('b1step', 3).then((bool success)
+      { return 3;});
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _playerStep = _prefs.then((SharedPreferences prefs) => prefs.getInt('b1step') ?? 2);
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -195,10 +283,21 @@ class _B1_second_pageState extends State<B1_second_page> {
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Text('B1층', style: TextStyle(fontSize: 20),),
-        leading: IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-        const MyApp())),
-          icon: const Icon(Icons.arrow_back),),
+        leading: FutureBuilder(
+            future: _playerStep,
+            builder: (BuildContext context, AsyncSnapshot<int> snapshot){
+              if (snapshot.connectionState != ConnectionState.done) {
+                return const CircularProgressIndicator();
+              }
+              else {
+                return Center(child: Text(
+                  '${snapshot.data}/4', style: TextStyle(fontSize: 16),)
+                );
+              }
+            }),
         centerTitle: true,
+        actions: [IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
+            MyApp())), icon: Icon(Icons.home))],
       ),
       body: Center(
           child: SingleChildScrollView(
@@ -217,7 +316,7 @@ class _B1_second_pageState extends State<B1_second_page> {
                               Text('을 사용하려면')]),
                           Text('정숙하고!', style: TextStyle(color: Colors.yellow)),
                           Text('이단 모임도 금하며!', style: TextStyle(color: Colors.yellow)),
-                          Text('뒷정리도 깔끔하게 해야하는구나!', style: TextStyle(color: Colors.yellow)),
+                          Text('뒷정리도 깔끔하게 해야돼!', style: TextStyle(color: Colors.yellow)),
                           Text(' '),
                           Text('YKD 청년부로써 꼭 명심하자!'),
                         ],
@@ -240,15 +339,29 @@ class _B1_second_pageState extends State<B1_second_page> {
                       ),
                     )
                 ),
-                const Image(image: AssetImage('assets/b1_nongin.png'),),
+                FutureBuilder<void>(
+                    future: _calculation,
+                    builder: (BuildContext context, AsyncSnapshot<void> snapshot){
+                      if(snapshot.connectionState != ConnectionState.done){
+                        return Center(child: CircularProgressIndicator(color: Colors.lightGreenAccent,));
+                      }
+                      else{
+                        return const Image(image: AssetImage('assets/b1_nongin.png'),);
+                      }
+                    }
+                ),
                 const Padding(
                       padding: EdgeInsets.fromLTRB(10,50,10,50),
                       child: Column(
                         children: [
-                          Text('이곳은 농인분들을 위한 예배실인가봐.'),
-                          Text('정말 꼭꼭 숨겨져있네.'),
+                          Text('이곳은 농인분들을 위한 예배실이야.'),
+                          Text('수화로 함께 찬양하고 예배드리지.'),
+                          Text(''),
+                          Text('그건 그렇고'),
+                          Text('정말 꼭꼭 숨겨져있네..'),
+                          Text(''),
                           Text('나중에 농인분들께 예배실 위치를'),
-                          Text('알려드릴 수 있겠다!'),
+                          Text('알려드릴 수 있을 것 같아!'),
                         ],)
                 ),
                 Container(
@@ -265,7 +378,14 @@ class _B1_second_pageState extends State<B1_second_page> {
                             Text('문에 붙어있는 '),
                             Text('표지', style: TextStyle(color: Colors.yellow)),
                             Text('를 이용해')]),
-                      Text('문제를 풀어보자.')
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('번호', style: TextStyle(color: Colors.yellow)),
+                            Text('가 '),
+                            Text('가리키는 것', style: TextStyle(color: Colors.yellow)),
+                            Text('을')]),
+                      Text('순서대로 나열해보자.')
                     ],
                   )
                 ),
@@ -315,11 +435,33 @@ class _B1_third_pageState extends State<B1_third_page> {
 
   void answerNongin(String answer){
     if(answer == "스불론"){
-      Navigator.push(context, MaterialPageRoute(builder: (context) => B1_fourth_page()));
+      _nextStep();
+      Navigator.pushNamed(context, '4');
     }
     else {
       showErrorMessage(context);
     }
+  }
+
+  late Future<void> _calculation = Future<void>.delayed(
+    Duration(seconds: 0), (){},);
+
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  late Future<int> _playerStep;
+
+  Future<void> _nextStep() async{
+    final SharedPreferences prefs = await _prefs;
+
+    setState(() {
+      _playerStep = prefs.setInt('b1step', 4).then((bool success)
+      { return 4;});
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _playerStep = _prefs.then((SharedPreferences prefs) => prefs.getInt('b1step') ?? 3);
   }
 
   @override
@@ -329,10 +471,21 @@ class _B1_third_pageState extends State<B1_third_page> {
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Text('B1층', style: TextStyle(fontSize: 20),),
-        leading: IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-        const MyApp())),
-          icon: const Icon(Icons.arrow_back),),
+        leading: FutureBuilder(
+            future: _playerStep,
+            builder: (BuildContext context, AsyncSnapshot<int> snapshot){
+              if (snapshot.connectionState != ConnectionState.done) {
+                return const CircularProgressIndicator();
+              }
+              else {
+                return Center(child: Text(
+                  '${snapshot.data}/4', style: TextStyle(fontSize: 16),)
+                );
+              }
+            }),
         centerTitle: true,
+        actions: [IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
+            MyApp())), icon: Icon(Icons.home))],
       ),
       body: Center(
           child: SingleChildScrollView(
@@ -452,7 +605,12 @@ class _B1_third_pageState extends State<B1_third_page> {
                           Text('과 '),
                           Text('단서', style: TextStyle(color: Colors.yellow)),
                           Text('를 이용해')]),
-                      Text('정답을 유추해보자.')
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('어떤 방', style: TextStyle(color: Colors.yellow)),
+                            Text('을 가리키는지')]),
+                      Text('유추해보자.'),
                     ],
                   )
                 ),
@@ -478,7 +636,7 @@ class _B1_third_pageState extends State<B1_third_page> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Flexible(
-                                child: Text('2. .유다와 사이가 좋지 않아 붙어있는 걸 싫어한다.'))]),
+                                child: Text('2. 유다와 사이가 좋지 않아 붙어있는 걸 싫어한다.'))]),
                       Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -532,12 +690,41 @@ class _B1_fourth_pageState extends State<B1_fourth_page> {
   String txtTakgoo = "";
 
   void answerCheck(String answer){
-    if(answer == "1056"){
-      Navigator.push(context, MaterialPageRoute(builder: (context) => B1_final_page()));
+    if(answer == "768"){
+      _nextFloor();
+      Navigator.pushNamed(context, '5');
     }
     else {
       showErrorMessage(context);
     }
+  }
+
+  late Future<void> _calculation = Future<void>.delayed(
+    Duration(seconds: 0), (){},);
+
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  late Future<int> _playerStep;
+  late Future<int> _playerFloor;
+
+  Future<void> _nextFloor() async {
+    final SharedPreferences prefs = await _prefs;
+    int playerFloor = (prefs.getInt('floor') ?? 0) + 1;
+
+    setState(() {
+      prefs.setInt('b1step', 5);
+      if (playerFloor == 1) {
+        _playerFloor = prefs.setInt('floor', playerFloor).then((bool success) {
+          return playerFloor;
+        });
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _playerStep = _prefs.then((SharedPreferences prefs) => prefs.getInt('b1step') ?? 4);
+    _playerFloor = _prefs.then((SharedPreferences prefs) => prefs.getInt('floor') ?? 0);
   }
 
   @override
@@ -547,10 +734,21 @@ class _B1_fourth_pageState extends State<B1_fourth_page> {
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Text('B1층', style: TextStyle(fontSize: 20),),
-        leading: IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-        const MyApp())),
-          icon: const Icon(Icons.arrow_back),),
+        leading: FutureBuilder(
+            future: _playerStep,
+            builder: (BuildContext context, AsyncSnapshot<int> snapshot){
+              if (snapshot.connectionState != ConnectionState.done) {
+                return const CircularProgressIndicator();
+              }
+              else {
+                return Center(child: Text(
+                  '${snapshot.data}/4', style: TextStyle(fontSize: 16),)
+                );
+              }
+            }),
         centerTitle: true,
+        actions: [IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
+            MyApp())), icon: Icon(Icons.home))],
       ),
       body: Center(
           child: SingleChildScrollView(
@@ -613,9 +811,19 @@ class _B1_fourth_pageState extends State<B1_fourth_page> {
                     )
                   )
                 ),
-                const ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(180)),
-                  child: Image(image: AssetImage('assets/b1_takgooload.jpg'), width: 300,),
+                FutureBuilder<void>(
+                    future: _calculation,
+                    builder: (BuildContext context, AsyncSnapshot<void> snapshot){
+                      if(snapshot.connectionState != ConnectionState.done){
+                        return Center(child: CircularProgressIndicator(color: Colors.lightGreenAccent,));
+                      }
+                      else{
+                        return const ClipRRect(
+                          borderRadius: BorderRadius.all(Radius.circular(180)),
+                          child: Image(image: AssetImage('assets/b1_takgooload.jpg'), width: 300,),
+                        );
+                      }
+                    }
                 ),
                 const Padding(
                     padding: EdgeInsets.fromLTRB(10,100,10,100),
@@ -636,8 +844,17 @@ class _B1_fourth_pageState extends State<B1_fourth_page> {
                         Text('나중에 탁구 한판 어때?')
                       ],)
                 ),
-                const Image(
-                  image: AssetImage('assets/b1_takgoo.jpg'),
+                FutureBuilder<void>(
+                    future: _calculation,
+                    builder: (BuildContext context, AsyncSnapshot<void> snapshot){
+                      if(snapshot.connectionState != ConnectionState.done){
+                        return Center(child: CircularProgressIndicator(color: Colors.lightGreenAccent,));
+                      }
+                      else{
+                        return const Image(
+                          image: AssetImage('assets/b1_takgoo.jpg'));
+                      }
+                    }
                 ),
                 Container(
                     decoration: BoxDecoration(
@@ -650,16 +867,21 @@ class _B1_fourth_pageState extends State<B1_fourth_page> {
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('탁구장 사용규칙', style: TextStyle(color: Colors.yellow)),
-                              Text('에서')]),
+                              Text('탁구장 사용규칙 표지', style: TextStyle(color: Colors.yellow)),
+                              Text('에')]),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('나오는 '),
-                            Text('숫자', style: TextStyle(color: Colors.yellow)),
+                            Text('숫자', style: TextStyle(color: Colors.yellow, fontWeight: FontWeight.bold)),
                             Text('들을 '),
-                            Text('모두', style: TextStyle(color: Colors.yellow)),]),
-                        Text('이용해서 식을 통해'),
+                            Text('모두', style: TextStyle(color: Colors.yellow)),
+                            Text(' 찾고'),]),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('아래 '),
+                              Text('수식', style: TextStyle(color: Colors.yellow)),
+                              Text('에 대입하여'),]),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -670,42 +892,61 @@ class _B1_fourth_pageState extends State<B1_fourth_page> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text('요일별 개방시간', style: TextStyle(color: Colors.redAccent)),
-                              Text(' 표는')]),
-                        Text('이용하지 않아.'),
+                              Text('은')]),
+                        Text('전부 이용하지 않아.'),
                       ]
                     )
                 ),
                 Container(
-                    width: 350,
                     decoration: BoxDecoration(
                         border: Border.all(color: Colors.purple, width: 5),
                         borderRadius: BorderRadius.all(Radius.circular(20.0))),
                     margin: EdgeInsets.all(30),
-                    padding: EdgeInsets.all(20),
+                    padding: EdgeInsets.all(10),
+                    child: const Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('(1) = 가장 많은 숫자'),
+                        Text('(2) = 두번째로 많은 숫자'),
+                        Text('(3) = 세번째로 많은 숫자'),
+                        Text('(4) = 네번째로 많은 숫자'),],
+                    )
+                ),
+                Container(
+                    width: 300,
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.purple, width: 5),
+                        borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                    margin: EdgeInsets.all(30),
+                    padding: EdgeInsets.all(10),
                     child: const Column(
                       children: [
+                        Padding(
+                            padding: EdgeInsets.fromLTRB(0, 5, 0, 15),
+                            child: Text('수식', style: TextStyle(color: Colors.yellow, fontSize: 20),),),
                         Text("(1) × '(1)의 개수'"),
-                        Text(' × '),
+                        Text('\n × \n'),
                         Text("(2) × '(2)의 개수'"),
-                        Text(' × '),
-                        Text("[(3) + '(3)의 개수']"),
-                        Text(' × '),
-                        Text("'(4)의 개수'"),
+                        Text('\n × \n'),
+                        Text("(3) × '(3)의 개수'"),
+                        Text('\n × \n'),
+                        Text("'(4)의 개수'\n"),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text('= '),
                               Text('?', style: TextStyle(color: Colors.yellow)),]),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(' '),
-                            Text(' '),
-                            Text('(1): 가장 많은 숫자'),
-                            Text('(2): 두번째로 많은 숫자'),
-                            Text('(3): 세번째로 많은 숫자'),
-                            Text('(4): 네번째로 많은 숫자'),],
-                        ),],
+                        // Column(
+                        //   mainAxisAlignment: MainAxisAlignment.start,
+                        //   children: [
+                        //     Text(' '),
+                        //     Text(' '),
+                        //     Text('(1): 가장 많은 숫자'),
+                        //     Text('(2): 두번째로 많은 숫자'),
+                        //     Text('(3): 세번째로 많은 숫자'),
+                        //     Text('(4): 네번째로 많은 숫자'),],
+                        // ),
+                       ],
                     )
                 ),
                 Container(
@@ -713,9 +954,9 @@ class _B1_fourth_pageState extends State<B1_fourth_page> {
                     padding: EdgeInsets.all(10),
                     child: TextField(
                       textAlign: TextAlign.center,
-                      maxLength: 4,
+                      maxLength: 3,
                       decoration: const InputDecoration(
-                        counterStyle: TextStyle(color: Colors.white),
+                        counterText: '',
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.white, width: 1.0),
                           borderRadius: BorderRadius.all(Radius.circular(20.0)),
@@ -751,8 +992,11 @@ class B1_final_page extends StatefulWidget {
 class _B1_final_pageState extends State<B1_final_page> {
 
   void answerCheck(){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => MyApp()));
   }
+
+  late Future<void> _calculation = Future<void>.delayed(
+    Duration(seconds: 0), (){},);
 
   @override
   Widget build(BuildContext context) {
@@ -761,6 +1005,9 @@ class _B1_final_pageState extends State<B1_final_page> {
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Text('B1층', style: TextStyle(fontSize: 20, color: Colors.white),),
+        leading: Icon(Icons.check, color: Colors.lightGreenAccent,),
+        actions: [IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
+            MyApp())), icon: Icon(Icons.home))],
         centerTitle: true,
       ),
       body: Center(
@@ -776,8 +1023,16 @@ class _B1_final_pageState extends State<B1_final_page> {
                   padding: EdgeInsets.all(30),
                   child: Text('B1층 Mission Clear!', style: TextStyle(color: Colors.cyanAccent),),
                 ),
-                const Image(
-                      image: AssetImage('assets/b1_heart.jpg')
+                FutureBuilder<void>(
+                    future: _calculation,
+                    builder: (BuildContext context, AsyncSnapshot<void> snapshot){
+                      if(snapshot.connectionState != ConnectionState.done){
+                        return Center(child: CircularProgressIndicator(color: Colors.lightGreenAccent,));
+                      }
+                      else{
+                        return const Image(image: AssetImage('assets/b1_heart.jpg'));
+                      }
+                    }
                 ),
                 const Padding(
                     padding: EdgeInsets.fromLTRB(10,50,10,50),
@@ -805,7 +1060,7 @@ class _B1_final_pageState extends State<B1_final_page> {
                 Container(
                   padding: EdgeInsets.all(20),
                   width: 300, height: 100,
-                  child: ElevatedButton(onPressed: (){answerCheck();},
+                  child: ElevatedButton(onPressed: () => answerCheck(),
                     style: ElevatedButton.styleFrom(backgroundColor: Colors.purple[800]),
                     child: Text('확인'),
                   ),

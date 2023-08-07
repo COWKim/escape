@@ -1,25 +1,42 @@
 import 'package:escape/main.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
-  runApp(const F1_page());
-}
+// void main() {
+//   runApp(const F1_page());
+// }
 
 class F1_page extends StatelessWidget {
-  const F1_page({super.key});
+  const F1_page({super.key, required this.route});
+
+  final String route;
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      builder: (context, child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(textScaleFactor: 1.3),
+          child: child!,
+        );
+      },
       title: 'YKD ESCAPE - 1층',
       theme: Theme.of(context).copyWith(
           textTheme: Theme.of(context).textTheme.apply(
             bodyColor: Colors.white,
-            fontSizeDelta: 4,
           )
       ),
-      home: F1_first_page(title: '1층'),
+      // home: F1_first_page(title: '1층'),
+        initialRoute: route,
+        routes: {
+          '1' : (context) => F1_first_page(),
+          '2' : (context) => F1_second_page(),
+          '3' : (context) => F1_third_page(),
+          '4' : (context) => F1_fourth_page(),
+          '5' : (context) => F1_fifth_page(),
+          '6' : (context) => F1_final_page(),
+        }
     );
   }
 }
@@ -33,39 +50,50 @@ Future showErrorMessage(BuildContext context) async{
   );
 }
 
-Future answerCheck(String text, String answer, BuildContext context, StatefulWidget page) async{
-  if (text == answer) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => page));
-  }
-  else {
-    showErrorMessage(context);
-  }
-}
-
 // ㅡㅡㅡㅡㅡ 층별 정보판 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 class F1_first_page extends StatefulWidget {
-  const F1_first_page({super.key, required this.title});
-
-  final String title;
+  const F1_first_page({super.key});
 
   @override
   State<F1_first_page> createState() => _F1_first_pageState();
 }
-
-
 
 class _F1_first_pageState extends State<F1_first_page> {
   String txtAnswer = "";
 
   void answerCheck(String answer){
     if(answer == "프리액션 밸브실"){
-      Navigator.push(context, MaterialPageRoute(builder: (context) => F1_second_page()));
+      _nextStep();
+      Navigator.pushNamed(context, '2');
     }
     else {
       showErrorMessage(context);
     }
 
-    //   Navigator.push(context, MaterialPageRoute(builder: (context) => F1_fifth_page()));
+    //  Navigator.push(context, MaterialPageRoute(builder: (context) => F1_final_page()));
+  }
+
+  Future<void> _calculation = Future<void>.delayed(
+    Duration(seconds: 0),
+        (){},
+  );
+
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  late Future<int> _playerStep;
+
+  Future<void> _nextStep() async{
+    final SharedPreferences prefs = await _prefs;
+
+    setState(() {
+      _playerStep = prefs.setInt('f1step', 2).then((bool success)
+      { return 2;});
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _playerStep = _prefs.then((SharedPreferences prefs) => prefs.getInt('f1step') ?? 1);
   }
 
   @override
@@ -74,11 +102,22 @@ class _F1_first_pageState extends State<F1_first_page> {
       backgroundColor: Colors.black87,
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: Text(widget.title, style: TextStyle(fontSize: 20),),
-        leading: IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-            MyApp())),
-          icon: const Icon(Icons.arrow_back),),
+        title: Text('1층', style: TextStyle(fontSize: 20),),
+        leading: FutureBuilder(
+          future: _playerStep,
+          builder: (BuildContext context, AsyncSnapshot<int> snapshot){
+            if (snapshot.connectionState != ConnectionState.done) {
+              return const CircularProgressIndicator();
+            }
+            else {
+              return Center(child: Text(
+                '${snapshot.data}/5', style: TextStyle(fontSize: 16),)
+              );
+            }
+          }),
         centerTitle: true,
+        actions: [IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
+            MyApp())), icon: Icon(Icons.home))],
       ),
       body: Center(
           child: SingleChildScrollView(
@@ -101,9 +140,17 @@ class _F1_first_pageState extends State<F1_first_page> {
                       ),
                     )
                 ),
-                const Image(
-                  image: AssetImage('assets/f1_info.jpg'),
-                  width: 350,
+                FutureBuilder<void>(
+                  future: _calculation,
+                  builder: (BuildContext context, AsyncSnapshot<void> snapshot){
+                    if(snapshot.connectionState != ConnectionState.done){
+                      return Center(child: CircularProgressIndicator(color: Colors.lightGreenAccent,));
+                    }
+                    else{
+                      return Image(
+                    image: AssetImage('assets/f1_info.jpg'), width: 350);
+                    }
+                  }
                 ),
                 const Center(
                     child: Padding(
@@ -128,7 +175,9 @@ class _F1_first_pageState extends State<F1_first_page> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('바로 옆에 보이는 '),
+                              Text('바로 '),
+                              Text('왼편', style: TextStyle(color: Colors.yellow)),
+                              Text('에 보이는 '),
                               Text('장소', style: TextStyle(color: Colors.yellow)),
                               Text('가')]),
                           Text('빠져있는 듯 하다.')],
@@ -198,11 +247,35 @@ class _F1_second_pageState extends State<F1_second_page> {
 
   void answerCheck(String answer){
     if(answer == "창조"){
-      Navigator.push(context, MaterialPageRoute(builder: (context) => F1_third_page()));
+      _nextStep();
+      Navigator.pushNamed(context, '3');
     }
     else {
       showErrorMessage(context);
     }
+  }
+
+  late Future<void> _calculation = Future<void>.delayed(
+    Duration(seconds: 1),
+        (){},
+  );
+
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  late Future<int> _playerStep;
+
+  Future<void> _nextStep() async{
+    final SharedPreferences prefs = await _prefs;
+
+    setState(() {
+      _playerStep = prefs.setInt('f1step', 3).then((bool success)
+      { return 3;});
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _playerStep = _prefs.then((SharedPreferences prefs) => prefs.getInt('f1step') ?? 2);
   }
 
   @override
@@ -212,18 +285,42 @@ class _F1_second_pageState extends State<F1_second_page> {
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Text('1층', style: TextStyle(fontSize: 20),),
+        leading: FutureBuilder(
+            future: _playerStep,
+            builder: (BuildContext context, AsyncSnapshot<int> snapshot){
+              if (snapshot.connectionState != ConnectionState.done) {
+                return const CircularProgressIndicator();
+              }
+              else {
+                return Center(child: Text(
+                  '${snapshot.data}/5', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),)
+                );
+              }
+            }),
         centerTitle: true,
+        actions: [IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
+            MyApp())), icon: Icon(Icons.home))],
       ),
       body: Center(
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                const Padding(
+                Padding(
                   padding: EdgeInsets.fromLTRB(10, 50, 10, 50),
                   child: ClipRRect(
                   borderRadius: BorderRadius.all(Radius.circular(180)),
-                  child: Image(image: AssetImage('assets/f1_belbroom.jpg'), width: 250,),
+                  child: FutureBuilder<void>(
+                      future: _calculation,
+                      builder: (BuildContext context, AsyncSnapshot<void> snapshot){
+                        if(snapshot.connectionState != ConnectionState.done){
+                          return Center(child: CircularProgressIndicator(color: Colors.lightGreenAccent,));
+                        }
+                        else{
+                          return Image(image: AssetImage('assets/f1_belbroom.jpg'), width: 250);
+                        }
+                      }
+                  ),
                 ),),
                 const Center(
                     child: Padding(
@@ -249,7 +346,17 @@ class _F1_second_pageState extends State<F1_second_page> {
                       ),
                     )
                 ),
-                const Image(image: AssetImage('assets/f1_creativezone.jpg'), width: 350,),
+                FutureBuilder<void>(
+                  future: _calculation,
+                  builder: (BuildContext context, AsyncSnapshot<void> snapshot){
+                    if(snapshot.connectionState != ConnectionState.done){
+                      return Center(child: CircularProgressIndicator(color: Colors.lightGreenAccent,));
+                    }
+                    else{
+                      return Image(image: AssetImage('assets/f1_creativezone.jpg'), width: 350);
+                    }
+                  }
+                ),
                 const Center(
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(10,100,10,250),
@@ -286,7 +393,17 @@ class _F1_second_pageState extends State<F1_second_page> {
                       ),
                     )
                 ),
-                const Image(image: AssetImage('assets/f1_weStudio.png'),),
+                FutureBuilder<void>(
+                    future: _calculation,
+                    builder: (BuildContext context, AsyncSnapshot<void> snapshot){
+                      if(snapshot.connectionState != ConnectionState.done){
+                        return Center(child: CircularProgressIndicator(color: Colors.lightGreenAccent,));
+                      }
+                      else{
+                        return Image(image: AssetImage('assets/f1_weStudio.png'));
+                      }
+                    }
+                ),
                 Container(
                     decoration: BoxDecoration(
                         border: Border.all(color: Colors.white, width: 5),
@@ -337,13 +454,13 @@ class _F1_second_pageState extends State<F1_second_page> {
                             children: [
                               Text('영상을 '),
                               Text('편집', style: TextStyle(color: Colors.yellow)),
-                              Text('하고 싶은데'),]),
+                              Text('하고싶다.'),]),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text('(가려진)문구', style: TextStyle(color: Colors.yellow)),
                               Text('를 보아하니'),]),
-                        Text('두 곳을 사용하고 싶은데'),
+                        Text('두 곳이 명시되어 있는데'),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -399,11 +516,32 @@ class _F1_third_pageState extends State<F1_third_page> {
 
   void answerCheck(String answer){
     if(answer == "김찬우"){
-      Navigator.push(context, MaterialPageRoute(builder: (context) => F1_fourth_page()));
+      _nextStep();
+      Navigator.pushNamed(context, '4');
     }
     else {
       showErrorMessage(context);
     }
+  }
+
+  late Future<void> _calculation = Future<void>.delayed(Duration(seconds: 1), (){},);
+
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  late Future<int> _playerStep;
+
+  Future<void> _nextStep() async{
+    final SharedPreferences prefs = await _prefs;
+
+    setState(() {
+      _playerStep = prefs.setInt('f1step', 4).then((bool success)
+      { return 4;});
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _playerStep = _prefs.then((SharedPreferences prefs) => prefs.getInt('f1step') ?? 3);
   }
 
   @override
@@ -413,19 +551,43 @@ class _F1_third_pageState extends State<F1_third_page> {
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Text('1층', style: TextStyle(fontSize: 20),),
+        leading: FutureBuilder(
+            future: _playerStep,
+            builder: (BuildContext context, AsyncSnapshot<int> snapshot){
+              if (snapshot.connectionState != ConnectionState.done) {
+                return const CircularProgressIndicator();
+              }
+              else {
+                return Center(child: Text(
+                  '${snapshot.data}/5', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),)
+                );
+              }
+            }),
         centerTitle: true,
+        actions: [IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
+            MyApp())), icon: Icon(Icons.home))],
       ),
       body: Center(
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                const Center(
+                Center(
                   child: Padding(
                     padding: EdgeInsets.fromLTRB(10,50,20,100),
                     child: Column(
                       children: [
-                        Image(image: AssetImage('assets/f1_create.jpg'), width: 250,),
+                        FutureBuilder<void>(
+                            future: _calculation,
+                            builder: (BuildContext context, AsyncSnapshot<void> snapshot){
+                              if(snapshot.connectionState != ConnectionState.done){
+                                return Center(child: CircularProgressIndicator(color: Colors.lightGreenAccent,));
+                              }
+                              else{
+                                return Image(image: AssetImage('assets/f1_create.jpg'), width: 250,);
+                              }
+                            }
+                        ),
                         Text(' '),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -491,8 +653,16 @@ class _F1_third_pageState extends State<F1_third_page> {
                     )
                   )
                 ),
-                const Image(
-                  image: AssetImage('assets/f1_cabinet.jpg'),
+                FutureBuilder<void>(
+                    future: _calculation,
+                    builder: (BuildContext context, AsyncSnapshot<void> snapshot){
+                      if(snapshot.connectionState != ConnectionState.done){
+                        return Center(child: CircularProgressIndicator(color: Colors.lightGreenAccent,));
+                      }
+                      else{
+                        return Image(image: AssetImage('assets/f1_cabinet.jpg'));
+                      }
+                    }
                 ),
                 Container(
                     decoration: BoxDecoration(
@@ -611,11 +781,35 @@ class _F1_fourth_pageState extends State<F1_fourth_page> {
 
   void answerCheck(String answer){
     if(answer == "4144"){
-      Navigator.push(context, MaterialPageRoute(builder: (context) => F1_fifth_page()));
+      _nextStep();
+      Navigator.pushNamed(context, '5');
     }
     else {
       showErrorMessage(context);
     }
+  }
+
+  late Future<void> _calculation = Future<void>.delayed(
+    Duration(seconds: 0),
+        (){},
+  );
+
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  late Future<int> _playerStep;
+
+  Future<void> _nextStep() async{
+    final SharedPreferences prefs = await _prefs;
+
+    setState(() {
+      _playerStep = prefs.setInt('f1step', 5).then((bool success)
+      { return 5;});
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _playerStep = _prefs.then((SharedPreferences prefs) => prefs.getInt('f1step') ?? 4);
   }
 
   @override
@@ -625,7 +819,21 @@ class _F1_fourth_pageState extends State<F1_fourth_page> {
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Text('1층', style: TextStyle(fontSize: 20),),
+        leading: FutureBuilder(
+          future: _playerStep,
+          builder: (BuildContext context, AsyncSnapshot<int> snapshot){
+            if (snapshot.connectionState != ConnectionState.done) {
+              return const CircularProgressIndicator();
+            }
+            else {
+              return Center(child: Text(
+                '${snapshot.data}/5', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),)
+              );
+            }
+          }),
         centerTitle: true,
+        actions: [IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
+          MyApp())), icon: Icon(Icons.home))],
       ),
       body: Center(
           child: SingleChildScrollView(
@@ -677,8 +885,16 @@ class _F1_fourth_pageState extends State<F1_fourth_page> {
                         )
                     )
                 ),
-                const Image(
-                  image: AssetImage('assets/f1_moon.jpg'),
+                FutureBuilder<void>(
+                    future: _calculation,
+                    builder: (BuildContext context, AsyncSnapshot<void> snapshot){
+                      if(snapshot.connectionState != ConnectionState.done){
+                        return Center(child: CircularProgressIndicator(color: Colors.lightGreenAccent,));
+                      }
+                      else{
+                        return Image(image: AssetImage('assets/f1_moon.jpg'));
+                      }
+                    }
                 ),
                 const Center(
                     child: Padding(
@@ -689,6 +905,16 @@ class _F1_fourth_pageState extends State<F1_fourth_page> {
                             Text('우리 교회의 비전과'),
                             Text('성도의 비전이 적혀있어.'),
                             Text('한번 읽어볼까?'),
+                            Text('.'),
+                            Text('.'),
+                            Text('.'),
+                            Text('.'),
+                            Text('.'),
+                            Text('.'),
+                            Text('.'),
+                            Text('.'),
+                            Text('.'),
+                            Text('.'),
                             Text('.'),
                             Text('.'),
                             Text('.'),
@@ -723,8 +949,15 @@ class _F1_fourth_pageState extends State<F1_fourth_page> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('정답', style: TextStyle(color: Colors.yellow)),
-                            Text('을 유추해보자.')]),
+                            Text('단서', style: TextStyle(color: Colors.yellow)),
+                            Text('가 가리키는 '),
+                            Text('숫자', style: TextStyle(color: Colors.yellow)),
+                            Text('를 유추해'),]),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('번호 순서대로', style: TextStyle(color: Colors.yellow)),
+                              Text(' 답을 적어보자.')]),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -794,12 +1027,43 @@ class _F1_fifth_pageState extends State<F1_fifth_page> {
 
   void answerCheck(String answer){
     if(answer == "2023"){
-      Navigator.push(context, MaterialPageRoute(builder: (context) => F1_final_page()));
+      _nextFloor();
+      Navigator.pushNamed(context, '6');
     }
     else {
       showErrorMessage(context);
     }
   }
+
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  late Future<int> _playerStep;
+  late Future<int> _playerFloor;
+
+  late Future<void> _calculation = Future<void>.delayed(
+    Duration(seconds: 0),
+        (){},
+  );
+
+  Future<void> _nextFloor() async{
+    final SharedPreferences prefs = await _prefs;
+    int playerFloor = (prefs.getInt('floor') ?? 1);
+
+    setState(() {
+      if (playerFloor == 1) {
+        prefs.setInt('f1step', 6);
+        _playerFloor = prefs.setInt('floor', 2).then((bool success) {
+          return 2;
+        });
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _playerStep = _prefs.then((SharedPreferences prefs) => prefs.getInt('f1step') ?? 5);
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -808,10 +1072,21 @@ class _F1_fifth_pageState extends State<F1_fifth_page> {
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Text('1층', style: TextStyle(fontSize: 20),),
-        leading: IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-        const MyApp())),
-          icon: const Icon(Icons.arrow_back),),
+        leading: FutureBuilder(
+          future: _playerStep,
+          builder: (BuildContext context, AsyncSnapshot<int> snapshot){
+            if (snapshot.connectionState != ConnectionState.done) {
+              return const CircularProgressIndicator();
+            }
+            else {
+              return Center(child: Text(
+                '${snapshot.data}/5', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),)
+              );
+            }
+          }),
         centerTitle: true,
+        actions: [IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
+          MyApp())), icon: Icon(Icons.home))],
       ),
       body: Center(
           child: SingleChildScrollView(
@@ -845,7 +1120,7 @@ class _F1_fifth_pageState extends State<F1_fifth_page> {
                       ),
                     )
                 ),
-                const Center(
+                Center(
                     child: Padding(
                         padding: EdgeInsets.fromLTRB(10,300,10,200),
                         child: Column(
@@ -865,7 +1140,17 @@ class _F1_fifth_pageState extends State<F1_fifth_page> {
                             ),
                             Text(' '),
                             Text(' '),
-                            Image(image: AssetImage('assets/f1_rodemRoad.jpg'), width: 350,),
+                            FutureBuilder<void>(
+                                future: _calculation,
+                                builder: (BuildContext context, AsyncSnapshot<void> snapshot){
+                                  if(snapshot.connectionState != ConnectionState.done){
+                                    return Center(child: CircularProgressIndicator(color: Colors.lightGreenAccent,));
+                                  }
+                                  else{
+                                    return Image(image: AssetImage('assets/f1_rodemRoad.jpg'), width: 350,);
+                                  }
+                                }
+                            ),
                             Text(' '),
                             Text(' '),
                             Text('그러면'),
@@ -873,8 +1158,16 @@ class _F1_fifth_pageState extends State<F1_fifth_page> {
                         )
                     )
                 ),
-                const Image(
-                  image: AssetImage('assets/f1_bus.jpg'),
+                FutureBuilder<void>(
+                    future: _calculation,
+                    builder: (BuildContext context, AsyncSnapshot<void> snapshot){
+                      if(snapshot.connectionState != ConnectionState.done){
+                        return Center(child: CircularProgressIndicator(color: Colors.lightGreenAccent,));
+                      }
+                      else{
+                        return Image(image: AssetImage('assets/f1_bus.jpg'));
+                      }
+                    }
                 ),
                 const Center(
                     child: Padding(
@@ -1003,6 +1296,11 @@ class _F1_final_pageState extends State<F1_final_page> {
     Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage()));
   }
 
+  late Future<void> _calculation = Future<void>.delayed(
+    Duration(seconds: 0),
+        (){},
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -1010,10 +1308,9 @@ class _F1_final_pageState extends State<F1_final_page> {
         appBar: AppBar(
           backgroundColor: Colors.black,
           title: Text('1층', style: TextStyle(fontSize: 20),),
-          leading: IconButton(onPressed: () =>
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-              const MyApp())),
-            icon: const Icon(Icons.arrow_back),),
+          leading: Icon(Icons.check, color: Colors.lightGreenAccent,),
+          actions: [IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
+              MyApp())), icon: Icon(Icons.home))],
           centerTitle: true,
         ),
         body: Center(
@@ -1029,8 +1326,16 @@ class _F1_final_pageState extends State<F1_final_page> {
                     padding: EdgeInsets.all(30),
                     child: Text('1층 Mission Clear!', style: TextStyle(color: Colors.cyanAccent),),
                   ),
-                  const Image(
-                      image: AssetImage('assets/f1_stair.jpg')
+                  FutureBuilder<void>(
+                      future: _calculation,
+                      builder: (BuildContext context, AsyncSnapshot<void> snapshot){
+                        if(snapshot.connectionState != ConnectionState.done){
+                          return Center(child: CircularProgressIndicator(color: Colors.lightGreenAccent,));
+                        }
+                        else{
+                          return Image(image: AssetImage('assets/f1_stair.jpg'));
+                        }
+                      }
                   ),
                   const Padding(
                       padding: EdgeInsets.fromLTRB(10,50,10,50),
