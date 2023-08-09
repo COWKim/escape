@@ -74,7 +74,7 @@ class _F1_first_pageState extends State<F1_first_page> {
   }
 
   Future<void> _calculation = Future<void>.delayed(
-    Duration(seconds: 0),
+    Duration(seconds: 1),
         (){},
   );
 
@@ -1049,8 +1049,8 @@ class _F1_fifth_pageState extends State<F1_fifth_page> {
     int playerFloor = (prefs.getInt('floor') ?? 1);
 
     setState(() {
+      prefs.setInt('f1step', 6);
       if (playerFloor == 1) {
-        prefs.setInt('f1step', 6);
         _playerFloor = prefs.setInt('floor', 2).then((bool success) {
           return 2;
         });

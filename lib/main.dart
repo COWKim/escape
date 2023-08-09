@@ -5,6 +5,9 @@ import 'b1_page.dart';
 import 'f1_page.dart';
 import 'f2_page.dart';
 import 'f3_page.dart';
+import 'f4_page.dart';
+import 'f5_page.dart';
+import 'f6_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -214,7 +217,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     Container(
                       padding: EdgeInsets.all(20),
                       width: 500, height: 100,
-                      child: ElevatedButton(onPressed: checkFloor < 3 ? null :  (){ getData();
+                      child: ElevatedButton(onPressed: checkFloor < 3 ? null : (){ getData();
                       Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
                           F3_page(route: f3step.toString())));},
                         child: Text('3층', style: TextStyle(fontSize: 20),),
@@ -224,7 +227,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     Container(
                       padding: EdgeInsets.all(20),
                       width: 500, height: 100,
-                      child: ElevatedButton(onPressed: checkFloor < 4 ? null : (){},
+                      child: ElevatedButton(onPressed: checkFloor < 4 ? null : (){ getData();
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
+                          F4_page(route: f4step.toString())));},
                         child: Text('4층', style: TextStyle(fontSize: 20),),
                         style: ElevatedButton.styleFrom(backgroundColor: Colors.purple[400]),
                       ),
@@ -232,7 +237,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     Container(
                       padding: EdgeInsets.all(20),
                       width: 500, height: 100,
-                      child: ElevatedButton(onPressed: checkFloor < 5 ? null : (){},
+                      child: ElevatedButton(onPressed: checkFloor < 5 ? null : (){ getData();
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
+                          F5_page(route: f5step.toString())));},
                         child: Text('5층', style: TextStyle(fontSize: 20),),
                         style: ElevatedButton.styleFrom(backgroundColor: Colors.purple[300]),
                       ),
@@ -240,7 +247,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     Container(
                       padding: EdgeInsets.all(20),
                       width: 500, height: 100,
-                      child: ElevatedButton(onPressed: checkFloor < 6 ? null : (){},
+                      child: ElevatedButton(onPressed: checkFloor < 6 ? null : (){ getData();
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
+                          F6_page(route: f6step.toString())));},
                         child: Text('6층', style: TextStyle(fontSize: 20),),
                         style: ElevatedButton.styleFrom(backgroundColor: Colors.purple[200]),
                       ),

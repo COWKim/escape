@@ -636,9 +636,7 @@ class _F2_third_pageState extends State<F2_third_page> {
                                       Row(
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
-                                            Text('번호', style: TextStyle(color: Colors.yellow)),
-                                            Text('를'),
-                                            Text('순서대로', style: TextStyle(color: Colors.yellow)),
+                                            Text('번호 순서대로', style: TextStyle(color: Colors.yellow)),
                                             Text(' 나열하여')]),
                                       Row(
                                           mainAxisAlignment: MainAxisAlignment.center,
@@ -718,7 +716,7 @@ class _F2_fourth_pageState extends State<F2_fourth_page> {
   String txtAnswer = "";
 
   void answerCheck(String answer){
-    if(answer == "해리"){
+    if(answer == "웃음탁아부"){
       _nextStep();
       Navigator.pushNamed(context, '5');
     }
@@ -872,36 +870,20 @@ class _F2_fourth_pageState extends State<F2_fourth_page> {
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('문 앞에', style: TextStyle(color: Colors.yellow)),
-                              Text(' 붙어있는')]),
+                              Text('탁아부실 벽면', style: TextStyle(color: Colors.yellow)),
+                              Text('에 붙어있는')]),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('뽀로로의 친구들', style: TextStyle(color: Colors.yellow)),
-                              Text(' 중에')]),
+                              Text('무엇', style: TextStyle(color: Colors.yellow)),
+                              Text('과 '),
+                              Text('단서', style: TextStyle(color: Colors.yellow)),
+                              Text('를 이용하여'),]),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('혼자만 '),
-                              Text('방향', style: TextStyle(color: Colors.yellow)),
-                              Text('이 다른 ')]),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text('캐릭터', style: TextStyle(color: Colors.yellow)),
-                              Text('는 누굴까?')]),
-                        Text(''),
-                        Text('붙어있는 캐릭터의', style: TextStyle(color: Colors.yellow)),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text('화살표', style: TextStyle(color: Colors.yellow)),
-                            Text('가 이어진')]),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text('창문', style: TextStyle(color: Colors.yellow, fontWeight: FontWeight.bold)),
-                              Text('을 잘 봐.')]),
+                              Text('정답', style: TextStyle(color: Colors.yellow)),
+                              Text('을 유추해보자.')]),
                       ],
                     )
                 ),
@@ -914,10 +896,10 @@ class _F2_fourth_pageState extends State<F2_fourth_page> {
                     child: const Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('캐 릭 터', style: TextStyle(color: Colors.yellow, fontSize: 30)),
+                        Text('단 서', style: TextStyle(color: Colors.yellow, fontSize: 30)),
                         Text(' '),
                         Image(
-                          image: AssetImage('assets/f2_pororo.PNG'),
+                          image: AssetImage('assets/f2_takaboo.PNG'),
                         )
                       ],
                     )
@@ -985,8 +967,8 @@ class _F2_fifth_pageState extends State<F2_fifth_page> {
     int playerFloor = (prefs.getInt('floor') ?? 2);
 
     setState(() {
+      prefs.setInt('f1step', 6);
       if (playerFloor == 2) {
-        prefs.setInt('f1step', 6);
         _playerFloor = prefs.setInt('floor', 3).then((bool success) {
           return 3;
         });

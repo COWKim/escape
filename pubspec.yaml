@@ -37,6 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_spinkit: ^5.2.0
   shared_preferences: ^2.2.0
+  carousel_slider: ^4.2.0
+  slide_to_act: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -97,7 +99,7 @@ flutter:
      - assets/f2_baetel.jpg
      - assets/f2_pray.jpg
      - assets/f2_taka.jpg
-     - assets/f2_pororo.PNG
+     - assets/f2_takaboo.PNG
      - assets/f2_babymom.jpg
   # 3 floor
      - assets/f3_picture.jpg
@@ -110,6 +112,22 @@ flutter:
      - assets/f3_2.PNG
      - assets/f3_7.PNG
      - assets/f3_8.PNG
+     - assets/f3_priest.jpg
+     - assets/f3_choi.PNG
+     - assets/f3_isaac.PNG
+     - assets/f3_bang.PNG
+     - assets/f3_kim.PNG
+     - assets/f3_jung.PNG
+  # 4 floor
+     - assets/f4_ogu.png
+     - assets/f4_stair.PNG
+     - assets/f4_color.jpg
+     - assets/f4_401.jpg
+     - assets/f4_andiok.jpg
+
+  # 6 floor
+     - assets/f6_memo.PNG
+     - assets/f6_fighting.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
