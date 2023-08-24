@@ -668,14 +668,8 @@ class _F4_third_pageState extends State<F4_third_page> {
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('무엇', style: TextStyle(color: Colors.yellow)),
-                              Text('인지 유추하고')]),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text('해당하는 '),
-                              Text('숫자', style: TextStyle(color: Colors.yellow)),
-                              Text('를 써보자.'),]),
+                              Text('정답', style: TextStyle(color: Colors.yellow)),
+                              Text('이 무엇일지 유추해보자.')]),
                       ],
                     )
                 ),
@@ -687,7 +681,7 @@ class _F4_third_pageState extends State<F4_third_page> {
                       maxLength: 4,
                       decoration: const InputDecoration(
                         counterStyle: TextStyle(color: Colors.white),
-                        counterText: '',
+                        counterText: '숫자',
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.white, width: 1.0),
                           borderRadius: BorderRadius.all(Radius.circular(20.0)),

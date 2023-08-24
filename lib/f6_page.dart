@@ -258,6 +258,16 @@ class _F6_first_pageState extends State<F6_first_page> {
                               Text('버튼을 '),
                               Text('순서대로', style: TextStyle(color: Colors.yellow)),
                               Text(' 조작해보자.'),]),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('염광교회 홈페이지', style: TextStyle(color: Colors.yellow)),
+                              Text('에'),]),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('주보', style: TextStyle(color: Colors.yellow)),
+                              Text('가 필요할거야.'),]),
                       ],
                     )
                 ),

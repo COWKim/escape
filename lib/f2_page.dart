@@ -366,7 +366,7 @@ class _F2_second_pageState extends State<F2_second_page> {
                     decoration: BoxDecoration(
                         border: Border.all(color: Colors.white, width: 5),
                         borderRadius: BorderRadius.all(Radius.circular(20.0))),
-                    margin: EdgeInsets.all(30),
+                    margin: EdgeInsets.fromLTRB(10, 20, 10, 20),
                     padding: EdgeInsets.all(20),
                     child: const Column(
                       children: [
@@ -384,12 +384,7 @@ class _F2_second_pageState extends State<F2_second_page> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text('무엇', style: TextStyle(color: Colors.yellow)),
-                              Text('을 나타내는지'),]),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text('영어', style: TextStyle(color: Colors.yellow)),
-                              Text('로 적어보자.'),]),
+                              Text('을 나타내는지 유추해보자.'),]),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -426,7 +421,10 @@ class _F2_second_pageState extends State<F2_second_page> {
                     padding: EdgeInsets.all(10),
                     child: TextField(
                       textAlign: TextAlign.center,
+                      maxLength: 4,
                       decoration: const InputDecoration(
+                        counterStyle: TextStyle(color: Colors.white),
+                        counterText: '영어',
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.white, width: 1.0),
                           borderRadius: BorderRadius.all(Radius.circular(20.0)),
@@ -850,11 +848,8 @@ class _F2_fourth_pageState extends State<F2_fourth_page> {
                             Text('예배시간 동안에'),
                             Text('아기들을 돌봐주고 있어.'),
                             Text(' '),
-                            Text('나는 예전에'),
-                            Text('탁아부에서 봉사했었는데'),
-                            Text('새근새근 자고'),
-                            Text('아장아장 기어다니는'),
-                            Text('아기들이 얼마나 귀엽던지..'),
+                            Text('아기는 언제봐도'),
+                            Text('너무 귀여운 것 같아..'),
                           ],
                         )
                     )

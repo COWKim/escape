@@ -465,7 +465,7 @@ class _F3_second_pageState extends State<F3_second_page> {
   }
 }
 
-// ㅡㅡㅡㅡㅡ 헌금봉투 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+// ㅡㅡㅡㅡㅡ 재정부실 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 class F3_third_page extends StatefulWidget {
   F3_third_page({super.key});
 

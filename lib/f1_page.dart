@@ -62,7 +62,7 @@ class _F1_first_pageState extends State<F1_first_page> {
   String txtAnswer = "";
 
   void answerCheck(String answer){
-    if(answer == "프리액션 밸브실"){
+    if(answer == "프리액션 밸브실" || answer == "프리액션밸브실"){
       _nextStep();
       Navigator.pushNamed(context, '2');
     }
@@ -147,7 +147,7 @@ class _F1_first_pageState extends State<F1_first_page> {
                       return Center(child: CircularProgressIndicator(color: Colors.lightGreenAccent,));
                     }
                     else{
-                      return Image(
+                      return const Image(
                     image: AssetImage('assets/f1_info.jpg'), width: 350);
                     }
                   }
@@ -207,11 +207,12 @@ class _F1_first_pageState extends State<F1_first_page> {
                               textAlign: TextAlign.center,
                               maxLength: 8,
                               decoration: const InputDecoration(
-                                  counterStyle: TextStyle(color: Colors.white),
-                                  enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.white, width: 1.0),
-                                      borderRadius: BorderRadius.all(Radius.circular(20.0))
-                                  ),),
+                                counterText: '한글',
+                                counterStyle: TextStyle(color: Colors.white),
+                                enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.white, width: 1.0),
+                                    borderRadius: BorderRadius.all(Radius.circular(20.0))
+                                ),),
                               onChanged: (text){txtAnswer = text;},
                             )
                         ),
@@ -958,12 +959,6 @@ class _F1_fourth_pageState extends State<F1_fourth_page> {
                             children: [
                               Text('번호 순서대로', style: TextStyle(color: Colors.yellow)),
                               Text(' 답을 적어보자.')]),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text('참고로 정답은 '),
-                            Text('숫자', style: TextStyle(color: Colors.yellow)),
-                            Text('야!')]),
                       ],
                     )
                 ),
@@ -990,6 +985,7 @@ class _F1_fourth_pageState extends State<F1_fourth_page> {
                       maxLength: 4,
                       decoration: const InputDecoration(
                         counterStyle: TextStyle(color: Colors.white),
+                        counterText: '숫자',
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.white, width: 1.0),
                           borderRadius: BorderRadius.all(Radius.circular(20.0)),

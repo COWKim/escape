@@ -11,6 +11,7 @@ import 'f3_page.dart';
 import 'f4_page.dart';
 import 'f5_page.dart';
 import 'f6_page.dart';
+import 'hint_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -35,6 +36,8 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+String NAME = "";
 
 class Login_page extends StatefulWidget {
   Login_page({super.key});
@@ -75,6 +78,7 @@ class _Login_pageState extends State<Login_page> {
     }
 
     setState(() {
+      NAME = playerID;
       checkStartFloor = floor;
       _playerID = prefs.setString('ID', playerID).then((bool success)
       { return playerID;});
@@ -421,8 +425,10 @@ class _MyHomePageState extends State<MyHomePage> {
   late Future<int> _f4step;
   late Future<int> _f5step;
   late Future<int> _f6step;
+  late Future<int> _hintCount;
 
   int checkFloor = 0; // 현재 층 확인
+  String txtHint = '';
 
   late int b1step; // b1층 단계
   late int f1step;
@@ -465,6 +471,7 @@ class _MyHomePageState extends State<MyHomePage> {
         prefs.remove('f6step');
         prefs.remove('start');
         prefs.remove('ID');
+        prefs.remove('hint');
         b1open = f1open = f2open = false;
         //_playerFloor = prefs.setInt('floor', playerFloor).then((bool success)
         //{ return playerFloor;});
@@ -556,6 +563,8 @@ class _MyHomePageState extends State<MyHomePage> {
     _f4step = _prefs.then((SharedPreferences prefs) => prefs.getInt('f4step') ?? 1);
     _f5step = _prefs.then((SharedPreferences prefs) => prefs.getInt('f5step') ?? 1);
     _f6step = _prefs.then((SharedPreferences prefs) => prefs.getInt('f6step') ?? 1);
+    _hintCount = _prefs.then((SharedPreferences prefs) => prefs.getInt('hint') ?? 0);
+
   }
 
   @override
@@ -599,7 +608,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
                               MyB1_page(route: b1step.toString())));} : null,
                             style: ElevatedButton.styleFrom(backgroundColor: Colors.purple[800]),
-                            child: Text('B1층', style: TextStyle(fontSize: 18),),
+                            child: const Text('B1층', style: TextStyle(fontSize: 18, color: Colors.white),),
                           ),
                         ),
                         Container(
@@ -608,8 +617,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: ElevatedButton(onPressed: checkStartFloor == 1 || f1open == true ? (){ getData();
                           Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
                               F1_page(route: f1step.toString(),)));} : null,
-                            child: Text('1층', style: TextStyle(fontSize: 18),),
                             style: ElevatedButton.styleFrom(backgroundColor: Colors.purple[700]),
+                            child: const Text('1층', style: TextStyle(fontSize: 18, color: Colors.white),),
                           ),
                         ),
                         Container(
@@ -618,8 +627,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: ElevatedButton(onPressed: checkStartFloor == 2 || f2open == true ? (){ getData();
                           Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
                               F2_page(route: f2step.toString())));} : null,
-                            child: Text('2층', style: TextStyle(fontSize: 18),),
                             style: ElevatedButton.styleFrom(backgroundColor: Colors.purple[600]),
+                            child: const Text('2층', style: TextStyle(fontSize: 18, color: Colors.white),),
                           ),
                         ),
                         Container(
@@ -628,8 +637,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: ElevatedButton(onPressed: checkFloor >= 3 ? (){ getData();
                           Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
                               F3_page(route: f3step.toString())));} : null,
-                            child: Text('3층', style: TextStyle(fontSize: 18),),
                             style: ElevatedButton.styleFrom(backgroundColor: Colors.purple[500]),
+                            child: const Text('3층', style: TextStyle(fontSize: 18, color: Colors.white),),
                           ),
                         ),
                         Container(
@@ -638,8 +647,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: ElevatedButton(onPressed: checkFloor >= 4 ? (){ getData();
                           Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
                               F4_page(route: f4step.toString())));} : null,
-                            child: Text('4층', style: TextStyle(fontSize: 18),),
                             style: ElevatedButton.styleFrom(backgroundColor: Colors.purple[400]),
+                            child: const Text('4층', style: TextStyle(fontSize: 18, color: Colors.white),),
                           ),
                         ),
                         Container(
@@ -648,8 +657,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: ElevatedButton(onPressed: checkFloor >= 5 ? (){ getData();
                           Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
                               F5_page(route: f5step.toString())));} : null,
-                            child: Text('5층', style: TextStyle(fontSize: 18),),
                             style: ElevatedButton.styleFrom(backgroundColor: Colors.purple[300]),
+                            child: const Text('5층', style: TextStyle(fontSize: 18, color: Colors.white),),
                           ),
                         ),
                         Container(
@@ -658,8 +667,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: ElevatedButton(onPressed: checkFloor >= 6 ? (){ getData();
                           Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
                               F6_page(route: f6step.toString())));} : null,
-                            child: Text('6층', style: TextStyle(fontSize: 18),),
                             style: ElevatedButton.styleFrom(backgroundColor: Colors.purple[200]),
+                            child: const Text('6층', style: TextStyle(fontSize: 18, color: Colors.white),),
                           ),
                         ),
                       ],
@@ -669,14 +678,104 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: (){ _test();},
+          onPressed: (){ _hint(); _test();},
           tooltip: 'Final Code',
-          child: const Icon(Icons.key,),
           backgroundColor: Colors.purple[800],
+          child: const Icon(Icons.key,),
         ),
       )
     );
+  }
 
+  Future<void> _hint() async{
+    txtHint = '';
+    return showDialog(
+      context: context,
+      barrierDismissible: true, // false: 외부 영역 터치 방지
+      builder: (BuildContext context) {
+        return AlertDialog(
+          insetPadding: const EdgeInsets.fromLTRB(10,50,10, 50),
+          backgroundColor: Colors.black,
+          title: const Text('HINT CODE', textAlign: TextAlign.center,),
+          titleTextStyle: const TextStyle(fontSize: 20,
+              color: Colors.white, fontWeight: FontWeight.bold),
+          content: SizedBox(
+            height: 100,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                    width: 300,
+                    padding: const EdgeInsets.all(10),
+                    child: TextField(
+                      cursorColor: Colors.white,
+                      style: const TextStyle(color: Colors.white),
+                      textAlign: TextAlign.center,
+                      maxLength: 4,
+                      decoration: const InputDecoration(
+                        counterStyle: TextStyle(color: Colors.white),
+                        counterText: '',
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white, width: 1.0),
+                          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white, width: 1.0),
+                          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                        ),
+                      ),
+                      onChanged: (text){txtHint = text;},
+                    )
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              child: const Center(child: Text('확인', style: TextStyle(color: Colors.white),)),
+              onPressed: () {checkHintCode(context);},
+            ),
+          ],
+        );
+      }
+    );
+  }
+
+  Future<void> checkHintCode(BuildContext _context) async{
+    bool isChecked = false;
+    for(int i = 0; i< HINTCODE.length; i++){
+      if(HINTCODE[i] == txtHint){
+
+        if(HINTCODE[i] == "1022" || HINTCODE[i] == "0729" || HINTCODE[i] == "0822"){
+          if(NAME != "은주"){
+            break;
+          }
+        }
+        isChecked = true;
+        final SharedPreferences prefs = await _prefs;
+        int hint = (prefs.getInt('hint') ?? 0) + 1;
+
+        setState(() {
+          Navigator.of(_context).push(MaterialPageRoute(builder: (context) =>
+              Hint_page(route: txtHint)));
+          _hintCount = prefs.setInt('hint', hint).then((bool success)
+          { return hint;});
+        });
+      }
+    }
+    if(isChecked == false){
+      setState(() {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('잘못 입력하셨습니다.'),
+            duration: Duration(seconds: 1),
+          ),
+        );
+        txtHint = "";
+        Navigator.of(_context).pop();
+      });
+    }
   }
 
   Future<void> _test() async{
@@ -688,3 +787,46 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 }
+
+final List HINTCODE = [
+  // B1층
+  "2839",
+  "3417",
+  "8253",
+  "5861",
+  // 1층
+  "7851",
+  "2984",
+  "8695",
+  "0852",
+  "8942",
+  // 2층
+  "9353",
+  "6359",
+  "7834",
+  "8560",
+  "2960",
+  // 3층
+  "3486",
+  "6846",
+  "0855",
+  "3843",
+  // 4층
+  "7634",
+  "5073",
+  "8566",
+  "4583",
+  // 5층
+  "7863",
+  "2912",
+  // 6층
+  "1964",
+  "5762",
+  // 이스터에그
+  "1022",
+  "0729",
+  "0822",
+  "0312",
+];
+
+

@@ -868,8 +868,8 @@ class _B1_fourth_pageState extends State<B1_fourth_page> {
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('탁구장 사용규칙 표지', style: TextStyle(color: Colors.yellow)),
-                              Text('에')]),
+                              Text('노란색 표시', style: TextStyle(color: Colors.yellow)),
+                              Text('가 된 영역에서')]),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
