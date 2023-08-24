@@ -112,28 +112,27 @@ class _F4_first_pageState extends State<F4_first_page> {
             }),
         centerTitle: true,
         actions: [IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-            MyApp())), icon: Icon(Icons.home))],
+            MyHomePage())), icon: Icon(Icons.home))],
       ),
       body: Center(
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                // FutureBuilder<void>(
-                //     future: _calculation,
-                //     builder: (BuildContext context, AsyncSnapshot<void> snapshot){
-                //       if(snapshot.connectionState != ConnectionState.done){
-                //         return Center(child: CircularProgressIndicator(color: Colors.lightGreenAccent,));
-                //       }
-                //       else{
-                //         return const Padding(
-                //           padding: EdgeInsets.fromLTRB(10, 50, 10, 50),
-                //           child: Image(image: AssetImage('assets/f3_picture.jpg'), width: 350,),
-                //         );
-                //       }
-                //     }
-                // ),
-                Text('계단 사진 필요'),
+                FutureBuilder<void>(
+                    future: _calculation,
+                    builder: (BuildContext context, AsyncSnapshot<void> snapshot){
+                      if(snapshot.connectionState != ConnectionState.done){
+                        return Center(child: CircularProgressIndicator(color: Colors.lightGreenAccent,));
+                      }
+                      else{
+                        return const Padding(
+                          padding: EdgeInsets.fromLTRB(10, 50, 10, 50),
+                          child: Image(image: AssetImage('assets/f3_stair.jpg')),
+                        );
+                      }
+                    }
+                ),
                 const Center(
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(10,50,10,100),
@@ -319,7 +318,7 @@ class _F4_second_pageState extends State<F4_second_page> {
             }),
         centerTitle: true,
         actions: [IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-            MyApp())), icon: Icon(Icons.home))],
+            MyHomePage())), icon: Icon(Icons.home))],
       ),
       body: Center(
           child: SingleChildScrollView(
@@ -362,25 +361,24 @@ class _F4_second_pageState extends State<F4_second_page> {
                                 Text('이 있을거야.')]),
                           Text('우리의 다음 장소지.'),
                           Text(''),
-                          Text('사무실 사진 필요')
                         ],
                       ),
                     )
                 ),
-                // FutureBuilder<void>(
-                //     future: _calculation,
-                //     builder: (BuildContext context, AsyncSnapshot<void> snapshot){
-                //       if(snapshot.connectionState != ConnectionState.done){
-                //         return Center(child: CircularProgressIndicator(color: Colors.lightGreenAccent,));
-                //       }
-                //       else{
-                //         return const Padding(
-                //           padding: EdgeInsets.fromLTRB(10, 50, 10, 50),
-                //           child: Image(image: AssetImage('assets/f3_envelopes.jpg'), width: 350,),
-                //         );
-                //       }
-                //     }
-                // ),
+                FutureBuilder<void>(
+                    future: _calculation,
+                    builder: (BuildContext context, AsyncSnapshot<void> snapshot){
+                      if(snapshot.connectionState != ConnectionState.done){
+                        return Center(child: CircularProgressIndicator(color: Colors.lightGreenAccent,));
+                      }
+                      else{
+                        return const Padding(
+                          padding: EdgeInsets.fromLTRB(10, 50, 10, 50),
+                          child: Image(image: AssetImage('assets/f4_samoosil.jpg')),
+                        );
+                      }
+                    }
+                ),
                 const Center(
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(10,50,20,50),
@@ -577,14 +575,14 @@ class _F4_third_pageState extends State<F4_third_page> {
             }),
         centerTitle: true,
         actions: [IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-            MyApp())), icon: Icon(Icons.home))],
+            MyHomePage())), icon: Icon(Icons.home))],
       ),
       body: Center(
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                const Center(
+                Center(
                     child: Padding(
                         padding: EdgeInsets.fromLTRB(10,100,10,300),
                         child: Column(
@@ -596,6 +594,20 @@ class _F4_third_pageState extends State<F4_third_page> {
                                   Text('401호', style: TextStyle(color: Colors.yellow)),
                                   Text('야.'),
                                 ]
+                            ),
+                            FutureBuilder<void>(
+                                future: _calculation,
+                                builder: (BuildContext context, AsyncSnapshot<void> snapshot){
+                                  if(snapshot.connectionState != ConnectionState.done){
+                                    return Center(child: CircularProgressIndicator(color: Colors.lightGreenAccent,));
+                                  }
+                                  else{
+                                    return const Padding(
+                                      padding: EdgeInsets.fromLTRB(10, 50, 10, 50),
+                                      child: Image(image: AssetImage('assets/f4_road.jpg'), width: 350,),
+                                    );
+                                  }
+                                }
                             ),
                             Text(' '),
                             Text('올라왔던 계단 정면으로'),
@@ -675,6 +687,7 @@ class _F4_third_pageState extends State<F4_third_page> {
                       maxLength: 4,
                       decoration: const InputDecoration(
                         counterStyle: TextStyle(color: Colors.white),
+                        counterText: '',
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.white, width: 1.0),
                           borderRadius: BorderRadius.all(Radius.circular(20.0)),
@@ -766,7 +779,7 @@ class _F4_fourth_pageState extends State<F4_fourth_page> {
             }),
         centerTitle: true,
         actions: [IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-            MyApp())), icon: Icon(Icons.home))],
+            MyHomePage())), icon: Icon(Icons.home))],
       ),
       body: Center(
           child: SingleChildScrollView(
@@ -930,7 +943,7 @@ class _F4_final_pageState extends State<F4_final_page> {
         title: Text('4층', style: TextStyle(fontSize: 20),),
         leading: Icon(Icons.check, color: Colors.lightGreenAccent,),
         actions: [IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-            MyApp())), icon: Icon(Icons.home))],
+            MyHomePage())), icon: Icon(Icons.home))],
         centerTitle: true,
       ),
       body: Center(

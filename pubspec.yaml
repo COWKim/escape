@@ -65,6 +65,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
      - assets/church.jpg
+     - assets/login.png
      - assets/b1_sogroup.jpg
      - assets/b1_nongin.png
      - assets/b1_iloveyou.png
@@ -81,7 +82,7 @@ flutter:
      - assets/f1_jumja.PNG
      - assets/f1_creativezone.jpg
      - assets/f1_belbroom.jpg
-     - assets/f1_weStudio.png
+     - assets/f1_youStudio.jpg
      - assets/f1_create.jpg
      - assets/f1_nongdamgom.jpg
      - assets/f1_cute.gif
@@ -104,8 +105,6 @@ flutter:
   # 3 floor
      - assets/f3_picture.jpg
      - assets/f3_son.jpg
-     - assets/f3_envelope.PNG
-     - assets/f3_envelopes.jpg
      - assets/f3_clock.jpg
      - assets/f3_pass.jpg
      - assets/f3_3.PNG
@@ -118,16 +117,28 @@ flutter:
      - assets/f3_bang.PNG
      - assets/f3_kim.PNG
      - assets/f3_jung.PNG
+     - assets/f3_stair.jpg
+     - assets/f3_road.jpg
+     - assets/f3_jaejung.jpg
+     - assets/f3_window.jpg
   # 4 floor
      - assets/f4_ogu.png
      - assets/f4_stair.PNG
      - assets/f4_color.jpg
      - assets/f4_401.jpg
      - assets/f4_andiok.jpg
+     - assets/f4_samoosil.jpg
+     - assets/f4_road.jpg
+  # 5 floor
+     - assets/f5_energy.jpg
 
   # 6 floor
      - assets/f6_memo.PNG
      - assets/f6_fighting.jpg
+     - assets/f6_things.png
+     - assets/f6_room.jpg
+     - assets/f6_cabinet.jpg
+     - assets/f6_quiz.PNG
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

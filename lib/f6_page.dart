@@ -60,16 +60,16 @@ class _F6_first_pageState extends State<F6_first_page> {
   String txtAnswer = "";
 
   void answerCheck(String answer){
-    if(answer == '<<<<^>^^'){
+    //if(answer == '←←←←↑→↑↑'){
       _nextStep();
       Navigator.pushNamed(context, '2');
-    }
-    else {
-      showErrorMessage(context);
-      setState(() {
-        txtAnswer = '';
-      });
-    }
+    //}
+    // else {
+    //   showErrorMessage(context);
+    //   setState(() {
+    //     txtAnswer = '';
+    //   });
+    //}
 
     //   Navigator.push(context, MaterialPageRoute(builder: (context) => F6_fourth_page()));
   }
@@ -84,16 +84,16 @@ class _F6_first_pageState extends State<F6_first_page> {
 
       setState(() {
         if(key == highSlideKey){
-          txtAnswer += '^';
+          txtAnswer += '↑';
         }
         else if(key == leftSlideKey){
-          txtAnswer += '<';
+          txtAnswer += '←';
         }
         else if(key == rightSlideKey){
-          txtAnswer += '>';
+          txtAnswer += '→';
         }
         else if(key == lowSlideKey){
-          txtAnswer += 'v';
+          txtAnswer += '↓';
         }
         else{
         }
@@ -142,7 +142,7 @@ class _F6_first_pageState extends State<F6_first_page> {
             }),
         centerTitle: true,
         actions: [IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-            MyApp())), icon: Icon(Icons.home))],
+            MyHomePage())), icon: Icon(Icons.home))],
       ),
       body: Center(
           child: SingleChildScrollView(
@@ -172,21 +172,20 @@ class _F6_first_pageState extends State<F6_first_page> {
                       ),
                     )
                 ),
-                Text('6층 사무실 사진 필요'),
-                // FutureBuilder<void>(
-                //     future: _calculation,
-                //     builder: (BuildContext context, AsyncSnapshot<void> snapshot){
-                //       if(snapshot.connectionState != ConnectionState.done){
-                //         return Center(child: CircularProgressIndicator(color: Colors.lightGreenAccent,));
-                //       }
-                //       else{
-                //         return const Padding(
-                //           padding: EdgeInsets.fromLTRB(10, 50, 10, 50),
-                //           child: Image(image: AssetImage('assets/f3_picture.jpg'), width: 350,),
-                //         );
-                //       }
-                //     }
-                // ),
+                FutureBuilder<void>(
+                    future: _calculation,
+                    builder: (BuildContext context, AsyncSnapshot<void> snapshot){
+                      if(snapshot.connectionState != ConnectionState.done){
+                        return Center(child: CircularProgressIndicator(color: Colors.lightGreenAccent,));
+                      }
+                      else{
+                        return const Padding(
+                          padding: EdgeInsets.fromLTRB(10, 50, 10, 50),
+                          child: Image(image: AssetImage('assets/f6_room.jpg'), width: 350,),
+                        );
+                      }
+                    }
+                ),
                 const Center(
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(10,50,10,100),
@@ -302,7 +301,8 @@ class _F6_first_pageState extends State<F6_first_page> {
                                 text: '',
                                 onSubmit: (){ _directionHigh(highSlideKey);
                                   Future.delayed(const Duration(seconds: 0),
-                                          (){highSlideKey.currentState!.reset();});},
+                                          (){highSlideKey.currentState!.reset();});
+                                  },
                               )
                             )
                         ),
@@ -407,7 +407,7 @@ class _F6_first_pageState extends State<F6_first_page> {
   }
 }
 
-// ㅡㅡㅡㅡㅡ 물탱크실 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+// ㅡㅡㅡㅡㅡ 사무용품 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 class F6_second_page extends StatefulWidget {
   F6_second_page({super.key});
 
@@ -419,7 +419,7 @@ class _F6_second_pageState extends State<F6_second_page> {
   String txtAnswer = "";
 
   void answerCheck(String answer){
-    if(answer == "510"){
+    if(answer == "popular"){
       _nextStep();
       Navigator.pushNamed(context, '3');
     }
@@ -474,31 +474,26 @@ class _F6_second_pageState extends State<F6_second_page> {
             }),
         centerTitle: true,
         actions: [IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-            MyApp())), icon: Icon(Icons.home))],
+            MyHomePage())), icon: Icon(Icons.home))],
       ),
       body: Center(
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                const Center(
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(10,50,20,200),
-                      child: Column(
-                        children: [
-                          Text('어때?'),
-                          Text('문제는 어렵지 않았어?'),
-                          Text(''),
-                          Text('이제 거의 다 왔어.'),
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text('조금만 더 '),
-                                Text('힘내자', style: TextStyle(color: Colors.yellow)),
-                                Text('!'),]),
-                        ],
-                      ),
-                    )
+                FutureBuilder<void>(
+                    future: _calculation,
+                    builder: (BuildContext context, AsyncSnapshot<void> snapshot){
+                      if(snapshot.connectionState != ConnectionState.done){
+                        return Center(child: CircularProgressIndicator(color: Colors.lightGreenAccent,));
+                      }
+                      else{
+                        return const Padding(
+                          padding: EdgeInsets.fromLTRB(10, 50, 10, 50),
+                          child: Image(image: AssetImage('assets/f6_cabinet.jpg')),
+                        );
+                      }
+                    }
                 ),
                 const Center(
                     child: Padding(
@@ -508,55 +503,18 @@ class _F6_second_pageState extends State<F6_second_page> {
                           Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text('엘리베이터', style: TextStyle(color: Colors.yellow)),
-                                Text(' 옆에 보면')]),
+                                Text('청년부 사무실', style: TextStyle(color: Colors.yellow)),
+                                Text(' 벽면에는')]),
                           Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text('유년부 사무실', style: TextStyle(color: Colors.yellow)),
-                                Text('이 있을거야.')]),
-                          Text('우리의 다음 장소지.'),
+                                Text('공용물품', style: TextStyle(color: Colors.yellow)),
+                                Text('과 기타 물품이 있는')]),
+                          Text('캐비넷들이 있어.'),
                           Text(''),
-                          Text('사무실 사진 필요')
-                        ],
-                      ),
-                    )
-                ),
-                // FutureBuilder<void>(
-                //     future: _calculation,
-                //     builder: (BuildContext context, AsyncSnapshot<void> snapshot){
-                //       if(snapshot.connectionState != ConnectionState.done){
-                //         return Center(child: CircularProgressIndicator(color: Colors.lightGreenAccent,));
-                //       }
-                //       else{
-                //         return const Padding(
-                //           padding: EdgeInsets.fromLTRB(10, 50, 10, 50),
-                //           child: Image(image: AssetImage('assets/f3_envelopes.jpg'), width: 350,),
-                //         );
-                //       }
-                //     }
-                // ),
-                const Center(
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(10,50,20,50),
-                      child: Column(
-                        children: [
-                          Text('이 곳은 유년부 선생님들의'),
-                          Text('모임 장소이자 어린이용'),
-                          Text('물품들이 구비되어 있어.'),
+                          Text('음.. 열어보지는 않는게 좋겠어.'),
                           Text(''),
-                          Text('내가 유년부에서 봉사한지'),
-                          Text('꽤나 오래됐는데'),
-                          Text('아이들은 청년 선생님들을'),
-                          Text('무척이나 좋아해줘.'),
-                          Text(''),
-                          Text('관심이 있다면'),
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text('섬기는 마음', style: TextStyle(color: Colors.yellow)),
-                                Text('으로 함께'),]),
-                          Text('봉사해보는 건 어떨까?'),
+                          Text('정리를 할 필요가 있어보이거든...')
                         ],
                       ),
                     )
@@ -569,34 +527,26 @@ class _F6_second_pageState extends State<F6_second_page> {
                     padding: EdgeInsets.all(20),
                     child: const Column(
                       children: [
+                        Image(image: AssetImage('assets/f6_quiz.PNG'),),
+                        Text(''), Text(''),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text('아래의 '),
                               Text('사진', style: TextStyle(color: Colors.yellow)),
-                              Text('과'),]),
+                              Text('과 '),
+                              Text('단서', style: TextStyle(color: Colors.yellow)),
+                              Text('를 이용해'),]),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('단서', style: TextStyle(color: Colors.yellow)),
-                              Text('를 활용해서'),]),
+                              Text('실제 표지', style: TextStyle(color: Colors.yellow)),
+                              Text('와 비교하며'),]),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text('무엇', style: TextStyle(color: Colors.yellow)),
-                              Text('을 의미하는지 찾고'),]),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text('RGB의 합', style: TextStyle(color: Colors.yellow)),
-                              Text('이 '),
-                              Text('가장 큰 번호', style: TextStyle(color: Colors.yellow)),
-                              Text('의'),]),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text('RGB의 합', style: TextStyle(color: Colors.yellow)),
-                              Text('을 적어보자.'),]),
+                              Text('을 의미하는지 맞춰보자. '),]),
                       ],
                     )
                 ),
@@ -608,11 +558,8 @@ class _F6_second_pageState extends State<F6_second_page> {
                     padding: EdgeInsets.all(20),
                     child: const Column(
                       children: [
-                        Center(
-                            child: Text('사 진', style: TextStyle(color: Colors.yellow, fontSize: 30))
-                        ),
                         Text(' '),
-                        Image(image: AssetImage('assets/f4_color.jpg'),),
+                        Image(image: AssetImage('assets/f6_things.png'),),
                         Text(' '),
                       ],
                     )
@@ -630,12 +577,11 @@ class _F6_second_pageState extends State<F6_second_page> {
                             child: Text('단 서', style: TextStyle(color: Colors.yellow, fontSize: 30))
                         ),
                         Text(' '),
-                        Text('1. #dab22e'),
-                        Text('2. #8ca9c9'),
-                        Text('3. #55c0b8'),
-                        Text('4. #c2914c'),
-                        Text('5. #476d18'),
-                        Text('6. #9f411b'),
+                        Text('칼 = k'),
+                        Text(''),
+                        Text('가위 = c'),
+                        Text(''),
+                        Text('마스크 = s'),
                       ],
                     )
                 ),
@@ -644,9 +590,10 @@ class _F6_second_pageState extends State<F6_second_page> {
                     padding: EdgeInsets.all(10),
                     child: TextField(
                       textAlign: TextAlign.center,
-                      maxLength: 3,
+                      maxLength: 7,
                       decoration: const InputDecoration(
                         counterStyle: TextStyle(color: Colors.white),
+                        counterText: '영어',
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.white, width: 1.0),
                           borderRadius: BorderRadius.all(Radius.circular(20.0)),
@@ -695,7 +642,7 @@ class _F6_final_pageState extends State<F6_final_page> {
         title: Text('6층', style: TextStyle(fontSize: 20),),
         leading: Icon(Icons.check, color: Colors.lightGreenAccent,),
         actions: [IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-            MyApp())), icon: Icon(Icons.home))],
+            MyHomePage())), icon: Icon(Icons.home))],
         centerTitle: true,
       ),
       body: Center(

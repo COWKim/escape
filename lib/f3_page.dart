@@ -28,7 +28,7 @@ class F3_page extends StatelessWidget {
               bodyColor: Colors.white,
             )
         ),
-        //home: F2_first_page(title: '3층'),
+        //home: F3_first_page(title: '3층'),
         initialRoute: route,
         routes: {
           '1' : (context) => F3_first_page(),
@@ -113,7 +113,7 @@ class _F3_first_pageState extends State<F3_first_page> {
             }),
         centerTitle: true,
         actions: [IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-            MyApp())), icon: Icon(Icons.home))],
+            MyHomePage())), icon: Icon(Icons.home))],
       ),
       body: Center(
           child: SingleChildScrollView(
@@ -255,7 +255,7 @@ class _F3_first_pageState extends State<F3_first_page> {
   }
 }
 
-// ㅡㅡㅡㅡㅡ 헌금봉투 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+// ㅡㅡㅡㅡㅡ 시계 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 class F3_second_page extends StatefulWidget {
   F3_second_page({super.key});
 
@@ -264,12 +264,10 @@ class F3_second_page extends StatefulWidget {
 }
 
 class _F3_second_pageState extends State<F3_second_page> {
-  String txtMonth = "";
-  String txtDay = "";
-  String txtDayofaWeek = "";
+  String txtAnswer = "";
 
-  void answerCheck(String answer1, String answer2, String answer3){
-    if(answer1 == "2" && answer2 == "14" && answer3 == "목"){
+  void answerCheck(String answer){
+    if(answer == "3827"){
       _nextStep();
       Navigator.pushNamed(context, '3');
     }
@@ -318,7 +316,7 @@ class _F3_second_pageState extends State<F3_second_page> {
             }),
         centerTitle: true,
         actions: [IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-            MyApp())), icon: Icon(Icons.home))],
+            MyHomePage())), icon: Icon(Icons.home))],
       ),
       body: Center(
           child: SingleChildScrollView(
@@ -326,307 +324,35 @@ class _F3_second_pageState extends State<F3_second_page> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 const Center(
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(10,50,20,200),
-                    child: Column(
-                      children: [
-                        Text('세상을 살다보면'),
-                        Text('우리는 연약하기 떄문에'),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text('죄', style: TextStyle(color: Colors.redAccent)),
-                              Text('를 많이 짓게 돼.')]),
-                        Text(''),
-                        Text('하지만'),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text('주님', style: TextStyle(color: Colors.yellow)),
-                              Text('은 우리를 기다리고 계셔.')]),
-                        Text(''),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text('더 늦기 전에 '),
-                              Text('회개', style: TextStyle(color: Colors.yellow)),
-                              Text('하고')]),
-                        Text('주님께 다시 돌아가자!', style: TextStyle(color: Colors.yellow)),
-                        Text(''),
-                      ],
-                    ),
-                  )
-                ),
-                const Center(
                     child: Padding(
-                      padding: EdgeInsets.fromLTRB(10,100,20,50),
+                      padding: EdgeInsets.fromLTRB(10,50,20,200),
                       child: Column(
                         children: [
+                          Text('세상을 살다보면'),
+                          Text('우리는 연약하기 떄문에'),
                           Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text('그림 옆 긴 책상', style: TextStyle(color: Colors.yellow)),
-                                Text('으로 가면')]),
-                          Text('헌금과 관련된 여러가지'),
-                          Text('봉투가 마련되어있어.'),
-                        ],
-                      ),
-                    )
-                ),
-                FutureBuilder<void>(
-                  future: _calculation,
-                  builder: (BuildContext context, AsyncSnapshot<void> snapshot){
-                    if(snapshot.connectionState != ConnectionState.done){
-                      return Center(child: CircularProgressIndicator(color: Colors.lightGreenAccent,));
-                    }
-                    else{
-                      return const Padding(
-                        padding: EdgeInsets.fromLTRB(10, 50, 10, 50),
-                        child: Image(image: AssetImage('assets/f3_envelopes.jpg'), width: 350,),
-                      );
-                    }
-                  }
-                ),
-                const Center(
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(10,50,20,50),
-                      child: Column(
-                        children: [
-                          Text('감사헌금, 십일조, 선교헌금'),
-                          Text('등등'),
-                          Text('주님께 드릴 예물이'),
-                          Text('참 많은데'),
+                                Text('죄', style: TextStyle(color: Colors.redAccent)),
+                                Text('를 많이 짓게 돼.')]),
+                          Text(''),
+                          Text('하지만'),
                           Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text('아깝다', style: TextStyle(color: Colors.pinkAccent)),
-                                Text('고 생각하면 안돼.')]),
+                                Text('주님', style: TextStyle(color: Colors.yellow)),
+                                Text('은 우리를 기다리고 계셔.')]),
                           Text(''),
                           Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text('원래 다 '),
-                                Text('주님의 것', style: TextStyle(color: Colors.yellow)),
-                                Text('이니까~')]),
+                                Text('더 늦기 전에 '),
+                                Text('회개', style: TextStyle(color: Colors.yellow)),
+                                Text('하고')]),
+                          Text('주님께 다시 돌아가자!', style: TextStyle(color: Colors.yellow)),
+                          Text(''),
                         ],
                       ),
-                    )
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.white, width: 5),
-                      borderRadius: BorderRadius.all(Radius.circular(20.0))),
-                  margin: EdgeInsets.fromLTRB(10, 30, 10, 30),
-                  padding: EdgeInsets.all(20),
-                  child: const Column(
-                    children: [
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text('십일조', style: TextStyle(color: Colors.yellow)),
-                            Text('와 '),
-                            Text('헌금 봉투', style: TextStyle(color: Colors.yellow)),
-                            Text('를'),]),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text('성경묵상 신청', style: TextStyle(color: Colors.yellow)),
-                            Text('종이에 겹쳐')]),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text('날짜', style: TextStyle(color: Colors.yellow)),
-                            Text('와 '),
-                            Text('요일', style: TextStyle(color: Colors.yellow)),
-                            Text('을 찾아보자.'),]),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text('단서', style: TextStyle(color: Colors.yellow)),
-                            Text('를 꼭 참고해!'),]),
-                    ],
-                  )
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.purple, width: 5),
-                      borderRadius: BorderRadius.all(Radius.circular(20.0))),
-                  margin: EdgeInsets.all(30),
-                  padding: EdgeInsets.all(20),
-                  child: const Column(
-                    children: [
-                      Center(
-                          child: Text('단 서', style: TextStyle(color: Colors.yellow, fontSize: 30))
-                      ),
-                      Text(' '),
-                      Image(image: AssetImage('assets/f3_envelope.PNG'),),
-                      Text(' '),
-                      Text('봉투가 튀어나오거나'),
-                      Text('뒤집어서는 안된다.'),
-                    ],
-                  )
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                        width: 80,
-                        padding: EdgeInsets.all(10),
-                        child: TextField(
-                          textAlign: TextAlign.center,
-                          maxLength: 2,
-                          decoration: const InputDecoration(
-                            counterText: '',
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white, width: 1.0),
-                              borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                            ),
-                          ),
-                          onChanged: (text){txtMonth = text;},
-                        )
-                    ),
-                    Text('월'),
-                    Container(
-                        width: 80,
-                        padding: EdgeInsets.all(10),
-                        child: TextField(
-                          textAlign: TextAlign.center,
-                          maxLength: 2,
-                          decoration: const InputDecoration(
-                            counterText: '',
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white, width: 1.0),
-                              borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                            ),
-                          ),
-                          onChanged: (text){txtDay = text;},
-                        )
-                    ),
-                    Text('일'),
-                    Container(
-                        width: 80,
-                        padding: EdgeInsets.all(10),
-                        child: TextField(
-                          textAlign: TextAlign.center,
-                          maxLength: 1,
-                          decoration: const InputDecoration(
-                            counterText: '',
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white, width: 1.0),
-                              borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                            ),
-                          ),
-                          onChanged: (text){txtDayofaWeek = text;},
-                        )
-                    ),
-                    Text('요일'),
-                  ],
-                ),
-                Container(
-                  padding: EdgeInsets.all(20),
-                  width: 300, height: 100,
-                  child: ElevatedButton(onPressed: (){answerCheck(txtMonth, txtDay, txtDayofaWeek);},
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.purple[800]),
-                    child: Text('확인'),
-                  ),
-                ),
-              ],
-            ),
-          )
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
-  }
-}
-
-// ㅡㅡㅡㅡㅡ 시계 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-class F3_third_page extends StatefulWidget {
-  F3_third_page({super.key});
-
-  @override
-  State<F3_third_page> createState() => _F3_third_pageState();
-}
-
-class _F3_third_pageState extends State<F3_third_page> {
-  String txtAnswer = "";
-
-  void answerCheck(String answer){
-    if(answer == "3827"){
-      _nextStep();
-      Navigator.pushNamed(context, '4');
-    }
-    else {
-      showErrorMessage(context);
-    }
-  }
-
-  late Future<void> _calculation = Future<void>.delayed(Duration(seconds: 0), (){},);
-  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-  late Future<int> _playerStep;
-
-  Future<void> _nextStep() async{
-    final SharedPreferences prefs = await _prefs;
-
-    setState(() {
-      _playerStep = prefs.setInt('f3step', 4).then((bool success)
-      { return 4;});
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _playerStep = _prefs.then((SharedPreferences prefs) => prefs.getInt('f3step') ?? 2);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black87,
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: Text('3층', style: TextStyle(fontSize: 20),),
-        leading: FutureBuilder(
-            future: _playerStep,
-            builder: (BuildContext context, AsyncSnapshot<int> snapshot){
-              if (snapshot.connectionState != ConnectionState.done) {
-                return const CircularProgressIndicator();
-              }
-              else {
-                return Center(child: Text(
-                  '${snapshot.data}/4', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),)
-                );
-              }
-            }),
-        centerTitle: true,
-        actions: [IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-            MyApp())), icon: Icon(Icons.home))],
-      ),
-      body: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Center(
-                    child: Padding(
-                        padding: EdgeInsets.fromLTRB(10,100,10,300),
-                        child: Column(
-                          children: [
-                            Text('정답은 정답일 뿐'),
-                            Text('날짜에 의미가 있지는 않아.'),
-                            Text(' '),
-                            FutureBuilder<void>(
-                                future: _calculation,
-                                builder: (BuildContext context, AsyncSnapshot<void> snapshot){
-                                  if(snapshot.connectionState != ConnectionState.done){
-                                    return Center(child: CircularProgressIndicator(color: Colors.lightGreenAccent,));
-                                  }
-                                  else{
-                                    return Image(image: AssetImage('assets/f3_pass.jpg'),);
-                                  }
-                                }
-                            ),
-                          ],
-                        )
                     )
                 ),
                 const Center(
@@ -680,7 +406,6 @@ class _F3_third_pageState extends State<F3_third_page> {
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-
                               Text('순서대로', style: TextStyle(color: Colors.yellow)),
                               Text(' 적어보자.')]),
                       ],
@@ -705,8 +430,7 @@ class _F3_third_pageState extends State<F3_third_page> {
                         Image(image: AssetImage('assets/f3_2.PNG'),),
                         Text(' '),
                         Image(image: AssetImage('assets/f3_7.PNG'),),
-                        Text(' '),
-                      ],
+                        Text(' '),],
                     )
                 ),
                 Container(
@@ -741,6 +465,374 @@ class _F3_third_pageState extends State<F3_third_page> {
   }
 }
 
+// ㅡㅡㅡㅡㅡ 헌금봉투 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+class F3_third_page extends StatefulWidget {
+  F3_third_page({super.key});
+
+  @override
+  State<F3_third_page> createState() => _F3_third_pageState();
+}
+
+class _F3_third_pageState extends State<F3_third_page> {
+  String txtAnswer = "";
+
+  void answerCheck(String answer){
+    if(answer == "2735"){
+      _nextStep();
+      Navigator.pushNamed(context, '4');
+    }
+    else {
+      showErrorMessage(context);
+    }
+  }
+
+  late Future<void> _calculation = Future<void>.delayed(Duration(seconds: 0), (){},);
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  late Future<int> _playerStep;
+
+  Future<void> _nextStep() async{
+    final SharedPreferences prefs = await _prefs;
+
+    setState(() {
+      _playerStep = prefs.setInt('f3step', 4).then((bool success)
+      { return 4;});
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _playerStep = _prefs.then((SharedPreferences prefs) => prefs.getInt('f3step') ?? 2);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black87,
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        title: Text('3층', style: TextStyle(fontSize: 20),),
+        leading: FutureBuilder(
+            future: _playerStep,
+            builder: (BuildContext context, AsyncSnapshot<int> snapshot){
+              if (snapshot.connectionState != ConnectionState.done) {
+                return const CircularProgressIndicator();
+              }
+              else {
+                return Center(child: Text(
+                  '${snapshot.data}/4', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),)
+                );
+              }
+            }),
+        centerTitle: true,
+        actions: [IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
+            MyHomePage())), icon: Icon(Icons.home))],
+      ),
+      body: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Center(
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(10,100,10,300),
+                    child: Column(
+                      children: [
+                        Text('눈썰미가 꽤 있는데?'),
+                        Text('이제'),
+                        Text('나의 문제스타일에 감이 와?'),
+                        Text(''),
+                        FutureBuilder<void>(
+                          future: _calculation,
+                          builder: (BuildContext context, AsyncSnapshot<void> snapshot){
+                            if(snapshot.connectionState != ConnectionState.done){
+                              return Center(child: CircularProgressIndicator(color: Colors.lightGreenAccent,));
+                            }
+                            else{
+                              return Image(image: AssetImage('assets/f3_pass.jpg'),);
+                            }
+                            }
+                        ),
+                      ],
+                    )
+                  )
+                ),
+                const Center(
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(10,100,20,50),
+                      child: Column(
+                        children: [
+                          Text('다음은'),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text('재정부실', style: TextStyle(color: Colors.yellow)),
+                                Text('이야.')]),
+                          Text('전단계에서 봤던 시계에서'),
+                          Text('오른쪽으로 쭉 가면 있어!'),
+                        ],
+                      ),
+                    )
+                ),
+                FutureBuilder<void>(
+                    future: _calculation,
+                    builder: (BuildContext context, AsyncSnapshot<void> snapshot){
+                      if(snapshot.connectionState != ConnectionState.done){
+                        return Center(child: CircularProgressIndicator(color: Colors.lightGreenAccent,));
+                      }
+                      else{
+                        return const Padding(
+                          padding: EdgeInsets.fromLTRB(10, 50, 10, 50),
+                          child: Image(image: AssetImage('assets/f3_jaejung.jpg'), width: 350,),
+                        );
+                      }
+                    }
+                ),
+                const Center(
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(10,50,20,50),
+                      child: Column(
+                        children: [
+                          Text('재정부실에서는 말그대로'),
+                          Text('헌금과 예물들을 관리하지.'),
+                          Text(''),
+                          Text('아무래도'),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text('돈', style: TextStyle(color: Colors.yellow)),
+                                Text('에는 다들 예민할텐데')]),
+                          Text(''),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text('헌금', style: TextStyle(color: Colors.yellow)),
+                                Text('은 잘 내고 있어?')]),
+                          Text(''),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text('십일조', style: TextStyle(color: Colors.yellow)),
+                                Text('도 잘 내고 있고??')]),
+                          Text(''),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text('원래 전부 다 '),
+                                Text('주님의 것', style: TextStyle(color: Colors.yellow)),
+                                Text('이니까')]),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text('모든 것', style: TextStyle(color: Colors.yellow)),
+                                Text('을 내려놓을 수 있는')]),
+                          Text('청년이 되자!'),
+                        ],
+                      ),
+                    )
+                ),
+                Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.white, width: 5),
+                        borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                    margin: EdgeInsets.fromLTRB(10, 30, 10, 30),
+                    padding: EdgeInsets.all(20),
+                    child: const Column(
+                      children: [
+                        Image(image: AssetImage('assets/f3_window.jpg')),
+                        Text(''),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.star, color: Colors.white,),
+                              Text('을 눌러서')]),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('위 사진', style: TextStyle(color: Colors.yellow)),
+                              Text('과 '),
+                              Text('단서', style: TextStyle(color: Colors.yellow)),
+                              Text('를 조합하여')]),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('무엇', style: TextStyle(color: Colors.yellow)),
+                              Text('을 의미하는지 유추해보자!'),]),
+                      ],
+                    )
+                ),
+                Container(
+                    width: 300,
+                    height: 300,
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.purple, width: 5),
+                        borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                    margin: EdgeInsets.all(10),
+                    padding: EdgeInsets.all(10),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            IconButton(icon: Icon(Icons.star), onPressed: (){}, splashRadius: 50,
+                              color: Colors.white,
+                              highlightColor: Colors.blueAccent,
+                            ),
+                            IconButton(icon: Icon(Icons.star), onPressed: (){}, splashRadius: 50,
+                              color: Colors.white,
+                              highlightColor: Colors.deepOrange,
+                            ),
+                            IconButton(icon: Icon(Icons.star), onPressed: (){}, splashRadius: 50,
+                              color: Colors.white,
+                              highlightColor: Colors.pinkAccent,
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            IconButton(icon: Icon(Icons.star), onPressed: (){}, splashRadius: 50,
+                              color: Colors.white,
+                              highlightColor: Colors.green,
+                            ),
+                            IconButton(icon: Icon(Icons.star), onPressed: (){}, splashRadius: 50,
+                              color: Colors.white,
+                              highlightColor: Colors.black,
+                            ),
+                            IconButton(icon: Icon(Icons.star), onPressed: (){}, splashRadius: 50,
+                              color: Colors.white,
+                              highlightColor: Colors.deepPurple,
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            IconButton(icon: Icon(Icons.star), onPressed: (){}, splashRadius: 50,
+                              color: Colors.white,
+                              highlightColor: Colors.redAccent,
+                            ),
+                            IconButton(icon: Icon(Icons.star), onPressed: (){}, splashRadius: 50,
+                              color: Colors.white,
+                              highlightColor: Colors.lightBlueAccent,
+                            ),
+                            IconButton(icon: Icon(Icons.star), onPressed: (){}, splashRadius: 50,
+                              color: Colors.white,
+                              highlightColor: Colors.yellow,
+                            ),
+                          ],
+                        ),
+                      ]
+                    )
+                ),
+                Container(
+                    width: 350,
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.purple, width: 5),
+                        borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                    margin: EdgeInsets.fromLTRB(10, 20, 10, 10),
+                    padding: EdgeInsets.all(10),
+                    child: const Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Center(
+                          child: Text('단 서', style: TextStyle(color: Colors.yellow, fontSize: 30))
+                        ),
+                        Text(''),
+                        Row(
+                            children: [
+                              Text('1. '),
+                              Text('노랑', style: TextStyle(color: Colors.yellow)),
+                              Text('-'),
+                              Text('빨강 ', style: TextStyle(color: Colors.redAccent)),
+                              Text('분홍', style: TextStyle(color: Colors.pinkAccent)),
+                              Text('-'),
+                              Text('파랑', style: TextStyle(color: Colors.blue)),]),
+                        Text(''),
+                        Row(
+                            children: [
+                              Text('2. '),
+                              Text('보라', style: TextStyle(color: Colors.deepPurple)),
+                              Text('-'),
+                              Text('초록 ', style: TextStyle(color: Colors.green)),
+                              Text('하늘', style: TextStyle(color: Colors.lightBlueAccent)),
+                              Text('-'),
+                              Text('주황', style: TextStyle(color: Colors.deepOrange)),
+                              Text('-'),
+                              Text('파랑', style: TextStyle(color: Colors.blue)),]),
+                        Text(''),
+                        Row(
+                            children: [
+                              Text('3. '),
+                              Text('노랑', style: TextStyle(color: Colors.yellow)),
+                              Text('-'),
+                              Text('빨강 ', style: TextStyle(color: Colors.redAccent)),
+                              Text('보라', style: TextStyle(color: Colors.deepPurple)),
+                              Text('-'),
+                              Text('초록 ', style: TextStyle(color: Colors.green)),
+                              Text('분홍', style: TextStyle(color: Colors.pinkAccent)),
+                              Text('-'),
+                              Text('파랑', style: TextStyle(color: Colors.blue)),]),
+                        Text(''),
+                        Row(
+                            children: [
+                              Text('4. '),
+                              Text('노랑', style: TextStyle(color: Colors.yellow)),
+                              Text('-'),
+                              Text('빨강 ', style: TextStyle(color: Colors.redAccent)),
+                              Text('하늘', style: TextStyle(color: Colors.lightBlueAccent)),
+                              Text('-'),
+                              Text('주황', style: TextStyle(color: Colors.deepOrange)),]),
+                        Row(
+                            children: [
+                              Text('보라', style: TextStyle(color: Colors.deepPurple)),
+                              Text('-'),
+                              Text('초록', style: TextStyle(color: Colors.green)),
+                              Text('-'),
+                              Text('파랑 ', style: TextStyle(color: Colors.blue)),
+                              Text('분홍', style: TextStyle(color: Colors.pinkAccent)),
+                              Text('-'),
+                              Text('파랑', style: TextStyle(color: Colors.blue)),]),
+                      ],
+                    )
+                ),
+                Container(
+                    width: 300,
+                    padding: EdgeInsets.all(10),
+                    child: TextField(
+                      textAlign: TextAlign.center,
+                      maxLength: 4,
+                      decoration: const InputDecoration(
+                        counterStyle: TextStyle(color: Colors.white),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white, width: 1.0),
+                          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white, width: 1.0),
+                          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                        ),
+                      ),
+                      onChanged: (text){txtAnswer = text;},
+                    )
+                ),
+                Container(
+                  padding: EdgeInsets.all(20),
+                  width: 300, height: 100,
+                  child: ElevatedButton(onPressed: (){answerCheck(txtAnswer);},
+                    style: ElevatedButton.styleFrom(backgroundColor: Colors.purple[800]),
+                    child: Text('확인'),
+                  ),
+                ),
+              ],
+            ),
+          )
+      ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+}
+
 // ㅡㅡㅡㅡㅡ 청년부 교역자실 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 class F3_fourth_page extends StatefulWidget {
   F3_fourth_page({super.key});
@@ -753,7 +845,8 @@ class _F3_fourth_pageState extends State<F3_fourth_page> {
   String txtAnswer = "";
 
   void answerCheck(){
-    if(isClickedIsaac == true && isClickedKim == true && isClickedChoi == false && isClickedBang == false && isClickedJung == false){
+    if(isClickedIsaac == true && isClickedKim == true &&
+        isClickedChoi == false && isClickedBang == false && isClickedJung == false){
       _nextStep();
       Navigator.pushNamed(context, '5');
     }
@@ -846,14 +939,14 @@ class _F3_fourth_pageState extends State<F3_fourth_page> {
             }),
         centerTitle: true,
         actions: [IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-            MyApp())), icon: Icon(Icons.home))],
+            MyHomePage())), icon: Icon(Icons.home))],
       ),
       body: Center(
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                const Center(
+                 Center(
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(10,50,20,300),
                       child: Column(
@@ -865,7 +958,20 @@ class _F3_fourth_pageState extends State<F3_fourth_page> {
                                   Text('청년부 교역자', style: TextStyle(color: Colors.yellow, fontWeight: FontWeight.bold)),
                                   Text('님들을 뵈러갈까?'),]
                             ),
-                            Text(' '),
+                            FutureBuilder<void>(
+                                future: _calculation,
+                                builder: (BuildContext context, AsyncSnapshot<void> snapshot){
+                                  if(snapshot.connectionState != ConnectionState.done){
+                                    return Center(child: CircularProgressIndicator(color: Colors.lightGreenAccent,));
+                                  }
+                                  else{
+                                    return const Padding(
+                                      padding: EdgeInsets.fromLTRB(10, 50, 10, 50),
+                                      child: Image(image: AssetImage('assets/f3_road.jpg')),
+                                    );
+                                  }
+                                }
+                            ),
                             Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -1055,7 +1161,7 @@ class _F3_final_pageState extends State<F3_final_page> {
         title: Text('3층', style: TextStyle(fontSize: 20),),
         leading: Icon(Icons.check, color: Colors.lightGreenAccent,),
         actions: [IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-            MyApp())), icon: Icon(Icons.home))],
+            MyHomePage())), icon: Icon(Icons.home))],
         centerTitle: true,
       ),
       body: Center(
@@ -1082,7 +1188,10 @@ class _F3_final_pageState extends State<F3_final_page> {
                               Text('성공', style: TextStyle(color: Colors.cyanAccent)),
                               Text('했어!')]
                         ),
-                        Text(' '),
+                        Padding(
+                                  padding: EdgeInsets.fromLTRB(10, 100, 10, 50),
+                                  child: Image(image: AssetImage('assets/f3_stair.jpg')),
+                        ),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [

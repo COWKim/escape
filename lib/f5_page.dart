@@ -47,7 +47,7 @@ Future showErrorMessage(BuildContext context) async{
   );
 }
 
-// ㅡㅡㅡㅡㅡ 우박 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+// ㅡㅡㅡㅡㅡ 비전홀 사용 시 주의사항 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 class F5_first_page extends StatefulWidget {
   const F5_first_page({super.key});
 
@@ -59,7 +59,7 @@ class _F5_first_pageState extends State<F5_first_page> {
   String txtAnswer = "";
 
   void answerCheck(String answer){
-    if(answer == 'Hail' || answer == 'hail' || answer == 'HAIL'){
+    if(answer == '요한'){
       _nextStep();
       Navigator.pushNamed(context, '2');
     }
@@ -110,52 +110,50 @@ class _F5_first_pageState extends State<F5_first_page> {
             }),
         centerTitle: true,
         actions: [IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-            MyApp())), icon: Icon(Icons.home))],
+            MyHomePage())), icon: Icon(Icons.home))],
       ),
       body: Center(
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                // FutureBuilder<void>(
-                //     future: _calculation,
-                //     builder: (BuildContext context, AsyncSnapshot<void> snapshot){
-                //       if(snapshot.connectionState != ConnectionState.done){
-                //         return Center(child: CircularProgressIndicator(color: Colors.lightGreenAccent,));
-                //       }
-                //       else{
-                //         return const Padding(
-                //           padding: EdgeInsets.fromLTRB(10, 50, 10, 50),
-                //           child: Image(image: AssetImage('assets/f3_picture.jpg'), width: 350,),
-                //         );
-                //       }
-                //     }
-                // ),
-                Text('계단 사진 필요'),
+
                 const Center(
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(10,50,10,100),
                       child: Column(
                         children: [
-                          Text('4층으로 올라가다보면'),
-                          Text('계단 옆 벽면에 글자들이'),
-                          Text('주렁주렁 붙어있을 거야.'),
+                          Text('5층에 올라오니'),
+                          Text('큰 문이 있다'),
                           Text(''),
-                          Text('내용과 같이'),
-                          Text('나도 많은 청년들과'),
+                          Text('큰 문을 넘어로는'),
+                          Text('우리가 처음 시작했던 장소인'),
                           Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text('교회와 나와 '),
-                                Text('함께', style: TextStyle(color: Colors.yellow)),
+                                Text('비전홀', style: TextStyle(color: Colors.yellow)),
+                                Text('로 연결이 돼.'),
                               ]),
-                          Text('예배드릴 수 있어서'),
-                          Text('기뻐!'),
                           Text(''),
-                          Image(image: AssetImage('assets/f4_ogu.png'), width: 200,),
+                          Text('우선'),
+                          Text('문에 붙어있는 표지를 살펴보자.'),
                         ],
                       ),
                     )
+                ),
+                FutureBuilder<void>(
+                    future: _calculation,
+                    builder: (BuildContext context, AsyncSnapshot<void> snapshot){
+                      if(snapshot.connectionState != ConnectionState.done){
+                        return Center(child: CircularProgressIndicator(color: Colors.lightGreenAccent,));
+                      }
+                      else{
+                        return const Padding(
+                          padding: EdgeInsets.fromLTRB(10, 50, 10, 50),
+                          child: Image(image: AssetImage('assets/f5_energy.jpg'), width: 350,),
+                        );
+                      }
+                    }
                 ),
                 Container(
                     decoration: BoxDecoration(
@@ -168,23 +166,16 @@ class _F5_first_pageState extends State<F5_first_page> {
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('아래 문제', style: TextStyle(color: Colors.yellow)),
-                              Text('를 보고'),]),
+                              Text('에너지절약', style: TextStyle(color: Colors.yellow)),
+                              Text('과 관련된'),]),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('정답', style: TextStyle(color: Colors.yellow)),
-                              Text('을 유추해보자.'),]),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text('참고로 정답', style: TextStyle(color: Colors.yellow)),
-                              Text('은'),]),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text('영어로 된 단어', style: TextStyle(color: Colors.yellow)),
-                              Text('야.'),]),
+                              Text('표지', style: TextStyle(color: Colors.yellow)),
+                              Text('와 아래 '),
+                              Text('단서', style: TextStyle(color: Colors.yellow)),
+                              Text('를 참고하여'),]),
+                        Text('정답을 유추해보자.'),
                       ],
                     )
                 ),
@@ -195,27 +186,13 @@ class _F5_first_pageState extends State<F5_first_page> {
                     margin: EdgeInsets.all(30),
                     padding: EdgeInsets.all(20),
                     child: const Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Center(
-                            child: Text('문 제', style: TextStyle(color: Colors.yellow, fontSize: 30))
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text('난이도: '),
-                            Icon(Icons.star, color: Colors.yellowAccent,),
-                            Icon(Icons.star, color: Colors.yellowAccent,),
-                            Icon(Icons.star, color: Colors.yellowAccent,),
-                            Icon(Icons.star, color: Colors.yellowAccent,),
-                            Icon(Icons.star, color: Colors.yellowAccent,),
-                          ],
-                        ),
-                        Image(image: AssetImage('assets/f4_stair.PNG'),),
+                        Text('단 서', style: TextStyle(color: Colors.yellow, fontSize: 30)),
                         Text(' '),
-                        Center(
-                            child: Text('< 정답에 관한 힌트 >', style: TextStyle(color: Colors.yellow))
-                        ),
-                        Text('날씨와 관련이 있어.'),
+                        Text('분명 글귀 안에'),
+                        Text('예수님의 제자 중'),
+                        Text('한 사람이 존재한다.'),
                       ],
                     )
                 ),
@@ -317,7 +294,7 @@ class _F5_second_pageState extends State<F5_second_page> {
             }),
         centerTitle: true,
         actions: [IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-            MyApp())), icon: Icon(Icons.home))],
+            MyHomePage())), icon: Icon(Icons.home))],
       ),
       body: Center(
           child: SingleChildScrollView(
@@ -538,7 +515,7 @@ class _F5_final_pageState extends State<F5_final_page> {
         title: Text('5층', style: TextStyle(fontSize: 20),),
         leading: Icon(Icons.check, color: Colors.lightGreenAccent,),
         actions: [IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-            MyApp())), icon: Icon(Icons.home))],
+            MyHomePage())), icon: Icon(Icons.home))],
         centerTitle: true,
       ),
       body: Center(

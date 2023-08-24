@@ -113,7 +113,7 @@ class _F2_first_pageState extends State<F2_first_page> {
             }),
         centerTitle: true,
         actions: [IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-            MyApp())), icon: Icon(Icons.home))],
+            MyHomePage())), icon: Icon(Icons.home))],
       ),
       body: Center(
           child: SingleChildScrollView(
@@ -308,7 +308,7 @@ class _F2_second_pageState extends State<F2_second_page> {
           }),
         centerTitle: true,
         actions: [IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-            MyApp())), icon: Icon(Icons.home))],
+            MyHomePage())), icon: Icon(Icons.home))],
       ),
       body: Center(
           child: SingleChildScrollView(
@@ -533,7 +533,7 @@ class _F2_third_pageState extends State<F2_third_page> {
           }),
         centerTitle: true,
         actions: [IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-            MyApp())), icon: Icon(Icons.home))],
+            MyHomePage())), icon: Icon(Icons.home))],
       ),
       body: Center(
           child: SingleChildScrollView(
@@ -765,7 +765,7 @@ class _F2_fourth_pageState extends State<F2_fourth_page> {
             }),
         centerTitle: true,
         actions: [IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-            MyApp())), icon: Icon(Icons.home))],
+            MyHomePage())), icon: Icon(Icons.home))],
       ),
       body: Center(
           child: SingleChildScrollView(
@@ -909,7 +909,7 @@ class _F2_fourth_pageState extends State<F2_fourth_page> {
                     padding: EdgeInsets.all(10),
                     child: TextField(
                       textAlign: TextAlign.center,
-                      maxLength: 2,
+                      maxLength: 5,
                       decoration: const InputDecoration(
                         counterStyle: TextStyle(color: Colors.white),
                         enabledBorder: OutlineInputBorder(
@@ -964,14 +964,18 @@ class _F2_fifth_pageState extends State<F2_fifth_page> {
 
   Future<void> _nextStep() async{
     final SharedPreferences prefs = await _prefs;
-    int playerFloor = (prefs.getInt('floor') ?? 2);
+    int startFloor = (prefs.getInt('start') ?? 2);
 
     setState(() {
-      prefs.setInt('f1step', 6);
-      if (playerFloor == 2) {
+      prefs.setInt('f2step', 6);
+      if(startFloor == 0){
         _playerFloor = prefs.setInt('floor', 3).then((bool success) {
           return 3;
         });
+      }
+      else{
+        _playerFloor = prefs.setInt('floor', 0).then((bool success) {
+          return 0;});
       }
     });
   }
@@ -1003,7 +1007,7 @@ class _F2_fifth_pageState extends State<F2_fifth_page> {
           }),
         centerTitle: true,
         actions: [IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-            MyApp())), icon: Icon(Icons.home))],
+            MyHomePage())), icon: Icon(Icons.home))],
       ),
       body: Center(
           child: SingleChildScrollView(
@@ -1125,79 +1129,232 @@ class _F2_final_pageState extends State<F2_final_page> {
 
   late Future<void> _calculation = Future<void>.delayed(Duration(seconds: 1), (){},);
 
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  late int checkStartFloor;
+  late Future<int> _playerStartFloor;
+
+  Future<void> checkData() async{
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+
+    setState(() {
+      checkStartFloor = pref.getInt('start') ?? 0;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    //checkData();
+    _playerStartFloor = _prefs.then((SharedPreferences prefs) => prefs.getInt('start') ?? 0);
+
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black87,
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: Text('2층', style: TextStyle(fontSize: 20),),
-        leading: Icon(Icons.check, color: Colors.lightGreenAccent,),
-        actions: [IconButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-            MyApp())), icon: Icon(Icons.home))],
-        centerTitle: true,
-      ),
-      body: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.cyanAccent, width: 5),
-                      borderRadius: BorderRadius.all(Radius.circular(20.0))),
-                  margin: EdgeInsets.fromLTRB(20, 250, 20, 500),
-                  padding: EdgeInsets.all(30),
-                  child: Text('2층 Mission Clear!', style: TextStyle(color: Colors.cyanAccent),),
+    return FutureBuilder(
+        future: _playerStartFloor,
+        builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+          if (snapshot.connectionState != ConnectionState.done) {
+            return Center(child: CircularProgressIndicator(
+              color: Colors.lightGreenAccent,));
+          }
+          else {
+            print(_playerStartFloor.toString());
+            if (snapshot.data == 1 || snapshot.data == 2) {
+              return Scaffold(
+                backgroundColor: Colors.black87,
+                appBar: AppBar(
+                  backgroundColor: Colors.black,
+                  title: Text('2층', style: TextStyle(fontSize: 20),),
+                  leading: Icon(Icons.check, color: Colors.lightGreenAccent,),
+                  actions: [IconButton(onPressed: () =>
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) =>
+                              MyHomePage())), icon: Icon(Icons.home))
+                  ],
+                  centerTitle: true,
                 ),
-                Padding(
-                    padding: EdgeInsets.fromLTRB(10,50,10,50),
-                    child: Column(
-                      children: [
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text('2층 미션을 모두 '),
-                              Text('성공', style: TextStyle(color: Colors.cyanAccent)),
-                              Text('했어!')]
-                        ),
-                        Text(' '),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text('3층', style: TextStyle(color: Colors.yellow)),
-                              Text('으로 '),
-                              Text('GO', style: TextStyle(color: Colors.cyanAccent)),
-                              Text('!'),]
-                        ),
-                        FutureBuilder<void>(
-                          future: _calculation,
-                          builder: (BuildContext context, AsyncSnapshot<void> snapshot){
-                            if(snapshot.connectionState != ConnectionState.done){
-                              return Center(child: CircularProgressIndicator(color: Colors.lightGreenAccent,));
-                            }
-                            else{
-                              return Padding(
-                                padding: EdgeInsets.fromLTRB(10,100,10,50),
-                                child: Image(image: AssetImage('assets/f3_picture.jpg'), width: 300,));
-                            }
-                          }
-                        ),
-                        Text('위 그림이 있는 곳으로 가자!'),
-                      ],)
+                body: Center(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: Colors.cyanAccent, width: 5),
+                                borderRadius: BorderRadius.all(
+                                    Radius.circular(20.0))),
+                            margin: EdgeInsets.fromLTRB(20, 250, 20, 500),
+                            padding: EdgeInsets.all(30),
+                            child: Text('2층 Mission Clear!', style: TextStyle(
+                                color: Colors.cyanAccent),),
+                          ),
+                          Padding(
+                              padding: EdgeInsets.fromLTRB(10, 50, 10, 50),
+                              child: Column(
+                                children: [
+                                  const Row(
+                                      mainAxisAlignment: MainAxisAlignment
+                                          .center,
+                                      children: [
+                                        Text('2층 미션을 모두 '),
+                                        Text('성공', style: TextStyle(
+                                            color: Colors.cyanAccent)),
+                                        Text('했어!')]
+                                  ),
+                                  Text(' '),
+                                  FutureBuilder<void>(
+                                      future: _calculation,
+                                      builder: (BuildContext context,
+                                          AsyncSnapshot<void> snapshot) {
+                                        if (snapshot.connectionState !=
+                                            ConnectionState.done) {
+                                          return Center(
+                                              child: CircularProgressIndicator(
+                                                color: Colors
+                                                    .lightGreenAccent,));
+                                        }
+                                        else {
+                                          return Padding(
+                                              padding: EdgeInsets.fromLTRB(
+                                                  10, 100, 10, 50),
+                                              child: Image(image: AssetImage(
+                                                  'assets/b1_sogroup.jpg')));
+                                        }
+                                      }
+                                  ),
+                                  Text('위 그림이 있는'),
+                                  const Row(
+                                      mainAxisAlignment: MainAxisAlignment
+                                          .center,
+                                      children: [
+                                        Text('B1층', style: TextStyle(
+                                            color: Colors.yellow)),
+                                        Text('으로 '),
+                                        Text('GO', style: TextStyle(
+                                            color: Colors.cyanAccent)),
+                                        Text('!'),
+                                      ]
+                                  ),
+                                ],)
+                          ),
+                          Container(
+                            padding: EdgeInsets.all(20),
+                            width: 300, height: 100,
+                            child: ElevatedButton(onPressed: () {
+                              answerCheck();
+                            },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.purple[800]),
+                              child: Text('확인'),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
                 ),
-                Container(
-                  padding: EdgeInsets.all(20),
-                  width: 300, height: 100,
-                  child: ElevatedButton(onPressed: (){answerCheck();},
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.purple[800]),
-                    child: Text('확인'),
-                  ),
+              );
+            }
+            else {
+              return Scaffold(
+                backgroundColor: Colors.black87,
+                appBar: AppBar(
+                  backgroundColor: Colors.black,
+                  title: Text('2층', style: TextStyle(fontSize: 20),),
+                  leading: Icon(Icons.check, color: Colors.lightGreenAccent,),
+                  actions: [IconButton(onPressed: () =>
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) =>
+                              MyHomePage())), icon: Icon(Icons.home))
+                  ],
+                  centerTitle: true,
                 ),
-              ],
-            ),
-          )
-      ),
+                body: Center(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: Colors.cyanAccent, width: 5),
+                                borderRadius: BorderRadius.all(
+                                    Radius.circular(20.0))),
+                            margin: EdgeInsets.fromLTRB(20, 250, 20, 500),
+                            padding: EdgeInsets.all(30),
+                            child: Text('2층 Mission Clear!', style: TextStyle(
+                                color: Colors.cyanAccent),),
+                          ),
+                          Padding(
+                              padding: EdgeInsets.fromLTRB(10, 50, 10, 50),
+                              child: Column(
+                                children: [
+                                  Row(
+                                      mainAxisAlignment: MainAxisAlignment
+                                          .center,
+                                      children: [
+                                        Text('2층 미션을 모두 '),
+                                        Text('성공', style: TextStyle(
+                                            color: Colors.cyanAccent)),
+                                        Text('했어!')]
+                                  ),
+                                  Text(' '),
+                                  Row(
+                                      mainAxisAlignment: MainAxisAlignment
+                                          .center,
+                                      children: [
+                                        Text('3층', style: TextStyle(
+                                            color: Colors.yellow)),
+                                        Text('으로 '),
+                                        Text('GO', style: TextStyle(
+                                            color: Colors.cyanAccent)),
+                                        Text('!'),
+                                      ]
+                                  ),
+                                  FutureBuilder<void>(
+                                      future: _calculation,
+                                      builder: (BuildContext context,
+                                          AsyncSnapshot<void> snapshot) {
+                                        if (snapshot.connectionState !=
+                                            ConnectionState.done) {
+                                          return Center(
+                                              child: CircularProgressIndicator(
+                                                color: Colors
+                                                    .lightGreenAccent,));
+                                        }
+                                        else {
+                                          return Padding(
+                                              padding: EdgeInsets.fromLTRB(
+                                                  10, 100, 10, 50),
+                                              child: Image(image: AssetImage(
+                                                  'assets/f3_picture.jpg'),
+                                                width: 300,));
+                                        }
+                                      }
+                                  ),
+                                  Text('위 그림이 있는 곳으로 가자!'),
+                                ],)
+                          ),
+                          Container(
+                            padding: EdgeInsets.all(20),
+                            width: 300, height: 100,
+                            child: ElevatedButton(onPressed: () {
+                              answerCheck();
+                            },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.purple[800]),
+                              child: Text('확인'),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                ),
+              );
+            }
+          }
+        }
     );
   }
 }
